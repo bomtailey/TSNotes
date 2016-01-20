@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9520" systemVersion="15C50" minimumToolsVersion="Xcode 7.0">
+    <entity name="TSNote" syncable="YES">
+        <attribute name="noteCreateTS" attributeType="Date" syncable="YES"/>
+        <attribute name="noteModifyTS" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="noteText" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Nullify" syncable="YES"/>
+    </entity>
+    <entity name="TSNotesList" syncable="YES">
+        <attribute name="noteCreateTS" attributeType="Date" syncable="YES"/>
+        <attribute name="noteModifyTS" attributeType="Date" syncable="YES"/>
+        <attribute name="noteName" attributeType="String" syncable="YES"/>
+        <attribute name="notesCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Nullify" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="TSNotesList" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="TSNote" positionX="-54" positionY="18" width="128" height="105"/>
+    </elements>
+</model>

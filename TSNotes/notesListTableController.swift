@@ -7,15 +7,18 @@
 //
 
 import UIKit
-
+import CoreData
 
 class notesListTableController: UITableViewController {
     
     // MARK: Properties
     
-    
     var notesList = [TSNotesListClass]()
+    var savedNotesList = [NSManagedObject]()
+    
     var titleString = ""
+    var segueListNoteInstance = TSNotesListClass()
+    
     var selectedCreateDate = NSDate()
     
     let dayTimePeriodFormatter = NSDateFormatter()
@@ -33,7 +36,14 @@ class notesListTableController: UITableViewController {
 
         dayTimePeriodFormatter.dateFormat =  "EEEE, MMMM d, yyyy h:mm a"
         
-        loadSampleNotes()
+        //loadSampleNotes()
+        
+        // Use the edit button item provided by the table view controller.
+        navigationItem.leftBarButtonItem = editButtonItem()
+        
+        // Show location of database
+        let dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        print("App Path: \(dirPaths)")
     }
     
     func loadSampleNotes() {
@@ -54,6 +64,36 @@ class notesListTableController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        
+        //1
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let managedContext = appDelegate.managedObjectContext
+        
+        //2
+        let fetchRequest = NSFetchRequest(entityName: "NotesList")
+        
+        // Add Sort Descriptor
+        let sortDescriptor = NSSortDescriptor(key: "modifyDateTS", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+
+        
+        //3
+        do {
+            let results =
+            try managedContext!.executeFetchRequest(fetchRequest)
+            savedNotesList = results as! [NSManagedObject]
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
+    }
+
 
     // MARK: - Table view data source
 
@@ -64,7 +104,7 @@ class notesListTableController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // return the number of rows
-        return notesList.count
+        return savedNotesList.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -75,36 +115,64 @@ class notesListTableController: UITableViewController {
 
     // Configure the cell...
         
-        let note = notesList[indexPath.row]
-
+//        let note = notesList[indexPath.row]
+        let note = savedNotesList[indexPath.row]
         
-        cell.noteTitle.text = note.noteTitle
-        cell.noteModifyDate.text = dayTimePeriodFormatter.stringFromDate(note.modifyDateTime)
+        if let noteModifyDate = note.valueForKey("modifyDateTS") as! NSDate?
+ {
+            cell.noteTitle.text = note.valueForKey("noteName") as? String
+ //           let noteModifyDate = note.valueForKey("modifyDateTS") as! NSDate
+            cell.noteModifyDate.text = dayTimePeriodFormatter.stringFromDate(noteModifyDate)
  //       cell.noteCreateDate.text = dayTimePeriodFormatter.stringFromDate(note.createDateTime)
+        }
 
     return cell
     }
     
 
-    /*
+    
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
+        
         return true
     }
-    */
 
-    /*
+
+    
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
         if editingStyle == .Delete {
             // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+ //           tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            
+            let NotesList = savedNotesList[indexPath.row]
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            
+            let managedContext = appDelegate.managedObjectContext
+            
+            managedContext!.deleteObject(NotesList)
+            
+            do {
+                try managedContext!.save()
+            } catch {
+                let saveError = error as NSError
+                print(saveError)
+            }
+
+            savedNotesList.removeAtIndex(indexPath.row)
+  //          tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+  //                  navigationItem.leftBarButtonItem?.
+            
+            tableView.reloadData()
+
+
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+    
 
     /*
     // Override to support rearranging the table view.
@@ -134,16 +202,20 @@ class notesListTableController: UITableViewController {
     let segueIndentifier = "showNoteEntriesSegue"
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == segueIndentifier {
+        let sID = segue.identifier
+  //      if segue.identifier == segueIndentifier {
+            if sID == segueIndentifier {
             
             if let destination = segue.destinationViewController as? noteEntriesTableViewController {
                 
                 if let noteIndex = tableView.indexPathForSelectedRow?.row {
                     
-                    let note = notesList[noteIndex]
-                    
-                    destination.noteCreateDate = note.createDateTime
-                    destination.noteName = note.noteTitle
+                //    let note = notesList[noteIndex]
+                    let note = savedNotesList[noteIndex]
+
+                    destination.noteCreateDate = (note.valueForKey("createDateTS") as! NSDate?)!
+                    destination.noteName = (note.valueForKey("noteName")  as! String?)!
+ //                   destination.noteName = note.noteTitle
                 }
             }
         }
@@ -152,24 +224,68 @@ class notesListTableController: UITableViewController {
     
     
     @IBAction func unwindToTitleEntry(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.sourceViewController as? TitleEntryViewController,
-            titleStr = sourceViewController.noteTitle {
-                // Add a new note.
+         let sourceViewController = sender.sourceViewController as? TitleEntryViewController,
+            segueListNoteInstance = sourceViewController!.segueListNoteInstance
+ 
+        // Add a new note.
                 //let newIndexPath = NSIndexPath(forRow: 0, inSection: 0)
             // notesList.append( TSNotesListClass(  titleStr, noteCount: 0))
                 
  //               NSLog("numberOfRowsInSection: \(tableView.numberOfRowsInSection(0))")
                 
-                notesList.insert(TSNotesListClass(  titleStr, noteCount: 0), atIndex: 0)
+          //      notesList.insert(TSNotesListClass(  titleStr, noteCount: 0), atIndex: 0)
 //                let newIndexPath = NSIndexPath(forRow: notesList.count, inSection: 0)
-                let newIndexPath = NSIndexPath(forRow: 0, inSection: 0)
-              tableView.beginUpdates()
-                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Top)
-                tableView.endUpdates()
-
+        
+  //          savedNotesList.append( segueListNoteInstance)
+        
+        /*
+        let newIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+            tableView.beginUpdates()
+            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Top)
+            tableView.endUpdates()
+        */
+        
    //             NSLog("numberOfRowsInSection: \(tableView.numberOfRowsInSection(0))")
+        
+        
+        saveNote(segueListNoteInstance)
+        tableView.reloadData()
 
+        
+    }
+    
+    func saveNote(newNoteInfo: TSNotesListClass) {
+        //1
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let managedContext = appDelegate.managedObjectContext
+        
+        //2
+        
+        
+        let entity =  NSEntityDescription.entityForName("NotesList",
+            inManagedObjectContext:managedContext!)
+        
+        let note = NSManagedObject(entity: entity!,
+            insertIntoManagedObjectContext: managedContext)
+        
+        //3
+        
+        
+        note.setValue(newNoteInfo.modifyDateTime, forKey: "modifyDateTS")
+        note.setValue(newNoteInfo.createDateTime, forKey: "createDateTS")
+        note.setValue(newNoteInfo.noteTitle, forKey: "noteName")
+        
+        //4
+        do {
+            try managedContext!.save()
+            //5
+            savedNotesList.append(note)
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
         }
+        
     }
 
 }

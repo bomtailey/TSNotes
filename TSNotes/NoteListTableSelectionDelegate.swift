@@ -10,5 +10,5 @@ import UIKit
 
 
 protocol NoteListTableSelectionDelegate{
-    func didSelectMenuItem(controller: UITableViewController, noteListItems:NoteItemsTableDataModel)
+//    func didSelectMenuItem(controller: UITableViewController, noteListItems:TSNotesDataModel)
 }

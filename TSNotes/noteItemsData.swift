@@ -8,7 +8,7 @@
 
 import Foundation
 
-    var noteItems = [TSNote]()
+  //  var noteItems = [TSNote]()
 
 
     //  init(_ noteText: String = "", modifyDate: String? = nil, createDate: String? = nil)

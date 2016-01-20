@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9520" systemVersion="15B42" minimumToolsVersion="Xcode 7.0">
-    <entity name="TSNListEntryModel" syncable="YES">
-        <attribute name="noteCreateTS" optional="YES" attributeType="Date" syncable="YES"/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9520" systemVersion="15C50" minimumToolsVersion="Xcode 7.0">
+    <entity name="TSNListEntryModel" representedClassName=".TSNListEntryModel" syncable="YES">
+        <attribute name="noteCreateTS" attributeType="Date" syncable="YES"/>
         <attribute name="noteEntriesCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="noteModifyTS" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="noteName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="noteModifyTS" attributeType="Date" syncable="YES"/>
+        <attribute name="noteName" attributeType="String" syncable="YES"/>
+        <relationship name="noteText" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TSNote" syncable="YES"/>
+    </entity>
+    <entity name="TSNote" representedClassName=".TSNote" parentEntity="TSNListEntryModel" syncable="YES">
+        <attribute name="noteCreateDateTime" attributeType="Date" syncable="YES"/>
+        <attribute name="noteModifyDateTime" attributeType="Date" syncable="YES"/>
+        <attribute name="noteText" attributeType="String" syncable="YES"/>
+        <relationship name="notesList" maxCount="1" deletionRule="Nullify" destinationEntity="TSNListEntryModel" syncable="YES"/>
     </entity>
     <elements>
-        <element name="TSNListEntryModel" positionX="-45" positionY="0" width="128" height="105"/>
+        <element name="TSNListEntryModel" positionX="-45" positionY="0" width="128" height="118"/>
+        <element name="TSNote" positionX="214" positionY="75" width="128" height="103"/>
     </elements>
 </model>

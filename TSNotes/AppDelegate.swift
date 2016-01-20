@@ -14,9 +14,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+       /*
+        // Create Managed Object for NotesList
+        let entityDescription = NSEntityDescription.entityForName("NotesList", inManagedObjectContext: self.managedObjectContext!)
+        let newNotesList = NSManagedObject(entity: entityDescription!, insertIntoManagedObjectContext: self.managedObjectContext)
+        
+        // Configure New note
+        newNotesList.setValue( NSDate(), forKey: "createDateTS")
+        newNotesList.setValue( NSDate(), forKey: "modifyDateTS")
+        newNotesList.setValue("This is set up note name", forKey: "noteName")
+        
+        do {
+            try managedObjectContext?.save()
+        } catch {
+            print(error)
+        }
+        */
+
+        // 1/19/16 - add some stuff to create a "Note" instance (from http://code.tutsplus.com/tutorials/core-data-and-swift-relationships-and-more-fetching--cms-25070
+        
+        // Create Address
+        let entityAddress = NSEntityDescription.entityForName("Note", inManagedObjectContext: self.managedObjectContext!)
+        let newNote = NSManagedObject(entity: entityAddress!, insertIntoManagedObjectContext: self.managedObjectContext)
+        
+        // Populate Address
+        newNote.setValue("This is a sample note entry", forKey: "noteText")
+        newNote.setValue(NSDate(), forKey: "modifyDateTS")
+
+
+
+        
         return true
     }
 
@@ -47,7 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Core Data stack
     
     lazy var applicationDocumentsDirectory: NSURL = {
-        // The directory the application uses to store the Core Data store file. This code uses a directory named "com.xxxx.ProjectName" in the application's documents Application Support directory.
+        // The directory the application uses to store the Core Data store file. This code uses a directory named "com.xxxx.TSNotes" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
         return urls[urls.count-1] 
     }()
@@ -59,7 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
     
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
-        // The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
+        // The persistent store coordinator for the application. This implementation creates and returns a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
         // Create the coordinator and store
         var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("TSNotes.sqlite")

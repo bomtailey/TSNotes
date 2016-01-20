@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CoreData
+
 
 class noteEntriesTableViewController: UITableViewController {
     
@@ -39,6 +41,8 @@ class noteEntriesTableViewController: UITableViewController {
     let displayDateFormatter = NSDateFormatter()
     let displayDateOnlyFormatter = NSDateFormatter()
     let displayTimeOnlyFormatter = NSDateFormatter()
+    
+    var bNewNote = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +61,7 @@ class noteEntriesTableViewController: UITableViewController {
    //     tableView.estimatedRowHeight = 140.0
         
         // Set up sample array
-        loadSampleNoteEntries()
+    //    loadSampleNoteEntries()
     //    dayTimePeriodFormatter.dateFormat = "MMM d,yyyy h:m a"
    //     displayDateFormatter.dateFormat = "EEEE MMM d,yyyy         h:m a"
        // displayDateFormatter.dateFormat = "MMM d,yyyy h:m a"
@@ -65,6 +69,12 @@ class noteEntriesTableViewController: UITableViewController {
         displayDateFormatter.dateFormat = "EEEE, MMMM d, yyyy h:mm a"
         displayDateOnlyFormatter.dateFormat = "EEEE, MMMM d, yyyy"
         displayTimeOnlyFormatter.dateFormat = "h:mm a"
+        
+        
+        // put in an attempt to get note instance info
+        //  from http://code.tutsplus.com/tutorials/core-data-and-swift-relationships-and-more-fetching--cms-25070
+        
+
   
     }
     
@@ -84,6 +94,7 @@ class noteEntriesTableViewController: UITableViewController {
     }
 
     
+    /*
     func loadSampleNoteEntries() {
         let TSNote1 = TSNote(  "Nov 5 - This is a test note 1", modifyDate: "11-5-2015 8:05 AM",
             createDate: "11-5-2015 10:22 AM")
@@ -106,9 +117,11 @@ class noteEntriesTableViewController: UITableViewController {
         noteEntries  += [TSNote1, TSNote2, TSNote3, TSNote4, TSNote5, TSNote6, TSNote7, TSNote8]
         //noteEntries  += [ TSNote5, TSNote6, TSNote7, TSNote8]
         
-        
+
         
     }
+
+    */
     
     func buildNoteEntriesArray() {
         var modDate: NSDate
@@ -164,9 +177,7 @@ class noteEntriesTableViewController: UITableViewController {
             }
             
         }
-        
-
-        
+                
     }
 
     
@@ -222,9 +233,11 @@ class noteEntriesTableViewController: UITableViewController {
         return modDateStr
     }
     
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath) as! TSNoteEntriesTableCell
-        NSLog("did select and the text is \(cell.noteTextView.text)")
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        NSLog("Selected section is: \(indexPath.section) and row is: \(indexPath.row)")
+        let noteEntry = noteEntriesSeparated [indexPath.section][indexPath.row]
+        NSLog("Cell text is: \(noteEntry.noteText)")
+
     }
     
 /*
@@ -244,8 +257,69 @@ class noteEntriesTableViewController: UITableViewController {
             print("optional value")
             
             
-        }   }
+        }
+    }
     
+    //let segueIndentifier = "presentNoteEntryEdit"
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+       let segID = segue.identifier
+        
+        guard   segID == "newNoteEntry" || segID == "modNoteEntry"  else {
+            // Value requirements not met, do something
+            return
+        }
+        
+        let navVC = segue.destinationViewController as! UINavigationController
+        let destinationVC = navVC.viewControllers.first as! noteEntryViewController
+
+        destinationVC.noteName = noteName
+        destinationVC.bNewNote = true
+
+        
+        
+        if segue.identifier == "modNoteEntry" {
+            
+            let row = self.tableView.indexPathForSelectedRow!.row
+            let section = self.tableView.indexPathForSelectedRow!.section
+            
+            let noteEntry = noteEntriesSeparated [section][row]
+            // NSLog("noteEntriesTableViewController - Cell text is: \(noteEntry.noteText)")
+            // print("row \(row) was selected")
+            
+            destinationVC.bNewNote = false
+            destinationVC.selectedNote = noteEntry
+            
+            
+        }
+        
+    }
+    
+    
+   /*
+    @IBAction func unwindToTitleEntry(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.sourceViewController as? editNoteViewController,
+            titleStr = sourceViewController.noteTitle {
+                // Add a new note.
+                //let newIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+                // notesList.append( TSNotesListClass(  titleStr, noteCount: 0))
+                
+                //               NSLog("numberOfRowsInSection: \(tableView.numberOfRowsInSection(0))")
+                
+                notesList.insert(TSNotesListClass(  titleStr, noteCount: 0), atIndex: 0)
+                //                let newIndexPath = NSIndexPath(forRow: notesList.count, inSection: 0)
+                let newIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+                tableView.beginUpdates()
+                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Top)
+                tableView.endUpdates()
+                
+                //             NSLog("numberOfRowsInSection: \(tableView.numberOfRowsInSection(0))")
+                
+        }
+    }
+
+    */
         
     // Actions
     
