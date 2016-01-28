@@ -18,14 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
        /*
-        // Create Managed Object for NotesList
-        let entityDescription = NSEntityDescription.entityForName("NotesList", inManagedObjectContext: self.managedObjectContext!)
-        let newNotesList = NSManagedObject(entity: entityDescription!, insertIntoManagedObjectContext: self.managedObjectContext)
+        // Create Managed Object for NoteBase
+        let entityDescription = NSEntityDescription.entityForName("NoteBase", inManagedObjectContext: self.managedObjectContext!)
+        let newNoteBase = NSManagedObject(entity: entityDescription!, insertIntoManagedObjectContext: self.managedObjectContext)
         
         // Configure New note
-        newNotesList.setValue( NSDate(), forKey: "createDateTS")
-        newNotesList.setValue( NSDate(), forKey: "modifyDateTS")
-        newNotesList.setValue("This is set up note name", forKey: "noteName")
+        newNoteBase.setValue( NSDate(), forKey: "createDateTS")
+        newNoteBase.setValue( NSDate(), forKey: "modifyDateTS")
+        newNoteBase.setValue("This is set up note name", forKey: "noteName")
         
         do {
             try managedObjectContext?.save()
@@ -34,6 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         */
 
+       
+        /*
         // 1/19/16 - add some stuff to create a "Note" instance (from http://code.tutsplus.com/tutorials/core-data-and-swift-relationships-and-more-fetching--cms-25070
         
         // Create Address
@@ -42,7 +44,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Populate Address
         newNote.setValue("This is a sample note entry", forKey: "noteText")
-        newNote.setValue(NSDate(), forKey: "modifyDateTS")
+        newNote.setValue(NSDate(), forKey: "noteModifyDateTS")
+
+        */
 
 
 

@@ -15,8 +15,9 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
     //Properties
 
     // UI outlets
-    @IBOutlet weak var noteTextView: UITextView!
     @IBOutlet weak var datetimeDisplay: UILabel!
+    @IBOutlet weak var noteTextView: UITextView!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     
     
     // properties from noteEntriesTableViewController
@@ -25,6 +26,8 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
     var bNewNote = true
     var noteDateTime = NSDate()
     var noteText = ""
+    
+
 
     
     let dayTimePeriodFormatter = NSDateFormatter()
@@ -44,7 +47,8 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
             
             // new note entry
             selectedNote.modifyDateTime = noteDateTime
-            selectedNote.createDateTime = noteDateTime
+            
+       //     selectedNote.createDateTime = noteDateTime
        //     noteTextView.becomeFirstResponder()
             
             
@@ -76,18 +80,41 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
     
     // MARK: - Navigation
     
+    
+    // Cancel
     @IBAction func cancelEntry(sender: AnyObject) {
         
         dismissViewControllerAnimated(true, completion: nil)    }
     
-    /*
+   
+    // Save note
+//    @IBAction func returnToNoteEntriesView(segue: UIStoryboardSegue, sender: AnyObject?)
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if saveButton === sender {
+            
+            noteDateTime = dayTimePeriodFormatter.dateFromString(datetimeDisplay.text!)!
+            noteText = noteTextView.text!  ?? ""
+        }
+        
+    }
+    
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     
+    /*
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        if saveButton === sender {
+            noteDateTime = NSDate()
+            noteText = noteTextView.text!
+        }
+        
     }
     */
+    
 
 }

@@ -1,5 +1,5 @@
 //
-//  TSNotesListClass.swift
+//  TSNoteBaseClass.swift
 //  TSNotes
 //
 //  Created by Jeanne's MacBook on 12/6/15.
@@ -23,7 +23,7 @@ import UIKit
 //  12/6/15 this is an entry in the list of notes
 
 
-class TSNotesListClass: NSObject {
+class TSNoteBaseClass: NSObject {
     
     // MARK: Properties
     

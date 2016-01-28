@@ -12,7 +12,7 @@ class TSNote: NSObject {
     
     // MARK: Properties
     
-    var createDateTime: NSDate
+//    var createDateTime: NSDate
     var modifyDateTime: NSDate
     var noteText: String
     
@@ -34,12 +34,14 @@ class TSNote: NSObject {
             self.modifyDateTime = nowDate
         }
         
+        /*  remove create date from note 1/20/16 since it's tied to
         if let createDate = createDate {
         //    self.createDateTime = dayTimePeriodFormatter.dateFromString(createDate)!
             self.createDateTime = createDate//
         } else {
             self.createDateTime = nowDate
         }
+        */
         
         
         self.noteText = noteTitle

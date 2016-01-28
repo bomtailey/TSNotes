@@ -21,7 +21,7 @@
 		FAA701491BDB171E0013EFF7 /* TSNotesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA701481BDB171E0013EFF7 /* TSNotesTests.swift */; };
 		FACAAA8F1C14BEC900087077 /* noteItemsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACAAA8E1C14BEC900087077 /* noteItemsData.swift */; };
 		FACAAA911C15070E00087077 /* notesListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACAAA901C15070E00087077 /* notesListData.swift */; };
-		FACAAA931C15075600087077 /* TSNotesListClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACAAA921C15075600087077 /* TSNotesListClass.swift */; };
+		FACAAA931C15075600087077 /* TSNoteBaseClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACAAA921C15075600087077 /* TSNoteBaseClass.swift */; };
 		FAD2061E1C3D25ED00A045E5 /* noteEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2061D1C3D25ED00A045E5 /* noteEntryViewController.swift */; };
 		FAE72BC51BE043B20053F50E /* handleDatePickerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE72BC41BE043B20053F50E /* handleDatePickerTableViewController.swift */; };
 		FAE9229D1BF34315001E37FD /* noteListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE9229C1BF34315001E37FD /* noteListTableViewCell.swift */; };
@@ -57,7 +57,7 @@
 		FAA7014A1BDB171E0013EFF7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FACAAA8E1C14BEC900087077 /* noteItemsData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = noteItemsData.swift; sourceTree = "<group>"; };
 		FACAAA901C15070E00087077 /* notesListData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = notesListData.swift; sourceTree = "<group>"; };
-		FACAAA921C15075600087077 /* TSNotesListClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSNotesListClass.swift; sourceTree = "<group>"; };
+		FACAAA921C15075600087077 /* TSNoteBaseClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSNoteBaseClass.swift; sourceTree = "<group>"; };
 		FAD2061D1C3D25ED00A045E5 /* noteEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = noteEntryViewController.swift; sourceTree = "<group>"; };
 		FAE72BC41BE043B20053F50E /* handleDatePickerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = handleDatePickerTableViewController.swift; path = ../handleDatePickerTableViewController.swift; sourceTree = "<group>"; };
 		FAE9229C1BF34315001E37FD /* noteListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = noteListTableViewCell.swift; sourceTree = "<group>"; };
@@ -111,7 +111,7 @@
 				FAE944781C48D885003CFFB8 /* TSNotesDataModel.xcdatamodeld */,
 				FAD2061D1C3D25ED00A045E5 /* noteEntryViewController.swift */,
 				FA7CE5D51BF2C971008FD365 /* TitleEntryViewController.swift */,
-				FACAAA921C15075600087077 /* TSNotesListClass.swift */,
+				FACAAA921C15075600087077 /* TSNoteBaseClass.swift */,
 				FAE9229C1BF34315001E37FD /* noteListTableViewCell.swift */,
 				FA6D27FE1BEDA80100768930 /* notesListTableController.swift */,
 				FA0AF71B1C4989D20020CBAC /* TSNoteClass.swift */,
@@ -236,7 +236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA7CE5D61BF2C971008FD365 /* TitleEntryViewController.swift in Sources */,
-				FACAAA931C15075600087077 /* TSNotesListClass.swift in Sources */,
+				FACAAA931C15075600087077 /* TSNoteBaseClass.swift in Sources */,
 				FAA701361BDB171E0013EFF7 /* ViewController.swift in Sources */,
 				FA0AF71C1C4989D20020CBAC /* TSNoteClass.swift in Sources */,
 				FACAAA8F1C14BEC900087077 /* noteItemsData.swift in Sources */,

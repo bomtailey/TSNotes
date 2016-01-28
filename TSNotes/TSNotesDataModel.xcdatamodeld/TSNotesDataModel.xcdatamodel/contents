@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9520" systemVersion="15C50" minimumToolsVersion="Xcode 7.0">
     <entity name="Note" syncable="YES">
-        <attribute name="createDateTS" attributeType="Date" syncable="YES"/>
-        <attribute name="modifyDateTS" attributeType="Date" syncable="YES"/>
+        <attribute name="noteModifyDateTS" attributeType="Date" syncable="YES"/>
         <attribute name="noteText" attributeType="String" syncable="YES"/>
-        <relationship name="notesList" maxCount="1" deletionRule="Nullify" destinationEntity="NotesList" inverseName="notes" inverseEntity="NotesList" syncable="YES"/>
+        <relationship name="notesList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NoteBase" inverseName="notes" inverseEntity="NoteBase" syncable="YES"/>
     </entity>
-    <entity name="NotesList" syncable="YES">
+    <entity name="NoteBase" syncable="YES">
         <attribute name="createDateTS" attributeType="Date" syncable="YES"/>
         <attribute name="modifyDateTS" attributeType="Date" syncable="YES"/>
         <attribute name="noteCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="noteName" attributeType="String" syncable="YES"/>
-        <relationship name="notes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Note" inverseName="notesList" inverseEntity="Note" syncable="YES"/>
+        <relationship name="notes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Note" inverseName="notesList" inverseEntity="Note" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Note" positionX="187" positionY="18" width="128" height="103"/>
-        <element name="NotesList" positionX="-63" positionY="-18" width="128" height="118"/>
+        <element name="Note" positionX="187" positionY="18" width="128" height="88"/>
+        <element name="NoteBase" positionX="-63" positionY="-18" width="128" height="118"/>
     </elements>
 </model>

@@ -16,10 +16,10 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
     
     // segue variables
     var noteTitle: String?
-    var segueListNoteInstance = TSNotesListClass()
+    var segueListNoteInstance = TSNoteBaseClass()
 
     /*
-    This value is either passed by `notesListTableController` in `prepareForSegue(_:sender:)`
+    This value is either passed by `NoteBaseTableController` in `prepareForSegue(_:sender:)`
     or constructed as beginning of adding a new note.
     */
  //   var note: TSNote?
@@ -110,7 +110,7 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Pass the selected object back to the notesListTableController.
+    // Pass the selected object back to the NoteBaseTableController.
        
         if saveButton === sender {
            // noteTitle = noteTitleText.text
