@@ -10,23 +10,31 @@ import UIKit
 import CoreData
 
 
-class noteEntriesTableViewController: UITableViewController {
+class noteEntriesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
     // Properties
     
+    // Added for NSFetchedResultsController
     
+
+//    @IBOutlet weak var tableView: UITableView!
+    
+    var managedObjectContext: NSManagedObjectContext!
+
  //   var noteEntries = [TSNote]()
     var noteBaseEntity = [NSManagedObject]()
     var noteEntities = [NSManagedObject]()
 
     var noteEntriesSeparated = [[TSNote]]()
+    
+    var noteBaseRecord: NSManagedObject!
 
     var savedBaseIndex = 0
   //  var noteEntriesSeparated = [savedBaseIndex,[TSNote]]()
     var bNewNote = true
     
+    
     var noteCreateDate = NSDate()
-
     
     let calendar = NSCalendar.currentCalendar()
 //    var dateOnlyComponents1 = calendar.components([.Day, .Month, .Year],  fromDate: noteCreateDate)
@@ -37,11 +45,6 @@ class noteEntriesTableViewController: UITableViewController {
     var noteEntries = [TSNote]()
     var noteEntry = TSNote()
     
-    let longString1 = "When the user taps in a text field, that text field becomes the first responder and automatically asks the system to display the associated keyboard. Because the appearance of the keyboard has the potential to obscure portions of your user interface, it is up to you to make sure that does not happen by repositioning any views that might be obscured. Some system views, like table views, help you by scrolling the first responder into view automatically. If the first responder is at the bottom of the scrolling region, however, you may still need to resize or reposition the scroll view itself to ensure the first responder is visible."
-    
-   let longString2 = "It is your application’s responsibility to dismiss the keyboard at the time of your choosing. You might dismiss the keyboard in response to a specific user action, such as the user tapping a particular button in your user interface. You might also configure your text field delegate to dismiss the keyboard when the user presses the “return” key on the keyboard itself. To dismiss the keyboard, send the resignFirstResponder message to the text field that is currently the first responder. Doing so causes the text field object to end the current editing session (with the delegate object’s consent) and hide the keyboard."
-    
-    let longString3 = "The appearance of the keyboard itself can be customized using the properties provided by the UITextInputTraits protocol. Text field objects implement this protocol and support the properties it defines. You can use these properties to specify the type of keyboard (ASCII, Numbers, URL, Email, and others) to display. You can also configure the basic text entry behavior of the keyboard, such as whether it supports automatic capitalization and correction of the text."
     
    // var longString = longString1
     
@@ -51,34 +54,61 @@ class noteEntriesTableViewController: UITableViewController {
     let displayTimeOnlyFormatter = NSDateFormatter()
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        self.title = noteName
+        
+        noteName = (noteBaseRecord.valueForKey("noteName") as? String!)!
+        navigationItem.title = noteName
 
-        /*
-        let dateString = "01-02-2010"
-        let dateFormatter = NSDateFormatter()
-        // this is imporant - we set our input date format to match our input string
-        dateFormatter.dateFormat = "dd-MM-yyyy"
-        // voila!
-        var dateFromString = dateFormatter.dateFromString(dateString)
-        */
-    
-  //      tableView.rowHeight = UITableViewAutomaticDimension
-   //     tableView.estimatedRowHeight = 140.0
-        
-        // Set up sample array
-     //   loadSampleNoteEntries()
-    //    dayTimePeriodFormatter.dateFormat = "MMM d,yyyy h:m a"
-   //     displayDateFormatter.dateFormat = "EEEE MMM d,yyyy         h:m a"
-       // displayDateFormatter.dateFormat = "MMM d,yyyy h:m a"
-        
         displayDateFormatter.dateFormat = "EEEE, MMMM d, yyyy h:mm a"
         displayDateOnlyFormatter.dateFormat = "EEEE, MMMM d, yyyy"
         displayTimeOnlyFormatter.dateFormat = "h:mm a"
         
+        // try fetchcontroller fetch
+        
+        do {
+            try self.fetchedResultsController.performFetch()
+        } catch {
+            let fetchError = error as NSError
+            print("\(fetchError), \(fetchError.userInfo)")
+        }
 
-  
     }
+    
+    
+    // Initialize fetchedResultsController
+    lazy var fetchedResultsController: NSFetchedResultsController = {
+        
+        /*
+        
+        // Initialize Fetch Request
+        let fetchRequest = NSFetchRequest(entityName: "NoteBase")
+        
+        // Add Sort Descriptors
+        let sortDescriptor = NSSortDescriptor(key: "createDateTS", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        */
+        
+        let notesFetchRequest = NSFetchRequest(entityName: "Note")
+        
+        let notesNoteBasePred = NSPredicate(format: "notesList.createDateTS == %@", self.noteCreateDate)
+        notesFetchRequest.predicate = notesNoteBasePred
+        
+        // Add Sort Descriptor
+        let sortDescriptor = NSSortDescriptor(key: "noteModifyDateTS", ascending: false)
+        notesFetchRequest.sortDescriptors = [sortDescriptor]
+
+        
+        // Initialize Fetched Results Controller
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: notesFetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: "noteModifyDateDayTS", cacheName: nil)
+        
+        // Configure Fetched Results Controller
+        fetchedResultsController.delegate = self
+        
+        return fetchedResultsController
+    }()
+    
+    
     
     
     func configureTableView() {
@@ -87,172 +117,66 @@ class noteEntriesTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
-        let theNoteCreateDate = noteCreateDate
-        NSLog("Note create date chosen: \(dayTimePeriodFormatter.stringFromDate(theNoteCreateDate))")
-        NSLog("Note name chosen: \(noteName)")
-        
-        // !!! we need to get selected noteBase record for its associated notes
-        //!!!!!!!!!!!!!!!!!!!!
-        
-        let moc = getManagedContext()
-
-       /*
-        let noteBaseFetchRequest = NSFetchRequest(entityName: "NoteBase")
-        
-        // Create Predicate
-        let predicate = NSPredicate(format: "%K == %@", "createDateTS", noteCreateDate)
-        noteBaseFetchRequest.predicate = predicate
-    
-        do {
-            let results =
-            try moc.executeFetchRequest(noteBaseFetchRequest)
-            noteBaseEntity = results as! [NSManagedObject]
-        } catch let error as NSError {
-            print("Could not fetch NoteBase record  \(error), \(error.userInfo)")
-            return
-        }
-        */
-//        let noteBaseEntity = getNoteBaseRecord()
-        
- 
-  //      let entityNotes = NSEntityDescription.insertNewObjectForEntityForName("Note", inManagedObjectContext: moc)
-  //      let noteMOB = NSManagedObject(entity: entityNotes!, insertIntoManagedObjectContext: moc)
-        
-//        noteBaseEntity.setValue(NSSet(object: noteMOB), forKey: "notes")
-        
-        
-        let notesFetchRequest = NSFetchRequest(entityName: "Note")
-        
-        let notesNoteBasePred = NSPredicate(format: "notesList.createDateTS == %@", noteCreateDate)
-        notesFetchRequest.predicate = notesNoteBasePred
-        
-        // Add Sort Descriptor
-        let sortDescriptor = NSSortDescriptor(key: "noteModifyDateTS", ascending: false)
-        notesFetchRequest.sortDescriptors = [sortDescriptor]
-        
-        //3
-        do {
-            let results =
-//            try moc!.executeFetchRequest(fetchRequest)
-            try moc.executeFetchRequest(notesFetchRequest)
-            noteEntities = results as! [NSManagedObject]
-        } catch let error as NSError {
-            print("Could not fetch note records \(error), \(error.userInfo)")
         }
     
+        // MARK: -
+        // MARK: Fetched Results Controller Delegate Methods
+        func controllerWillChangeContent(controller: NSFetchedResultsController) {
+            tableView.beginUpdates()
+        }
     
-        /*
-        // now get note instances for this note
-        if noteBaseEntity.count > 0 {
-            let noteInstances = [noteBaseEntity[0].valueForKey("notes")]
-            
-            if let noteText = noteInstances[0]!.valueForKey("noteText") {
-                print("note text: \(noteText)")
+        
+        func controllerDidChangeContent(controller: NSFetchedResultsController) {
+            tableView.endUpdates()
+        }
+    
+        
+        func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+            switch (type) {
+            case .Insert:
+                if let indexPath = newIndexPath {
+                    tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                }
+                break;
+            case .Delete:
+                if let indexPath = indexPath {
+                    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                }
+                break;
+            case .Update:
+                if let indexPath = indexPath {
+                    let cell = tableView.cellForRowAtIndexPath(indexPath) as! TSNoteEntriesTableCell
+                    configureCell(cell, atIndexPath: indexPath)
+                }
+                break;
+            case .Move:
+                if let indexPath = indexPath {
+                    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                }
+                
+                if let newIndexPath = newIndexPath {
+                    tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
+                }
+                break;
             }
-        */
-             
-        
-        if noteEntities.count > 0 {
-            
-            buildNoteEntriesArray()
         }
-
-    }
-
-    
-    /*
-    func loadSampleNoteEntries() {
-        let TSNote1 = TSNote(  "Nov 5 - This is a test note 1", modifyDate: "11-5-2015 8:05 AM",
-            createDate: "11-5-2015 10:22 AM")
-        let TSNote2 = TSNote(  "Nov 5 - This is a test note 2", modifyDate: "11-5-2015 11:05 AM",
-            createDate: "11-5-2015 10:22 AM")
-        let TSNote3 = TSNote(  "Nov 5 - This is a test note 3", modifyDate: "11-5-2015 3:50 PM",
-        createDate: "11-5-2015 10:22 AM")
-        let TSNote4 = TSNote(  "Nov 25 - This is a test note 4", modifyDate: "11-25-2015 9:17 AM",
-        createDate: "11-25-2015 10:22 AM")
-        let TSNote5 = TSNote(  "Nov 25 - This is a test note 5", modifyDate: "12-4-2015 8:15 AM",
-        createDate: "11-25-2015 10:22 AM")
-        let TSNote6 = TSNote(  "Nov 25 - This is a test note 6", modifyDate: "12-4-2015 2:22 PM",
-        createDate: "12-1-2015 10:22 AM")
-        let TSNote7 = TSNote( "Dec 1 -  \(longString1)", modifyDate: "12-10-2015 11:23 AM",
-        createDate: "12-1-2015 10:22 AM")
-        let TSNote8 = TSNote( "Dec 1 -  \(longString2)", modifyDate: "12-12-2015 1:07 PM",
-        createDate: "12-1-2015 10:22 AM")
         
-        
-        noteEntries  += [TSNote1, TSNote2, TSNote3, TSNote4, TSNote5, TSNote6, TSNote7, TSNote8]
-        //noteEntries  += [ TSNote5, TSNote6, TSNote7, TSNote8]
-        
-
-        
-    }
-    
-    */
-    
-    func getManagedContext () -> NSManagedObjectContext {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        return appDelegate.managedObjectContext!
-    }
-    
-    
-
-    
-    
-    func buildNoteEntriesArray() {
-        
- //       var createDate: NSDate
-        var compareDate = NSDate.distantPast()
-        var sectionIndex = -1
-        var entryIndex = 0
-        
-        
-        // Go through note entries, separate by modify date
-        
-        for note in noteEntities {
+        func configureCell(cell: TSNoteEntriesTableCell, atIndexPath indexPath: NSIndexPath) {
             
-            // note entries are all the same create date
-
-            // Populate noteEntry
-            noteEntry.modifyDateTime = note.valueForKey("noteModifyDateTS") as! NSDate
-            noteEntry.noteText = note.valueForKey("noteText") as! String
+            // Fetch Record
+            let record = fetchedResultsController.objectAtIndexPath(indexPath)
             
-            let order = calendar.compareDate(compareDate, toDate: noteEntry.modifyDateTime,
-                toUnitGranularity: .Day)
-            
-            // same modify date, add to existing row
-            if order == .OrderedSame  {
-                
-                //     print ( "same date add for section index \(sectionIndex), entry index \(entryIndex)             note text is: \(noteEntry.noteText)")
-                
-                
-                noteEntriesSeparated[sectionIndex].insert(noteEntry, atIndex: entryIndex)
-                
-                //    NSLog("New modify date for same date", noteEntriesSeparated[sectionIndex][ entryIndex].modifyDateTime)
-                
-                entryIndex += 1
-                
-            }
-                // new modify date, start a new row
-            else {
-                sectionIndex += 1
-                compareDate = noteEntry.modifyDateTime
-                entryIndex = 1
-                
-                //    print ( "new date add for section index \(sectionIndex), entry index \(entryIndex)             note text is: \(noteEntry.noteText)")
-                
-                noteEntriesSeparated.insert([noteEntry], atIndex: sectionIndex)
-                //               NSLog("New array entry for nwq date", noteEntriesSeparated[sectionIndex])
-                //       NSLog("New modify date for new date", noteEntriesSeparated[sectionIndex][ 0].modifyDateTime)
-                
+            // Update Cell
+            if let modifyDateTS = record.valueForKey("noteModifyDateTS") as? NSDate {
+                cell.noteTextView.text = record.valueForKey("noteText") as? String
+                cell.noteEntryDateLabel.text = displayDateFormatter.stringFromDate(modifyDateTS)
             }
             
         }
-                
-    }
-
+        
     
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -261,18 +185,25 @@ class noteEntriesTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+ 
+        if let sections = fetchedResultsController.sections {
+            NSLog("number of Sections: \(sections.count)")
+            return sections.count
+        }
         
-        // We need to determine number of sections from number of unique dates in note entries
-//        return noteEntriesSeparated.count
         return 0
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+
+        if let sections = fetchedResultsController.sections {
+            let sectionInfo = sections[section]
+            NSLog("number Of Rows In Section: \(sectionInfo.numberOfObjects)")
+
+            return sectionInfo.numberOfObjects
+        }
         
-        // We need to determine the number of entries per date for the note
-        return noteEntriesSeparated[section].count
+        return 0
     }
 
     
@@ -282,17 +213,8 @@ class noteEntriesTableViewController: UITableViewController {
 
         //NSLog("working with section: \(indexPath.section)")
 
-        // Configure the cell...
-        let noteEntry = noteEntriesSeparated [indexPath.section][indexPath.row]
-
-        // get modifcation date and note text
-       // cell.noteDateLabel.text = displayDateFormatter.stringFromDate(noteEntry.modifyDateTime)
-        
-       cell.noteEntryDateLabel.text = displayTimeOnlyFormatter.stringFromDate(noteEntry.modifyDateTime)
-
-        cell.noteTextView.text = noteEntry.noteText
-        
-       // UITableView.titleForHeaderInSection (5)
+        // Configure Table View Cell
+        configureCell(cell, atIndexPath: indexPath)
         
         return cell
     }
@@ -301,9 +223,10 @@ class noteEntriesTableViewController: UITableViewController {
     {
         // Set name of note
      //   return noteName
-        let noteModDate = noteEntriesSeparated [section][0].modifyDateTime
-        let modDateStr = displayDateOnlyFormatter.stringFromDate(noteModDate)
-        return modDateStr
+        
+     //   let noteModDate = noteEntriesSeparated [section][0].modifyDateTime
+     //   let modDateStr = displayDateOnlyFormatter.stringFromDate(noteModDate)
+        return ""
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -313,11 +236,24 @@ class noteEntriesTableViewController: UITableViewController {
 
     }
     
-/*
-    override func viewWillAppear(animated: Bool) {
-        noteTimeLabel.text = noteTime
+    func applicationWillTerminate(application: UIApplication) {
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            let saveError = error as NSError
+            print("\(saveError), \(saveError.userInfo)")
+        }
     }
-  */  
+    
+    
+    func applicationDidEnterBackground(application: UIApplication) {
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            let saveError = error as NSError
+            print("\(saveError), \(saveError.userInfo)")
+        }
+    }
 
     
     // Navigation
@@ -372,77 +308,52 @@ class noteEntriesTableViewController: UITableViewController {
     }
     
     
-   
     @IBAction func unwindFromNoteEntry(sender: UIStoryboardSegue) {
+   
         if let sourceViewController = sender.sourceViewController as? noteEntryViewController {
-
-        // Add a new note.
+            
+            
+            let entityNote = NSEntityDescription.entityForName("Note", inManagedObjectContext: managedObjectContext)
+            let newNote = NSManagedObject(entity: entityNote!, insertIntoManagedObjectContext: managedObjectContext)
+            
+            // Populate note entity
+            let noteModifyDate = sourceViewController.noteDateTime
+            newNote.setValue(displayDateOnlyFormatter.stringFromDate(noteModifyDate), forKey: "noteModifyDateDay")
+            newNote.setValue(displayTimeOnlyFormatter.stringFromDate(noteModifyDate), forKey: "noteModifyDateTime")
+            newNote.setValue(noteModifyDate, forKey: "noteModifyDateTime")
+            newNote.setValue(noteModifyDate, forKey: "noteModifyDateTS")
+            
+            newNote.setValue(sourceViewController.noteText, forKey: "noteText")
+   
+            // Update noteBaseReord
+            var count = noteBaseRecord.valueForKey("noteCount") as! Int
+            count += 1
+            noteBaseRecord.setValue(count, forKey:"noteCount")
+            noteBaseRecord.setValue(newNote.valueForKey("noteModifyDateTS"), forKey:"modifyDateTS")
+            
+            // Create Relationship
+            
+            let notes = noteBaseRecord.mutableSetValueForKey("notes")
+            notes.addObject(newNote)
         
         // Create note entity
         
-        let moc = getManagedContext()
-            
-//        let newNote = NSEntityDescription.insertNewObjectForEntityForName("Note", inManagedObjectContext: moc)
-
-            
-        let entityNote = NSEntityDescription.entityForName("Note", inManagedObjectContext: moc)
-        let newNote = NSManagedObject(entity: entityNote!, insertIntoManagedObjectContext: moc)
-        
-        // Populate note entity
-        newNote.setValue(sourceViewController.noteDateTime, forKey: "noteModifyDateTS")
-        newNote.setValue(sourceViewController.noteText, forKey: "noteText")
-            
-         print ("New note: \(newNote)")
-            
-            
-//        let noteBaseEntity =  NSEntityDescription.entityForName("NoteBase",
-//            inManagedObjectContext:moc)
-
-            // Need to have the current noteBase record
-            // Create Predicate
-            //        let predicate = NSPredicate(format: "%K == %@", "createDateTS", noteCreateDate)
-            //        fetchRequest.predicate = predicate
-            
- //       let noteHeader = NSManagedObject(entity: noteBaseEntity,
- //           insertIntoManagedObjectContext: moc)
-        
-        
-        // Update the NoteBase entity with the new information
-        
-        // from http://code.tutsplus.com/tutorials/core-data-and-swift-managed-objects-and-fetch-requests--cms-25068
-        
-        // Add note to noteBase
-        let noteBaseEntity = getNoteBaseRecord()
-            
-            
-        print ("Existing noteBase record: \(noteBaseEntity)")
-            
-        noteBaseEntity.setValue(NSSet(object: newNote), forKey: "notes")
-        noteBaseEntity.setValue(sourceViewController.noteDateTime, forKey: "modifyDateTS")
-            
-            if bNewNote {
-                var noteCount = noteBaseEntity.valueForKey("noteCount") as! Int
-                noteCount += 1
-                noteBaseEntity.setValue(noteCount, forKey: "noteCount")
+            do {
+                try managedObjectContext.save()
+                //5
+                noteEntities.append(newNote)
+            } catch let error as NSError  {
+                print("Could not save \(error), \(error.userInfo)")
             }
-            
-            
-        print ("Revised noteBase record: \(noteBaseEntity)")
-            
-        
-        do {
-        try noteBaseEntity.managedObjectContext?.save()
-        } catch {
-        let saveError = error as NSError
-        print(saveError)
-        }
-
-            
         }
     }
     
+    
+
+    
     // Mark - Helper functions
     
+    /*
     func getNoteBaseRecord ( ) -> NSManagedObject {
         let moc = getManagedContext()
  //       var bGotRecord = true
@@ -466,7 +377,7 @@ class noteEntriesTableViewController: UITableViewController {
         return noteBaseEntity[0]
 
     }
-
+    */
     
         
     // Actions

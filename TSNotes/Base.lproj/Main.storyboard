@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9527.1" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="7wD-XE-Jmh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9527.1" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="7wD-XE-Jmh">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9525.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -93,7 +93,7 @@
                                                 <constraint firstAttribute="width" constant="342" id="iVa-a2-TxX"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -185,6 +185,7 @@
                                 <color key="backgroundColor" red="1" green="0.95525152729999996" blue="0.51307913360000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="noteEntryDateLabel" destination="L4w-Bt-mEZ" id="Qj9-g5-4bW"/>
+                                    <outlet property="noteTextView" destination="tem-y6-9qR" id="JzU-N4-OwW"/>
                                     <segue destination="uUF-cQ-L4o" kind="presentation" identifier="modNoteEntry" id="WXy-UR-5XI"/>
                                 </connections>
                             </tableViewCell>
@@ -228,7 +229,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gzF-IQ-FFO" userLabel="datetimeDisplay">
                                 <rect key="frame" x="20" y="69" width="560" height="14"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gr7-6W-GRt" userLabel="noteTextView">
@@ -506,7 +507,7 @@
         <!--List of Notes Table Navigation Controller-->
         <scene sceneID="IF9-6k-7Ae">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7wD-XE-Jmh" userLabel="List of Notes Table Navigation Controller" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="StoryboardIDRootNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="7wD-XE-Jmh" userLabel="List of Notes Table Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="d0T-fE-wdw">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

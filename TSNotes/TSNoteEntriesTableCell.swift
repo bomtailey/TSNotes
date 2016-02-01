@@ -12,7 +12,7 @@ class TSNoteEntriesTableCell: UITableViewCell {
     
     // MARK: Properties
     @IBOutlet weak var noteEntryDateLabel: UILabel!
-    @IBOutlet weak var noteTextView: UILabel!
+    @IBOutlet weak var noteTextView: UITextView!
     
     
     override func awakeFromNib() {

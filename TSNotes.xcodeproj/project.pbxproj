@@ -10,7 +10,7 @@
 		FA0AF71C1C4989D20020CBAC /* TSNoteClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0AF71B1C4989D20020CBAC /* TSNoteClass.swift */; };
 		FA3F5B491BF0857600A7804C /* TSNoteEntriesTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F5B481BF0857600A7804C /* TSNoteEntriesTableCell.swift */; };
 		FA6A71181BFF13C0000525FF /* NoteListTableSelectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6A71171BFF13C0000525FF /* NoteListTableSelectionDelegate.swift */; };
-		FA6D27FF1BEDA80100768930 /* notesListTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6D27FE1BEDA80100768930 /* notesListTableController.swift */; };
+		FA6D27FF1BEDA80100768930 /* NoteBaseTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6D27FE1BEDA80100768930 /* NoteBaseTableController.swift */; };
 		FA73889C1BF5703B00758E68 /* noteEntriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA73889B1BF5703B00758E68 /* noteEntriesTableViewController.swift */; };
 		FA7CE5D61BF2C971008FD365 /* TitleEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7CE5D51BF2C971008FD365 /* TitleEntryViewController.swift */; };
 		FAA701341BDB171E0013EFF7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA701331BDB171E0013EFF7 /* AppDelegate.swift */; };
@@ -42,7 +42,7 @@
 		FA0AF71B1C4989D20020CBAC /* TSNoteClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TSNoteClass.swift; path = ../TSNoteClass.swift; sourceTree = "<group>"; };
 		FA3F5B481BF0857600A7804C /* TSNoteEntriesTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSNoteEntriesTableCell.swift; sourceTree = "<group>"; };
 		FA6A71171BFF13C0000525FF /* NoteListTableSelectionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteListTableSelectionDelegate.swift; sourceTree = "<group>"; };
-		FA6D27FE1BEDA80100768930 /* notesListTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = notesListTableController.swift; sourceTree = "<group>"; };
+		FA6D27FE1BEDA80100768930 /* NoteBaseTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteBaseTableController.swift; sourceTree = "<group>"; };
 		FA73889B1BF5703B00758E68 /* noteEntriesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = noteEntriesTableViewController.swift; path = ../noteEntriesTableViewController.swift; sourceTree = "<group>"; };
 		FA7CE5D51BF2C971008FD365 /* TitleEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleEntryViewController.swift; sourceTree = "<group>"; };
 		FAA701301BDB171E0013EFF7 /* TSNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TSNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,7 +113,7 @@
 				FA7CE5D51BF2C971008FD365 /* TitleEntryViewController.swift */,
 				FACAAA921C15075600087077 /* TSNoteBaseClass.swift */,
 				FAE9229C1BF34315001E37FD /* noteListTableViewCell.swift */,
-				FA6D27FE1BEDA80100768930 /* notesListTableController.swift */,
+				FA6D27FE1BEDA80100768930 /* NoteBaseTableController.swift */,
 				FA0AF71B1C4989D20020CBAC /* TSNoteClass.swift */,
 				FA3F5B481BF0857600A7804C /* TSNoteEntriesTableCell.swift */,
 				FA73889B1BF5703B00758E68 /* noteEntriesTableViewController.swift */,
@@ -248,7 +248,7 @@
 				FA73889C1BF5703B00758E68 /* noteEntriesTableViewController.swift in Sources */,
 				FAE72BC51BE043B20053F50E /* handleDatePickerTableViewController.swift in Sources */,
 				FAA701341BDB171E0013EFF7 /* AppDelegate.swift in Sources */,
-				FA6D27FF1BEDA80100768930 /* notesListTableController.swift in Sources */,
+				FA6D27FF1BEDA80100768930 /* NoteBaseTableController.swift in Sources */,
 				FACAAA911C15070E00087077 /* notesListData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

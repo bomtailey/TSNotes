@@ -16,37 +16,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+   
         
-       /*
-        // Create Managed Object for NoteBase
-        let entityDescription = NSEntityDescription.entityForName("NoteBase", inManagedObjectContext: self.managedObjectContext!)
-        let newNoteBase = NSManagedObject(entity: entityDescription!, insertIntoManagedObjectContext: self.managedObjectContext)
+        // added 1/28/16 for NSFetchedResultsController
+        // Fetch Main Storyboard
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         
-        // Configure New note
-        newNoteBase.setValue( NSDate(), forKey: "createDateTS")
-        newNoteBase.setValue( NSDate(), forKey: "modifyDateTS")
-        newNoteBase.setValue("This is set up note name", forKey: "noteName")
+        // Instantiate Root Navigation Controller
+        let rootNavigationController = mainStoryboard.instantiateViewControllerWithIdentifier("StoryboardIDRootNavigationController") as! UINavigationController
         
-        do {
-            try managedObjectContext?.save()
-        } catch {
-            print(error)
+        // Configure View Controller
+        let viewController = rootNavigationController.topViewController as? NoteBaseTableController
+        
+        if let viewController = viewController {
+            viewController.managedObjectContext = self.managedObjectContext
         }
-        */
-
-       
-        /*
-        // 1/19/16 - add some stuff to create a "Note" instance (from http://code.tutsplus.com/tutorials/core-data-and-swift-relationships-and-more-fetching--cms-25070
         
-        // Create Address
-        let entityAddress = NSEntityDescription.entityForName("Note", inManagedObjectContext: self.managedObjectContext!)
-        let newNote = NSManagedObject(entity: entityAddress!, insertIntoManagedObjectContext: self.managedObjectContext)
-        
-        // Populate Address
-        newNote.setValue("This is a sample note entry", forKey: "noteText")
-        newNote.setValue(NSDate(), forKey: "noteModifyDateTS")
-
-        */
+        // Configure Window
+        window?.rootViewController = rootNavigationController
 
 
 

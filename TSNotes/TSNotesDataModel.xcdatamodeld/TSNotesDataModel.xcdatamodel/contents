@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9520" systemVersion="15C50" minimumToolsVersion="Xcode 7.0">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9520" systemVersion="15D21" minimumToolsVersion="Xcode 7.0">
     <entity name="Note" syncable="YES">
+        <attribute name="noteModifyDateDay" attributeType="String" syncable="YES"/>
+        <attribute name="noteModifyDateTime" attributeType="String" syncable="YES"/>
         <attribute name="noteModifyDateTS" attributeType="Date" syncable="YES"/>
         <attribute name="noteText" attributeType="String" syncable="YES"/>
         <relationship name="notesList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NoteBase" inverseName="notes" inverseEntity="NoteBase" syncable="YES"/>
@@ -13,7 +15,7 @@
         <relationship name="notes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Note" inverseName="notesList" inverseEntity="Note" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Note" positionX="187" positionY="18" width="128" height="88"/>
+        <element name="Note" positionX="187" positionY="18" width="128" height="120"/>
         <element name="NoteBase" positionX="-63" positionY="-18" width="128" height="118"/>
     </elements>
 </model>
