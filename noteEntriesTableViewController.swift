@@ -95,12 +95,12 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         notesFetchRequest.predicate = notesNoteBasePred
         
         // Add Sort Descriptor
-        let sortDescriptor = NSSortDescriptor(key: "noteModifyDateTS", ascending: false)
+        let sortDescriptor = NSSortDescriptor(key: "noteModifiedDateTS", ascending: false)
         notesFetchRequest.sortDescriptors = [sortDescriptor]
 
         
         // Initialize Fetched Results Controller
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: notesFetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: "noteModifyDateDayTS", cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: notesFetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: "noteModifiedDateDay", cacheName: nil)
         
         // Configure Fetched Results Controller
         fetchedResultsController.delegate = self
@@ -169,9 +169,9 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             let record = fetchedResultsController.objectAtIndexPath(indexPath)
             
             // Update Cell
-            if let modifyDateTS = record.valueForKey("noteModifyDateTS") as? NSDate {
+            if let noteModifiedTime = record.valueForKey("noteModifiedDateTime") as? String {
                 cell.noteTextView.text = record.valueForKey("noteText") as? String
-                cell.noteEntryDateLabel.text = displayDateFormatter.stringFromDate(modifyDateTS)
+                cell.noteEntryDateLabel.text = noteModifiedTime
             }
             
         }
@@ -221,15 +221,18 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     {
-        // Set name of note
-     //   return noteName
+        // Set name of section header
+        if let sections = fetchedResultsController.sections {
+            let sectionInfo = sections[section]
+            
+            return sectionInfo.name
+        }
         
-     //   let noteModDate = noteEntriesSeparated [section][0].modifyDateTime
-     //   let modDateStr = displayDateOnlyFormatter.stringFromDate(noteModDate)
         return ""
-    }
+  }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+
         NSLog("Selected section is: \(indexPath.section) and row is: \(indexPath.row)")
         let noteEntry = noteEntriesSeparated [indexPath.section][indexPath.row]
         NSLog("Cell text is: \(noteEntry.noteText)")
@@ -237,6 +240,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     }
     
     func applicationWillTerminate(application: UIApplication) {
+        
         do {
             try self.managedObjectContext.save()
         } catch {
@@ -318,10 +322,10 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             
             // Populate note entity
             let noteModifyDate = sourceViewController.noteDateTime
-            newNote.setValue(displayDateOnlyFormatter.stringFromDate(noteModifyDate), forKey: "noteModifyDateDay")
-            newNote.setValue(displayTimeOnlyFormatter.stringFromDate(noteModifyDate), forKey: "noteModifyDateTime")
-            newNote.setValue(noteModifyDate, forKey: "noteModifyDateTime")
-            newNote.setValue(noteModifyDate, forKey: "noteModifyDateTS")
+            let modDateTimeOnly = displayTimeOnlyFormatter.stringFromDate(noteModifyDate)
+            newNote.setValue(displayDateOnlyFormatter.stringFromDate(noteModifyDate), forKey: "noteModifiedDateDay")
+            newNote.setValue(displayTimeOnlyFormatter.stringFromDate(noteModifyDate), forKey: "noteModifiedDateTime")
+            newNote.setValue(noteModifyDate, forKey: "noteModifiedDateTS")
             
             newNote.setValue(sourceViewController.noteText, forKey: "noteText")
    
@@ -329,7 +333,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             var count = noteBaseRecord.valueForKey("noteCount") as! Int
             count += 1
             noteBaseRecord.setValue(count, forKey:"noteCount")
-            noteBaseRecord.setValue(newNote.valueForKey("noteModifyDateTS"), forKey:"modifyDateTS")
+            noteBaseRecord.setValue(newNote.valueForKey("noteModifiedDateTS"), forKey:"modifyDateTS")
             
             // Create Relationship
             

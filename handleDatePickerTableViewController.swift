@@ -14,6 +14,7 @@ let dayTimePeriodFormatter = NSDateFormatter()
 let userCalendar = NSCalendar.currentCalendar()
 let dateComponents = userCalendar.components([.Year,.Month,.Day,.Hour,.Minute],fromDate: selectedDateNumeric)
 let components = NSDateComponents()
+
 var existingDate: NSDate?
 
 
@@ -185,10 +186,18 @@ class handleDatePickerTableViewController: UITableViewController {
     //MARK - local functions
     
     // Set date display label and date picker value
+    
     func setDateDisplay (){
         labelDateDisplay.text = dayTimePeriodFormatter.stringFromDate(selectedDateNumeric)
         datePickerDisplay.setDate(selectedDateNumeric, animated: false)
     }
     
+    // Navigation
+    
+    @IBAction func cancelView(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+
 
 }

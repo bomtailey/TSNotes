@@ -43,7 +43,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
 
-        dayTimePeriodFormatter.dateFormat =  "EEEE, MMMM d, yyyy h:mm a"
+        dayTimePeriodFormatter.dateFormat =  "h:mm a  d MM yyyy - EEEE"
         
         //loadSampleNotes()
         
@@ -255,7 +255,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
         
         //   let noteModDate = noteEntriesSeparated [section][0].modifyDateTime
         //   let modDateStr = displayDateOnlyFormatter.stringFromDate(noteModDate)
-        return "This is not a real title"
+        return ""
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

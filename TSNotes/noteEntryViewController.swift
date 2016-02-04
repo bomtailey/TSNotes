@@ -92,11 +92,18 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
+        let segID = segue.identifier
+        
         if saveButton === sender {
             
             noteDateTime = dayTimePeriodFormatter.dateFromString(datetimeDisplay.text!)!
             noteText = noteTextView.text!  ?? ""
-        }
+        } else
+            if segID == "segueToDatePicker" {
+            
+            existingDate = noteDateTime
+        } 
+        
         
     }
     
