@@ -15,7 +15,6 @@ let userCalendar = NSCalendar.currentCalendar()
 let dateComponents = userCalendar.components([.Year,.Month,.Day,.Hour,.Minute],fromDate: selectedDateNumeric)
 let components = NSDateComponents()
 
-var existingDate: NSDate?
 
 
 class handleDatePickerTableViewController: UITableViewController {
@@ -25,8 +24,10 @@ class handleDatePickerTableViewController: UITableViewController {
     @IBOutlet weak var datePickerDisplay: UIDatePicker!
         
     @IBOutlet weak var cancelButton: UIBarButtonItem!
-
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    var existingDate: NSDate?
+
     
     
     override func viewDidLoad() {
@@ -34,6 +35,8 @@ class handleDatePickerTableViewController: UITableViewController {
         
     /*
     This value is either passed by `addModifyNoteViewController` in `prepareForSegue(_:sender:)`
+        @IBAction func subtractOneYear(sender: AnyObject) {
+        }
     or constructed as part of modifying the existing date.
     */
         
@@ -117,17 +120,9 @@ class handleDatePickerTableViewController: UITableViewController {
     }
     */
 
-    /*
+
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
-/*
     // This method lets you configure a view controller before it's presented.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     
@@ -136,7 +131,7 @@ class handleDatePickerTableViewController: UITableViewController {
         
         }
     }
-*/
+
     
     // MARK - actions
     
@@ -146,39 +141,38 @@ class handleDatePickerTableViewController: UITableViewController {
     }
     
     // Subtract a year
-    @IBAction func subtractOneYear(sender: UIButton) {
-
+    @IBAction func subtractOneYear(sender: AnyObject) {
         selectedDateNumeric = userCalendar.dateByAddingUnit([.Year], value: -1, toDate: selectedDateNumeric, options: [])!
         setDateDisplay()
     }
   
     // Add a year
-    @IBAction func addOneYear(sender: UIButton) {
+    @IBAction func addOneYear(sender: AnyObject) {
         selectedDateNumeric = userCalendar.dateByAddingUnit([.Year], value: 1, toDate: selectedDateNumeric, options: [])!
         setDateDisplay()
     }
     
     // Subtract a month
-    @IBAction func subractOneMonth(sender: UIButton) {
-
+    @IBAction func subractOneMonth(sender: AnyObject) {
         selectedDateNumeric = userCalendar.dateByAddingUnit([.Month], value: -1, toDate: selectedDateNumeric, options: [])!
         setDateDisplay()
     }
     
     // Add a month
-    @IBAction func addOneMonth(sender: UIButton) {
+    @IBAction func addOneMonth(sender: AnyObject) {
         selectedDateNumeric = userCalendar.dateByAddingUnit([.Month], value: 1, toDate: selectedDateNumeric, options: [])!
         setDateDisplay()
     }
     
     // Subtract a day
-    @IBAction func subtractOneDay(sender: UIButton) {
+
+    @IBAction func subtractOneDay(sender: AnyObject) {
         selectedDateNumeric = userCalendar.dateByAddingUnit([.Day], value: -1, toDate: selectedDateNumeric, options: [])!
         setDateDisplay()
     }
 
     // Add a day
-    @IBAction func addOneDay(sender: UIButton) {
+    @IBAction func addOneDay(sender: AnyObject) {
         selectedDateNumeric = userCalendar.dateByAddingUnit([.Day], value: 1, toDate: selectedDateNumeric, options: [])!
         setDateDisplay()
     }
@@ -194,8 +188,13 @@ class handleDatePickerTableViewController: UITableViewController {
     
     // Navigation
     
-    @IBAction func cancelView(sender: AnyObject) {
+    @IBAction func cancelButton(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
+        
+    }
+
+    
+    @IBAction func cancelView(sender: AnyObject) {
     }
     
 

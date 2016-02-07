@@ -41,7 +41,7 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
         
         noteTextView?.delegate = self
         self.navigationItem.title = noteName
-        dayTimePeriodFormatter.dateFormat =  " h:mm a"
+        dayTimePeriodFormatter.dateFormat =  "EEEE, MMMM d, yyyy h:mm a"  //" h:mm a"
         
         if bNewNote {
             
@@ -84,7 +84,8 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
     // Cancel
     @IBAction func cancelEntry(sender: AnyObject) {
         
-        dismissViewControllerAnimated(true, completion: nil)    }
+        dismissViewControllerAnimated(true, completion: nil)
+    }
     
    
     // Save note
@@ -96,17 +97,25 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
         
         if saveButton === sender {
             
-            noteDateTime = dayTimePeriodFormatter.dateFromString(datetimeDisplay.text!)!
+     //       noteDateTime = dayTimePeriodFormatter.dateFromString(datetimeDisplay.text!)!
             noteText = noteTextView.text!  ?? ""
         } else
             if segID == "segueToDatePicker" {
-            
-            existingDate = noteDateTime
-        } 
+                
+                if let destinationVC = segue.destinationViewController as? handleDatePickerTableViewController{
+                    destinationVC.existingDate = noteDateTime
+                }
+        }
         
         
     }
     
+    @IBAction func unwindFromNoteEntry(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.sourceViewController as? handleDatePickerTableViewController {
+            noteDateTime = sourceViewController.existingDate!
+        }
+    
+    }
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     
