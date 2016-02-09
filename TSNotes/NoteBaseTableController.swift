@@ -327,7 +327,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
                         
                         // Configure View Controller
                         destinationVC.noteCreateDate = (record.valueForKey("createDateTS") as? NSDate)!
-
+                        destinationVC.noteName = (record.valueForKey("noteName") as! String)
                         destinationVC.noteBaseRecord = record
                         destinationVC.managedObjectContext = managedObjectContext
                     }

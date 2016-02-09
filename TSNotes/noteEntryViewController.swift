@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 
 
@@ -21,25 +22,23 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
     
     
     // properties from noteEntriesTableViewController
+    var noteBaseRecord: NSManagedObject!
     var noteName: String?
     var selectedNote = TSNote()
     var bNewNote = true
+    
     var noteDateTime = NSDate()
     var noteText = ""
     
-
-
-    
     let dayTimePeriodFormatter = NSDateFormatter()
-
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
         noteTextView?.delegate = self
+        
         self.navigationItem.title = noteName
         dayTimePeriodFormatter.dateFormat =  "EEEE, MMMM d, yyyy h:mm a"  //" h:mm a"
         
@@ -55,6 +54,7 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
         } else {
             
             // existing note mod
+            
             noteDateTime = selectedNote.modifyDateTime
             noteText = selectedNote.noteText
         }
@@ -95,12 +95,12 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
         
         let segID = segue.identifier
         
-        if saveButton === sender {
+        if saveButton === sender {  // save the note
             
      //       noteDateTime = dayTimePeriodFormatter.dateFromString(datetimeDisplay.text!)!
             noteText = noteTextView.text!  ?? ""
         } else
-            if segID == "segueToDatePicker" {
+            if segID == "segueToDatePicker" {   // go off to date adjustment view
                 
                 if let destinationVC = segue.destinationViewController as? handleDatePickerTableViewController{
                     destinationVC.existingDate = noteDateTime

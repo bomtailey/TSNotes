@@ -19,35 +19,21 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
 
 //    @IBOutlet weak var tableView: UITableView!
     
+    // Properties fron NoteBaseTableController
     var managedObjectContext: NSManagedObjectContext!
-
- //   var noteEntries = [TSNote]()
-    var noteBaseEntity = [NSManagedObject]()
-    var noteEntities = [NSManagedObject]()
-
-    var noteEntriesSeparated = [[TSNote]]()
-    
     var noteBaseRecord: NSManagedObject!
-
-    var savedBaseIndex = 0
-  //  var noteEntriesSeparated = [savedBaseIndex,[TSNote]]()
-    var bNewNote = true
-    
-    
+    var noteName = String()
     var noteCreateDate = NSDate()
+
+    var bNewNote = true
+    var noteRecord: NSManagedObject!
+    
     
     let calendar = NSCalendar.currentCalendar()
 //    var dateOnlyComponents1 = calendar.components([.Day, .Month, .Year],  fromDate: noteCreateDate)
     
-    var noteName = String()
-    var sectionModDate = String()
-    
     var noteEntries = [TSNote]()
     var noteEntry = TSNote()
-    
-    
-   // var longString = longString1
-    
     
     let displayDateFormatter = NSDateFormatter()
     let displayDateOnlyFormatter = NSDateFormatter()
@@ -232,6 +218,8 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         return ""
   }
     
+   /*
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
         NSLog("Selected section is: \(indexPath.section) and row is: \(indexPath.row)")
@@ -239,6 +227,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         NSLog("Cell text is: \(noteEntry.noteText)")
 
     }
+    */
     
     func applicationWillTerminate(application: UIApplication) {
         
@@ -280,6 +269,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         
        let segID = segue.identifier
         
+        // This is a superfluous
         guard   segID == "newNoteEntry" || segID == "modNoteEntry"  else {
             // Value requirements not met, do something
             return
@@ -290,37 +280,30 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
 
         bNewNote = segID == "newNoteEntry"
         
-        destinationVC.noteName = noteName
-        destinationVC.bNewNote = bNewNote
+  
+        if segue.identifier == "modNoteEntry" { // set up note modification
+            
+            if let indexPath = tableView.indexPathForSelectedRow {
+                
+            // Configure Note Entry View Controller
+            
+            // Fetch Record
+            noteRecord = fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject
 
-        
-        
-        if segue.identifier == "modNoteEntry" {
-            
-            if let destinationVC = segue.destinationViewController as? noteEntriesTableViewController{
-                if let indexPath = tableView.indexPathForSelectedRow {
-                    // Fetch Record
-                    let record = fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject
-                    
-                    // Configure View Controller
-                    destinationVC.noteCreateDate = (record.valueForKey("createDateTS") as? NSDate)!
-                    
-                    destinationVC.noteBaseRecord = record
-                    destinationVC.managedObjectContext = managedObjectContext
-                }
-            }
-            
-            let row = self.tableView.indexPathForSelectedRow!.row
-            let section = self.tableView.indexPathForSelectedRow!.section
-            
-            let noteEntry = noteEntriesSeparated [section][row]
             // NSLog("noteEntriesTableViewController - Cell text is: \(noteEntry.noteText)")
             // print("row \(row) was selected")
             
             destinationVC.bNewNote = false
-            destinationVC.selectedNote = noteEntry
+                
+            }
+
+
+            
+            destinationVC.selectedNote = record
             
             
+        } else {
+            // Add a note
         }
         
     }
@@ -330,18 +313,23 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
    
         if let sourceViewController = sender.sourceViewController as? noteEntryViewController {
             
-            if bNewNote {
-  
+            if !bNewNote {
+                
+            } else {
+            
                 let entityNote = NSEntityDescription.entityForName("Note", inManagedObjectContext: managedObjectContext)
-                let newNote = NSManagedObject(entity: entityNote!, insertIntoManagedObjectContext: managedObjectContext)
+          //      let newNote = NSManagedObject(entity: entityNote!, insertIntoManagedObjectContext: managedObjectContext)
+                 noteRecord = NSManagedObject(entity: entityNote!, insertIntoManagedObjectContext: managedObjectContext)
                 
                 // Populate note entity
                 let noteModifyDate = sourceViewController.noteDateTime
-                print("note date: \(noteModifyDate)")
-                let dateOnly = displayDateOnlyFormatter.stringFromDate(noteModifyDate)
-                print("Date only: \(dateOnly)")
-                let timeOnly = displayTimeOnlyFormatter.stringFromDate(noteModifyDate)
-                print("Date only: \(dateOnly)")
+                
+        //        print("note date: \(noteModifyDate)")
+        //        let dateOnly = displayDateOnlyFormatter.stringFromDate(noteModifyDate)
+        //        print("Date only: \(dateOnly)")
+        //        let timeOnly = displayTimeOnlyFormatter.stringFromDate(noteModifyDate)
+        //        print("Date only: \(dateOnly)")
+                
                 newNote.setValue(displayDateOnlyFormatter.stringFromDate(noteModifyDate), forKey: "noteModifiedDateDay")
                 newNote.setValue(displayTimeOnlyFormatter.stringFromDate(noteModifyDate), forKey: "noteModifiedDateTime")
                 newNote.setValue(noteModifyDate, forKey: "noteModifiedDateTS")
