@@ -39,6 +39,10 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     let displayDateOnlyFormatter = NSDateFormatter()
     let displayTimeOnlyFormatter = NSDateFormatter()
     
+    // Temporary debug vars
+    var sectionName = String()
+    var noteText = String()
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -156,6 +160,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             
             // Update Cell
             if let noteModifiedTime = record.valueForKey("noteModifiedDateTime") as? String {
+                noteText = (record.valueForKey("noteText") as? String)!
                 cell.noteTextView.text = record.valueForKey("noteText") as? String
                 let timeDate = "\(noteModifiedTime) - \(record.valueForKey("noteModifiedDateDay"))"
                 cell.noteEntryDateLabel.text = timeDate  //noteModifiedTime
@@ -211,7 +216,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         // Set name of section header
         if let sections = fetchedResultsController.sections {
             let sectionInfo = sections[section]
-            
+            sectionName = sectionInfo.name
             return sectionInfo.name
         }
         
@@ -299,7 +304,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
 
 
             
-            destinationVC.selectedNote = record
+            destinationVC.noteRecord = noteRecord
             
             
         } else {
@@ -313,16 +318,13 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
    
         if let sourceViewController = sender.sourceViewController as? noteEntryViewController {
             
-            if !bNewNote {
+            if bNewNote {
                 
-            } else {
-            
                 let entityNote = NSEntityDescription.entityForName("Note", inManagedObjectContext: managedObjectContext)
           //      let newNote = NSManagedObject(entity: entityNote!, insertIntoManagedObjectContext: managedObjectContext)
                  noteRecord = NSManagedObject(entity: entityNote!, insertIntoManagedObjectContext: managedObjectContext)
                 
                 // Populate note entity
-                let noteModifyDate = sourceViewController.noteDateTime
                 
         //        print("note date: \(noteModifyDate)")
         //        let dateOnly = displayDateOnlyFormatter.stringFromDate(noteModifyDate)
@@ -330,30 +332,33 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         //        let timeOnly = displayTimeOnlyFormatter.stringFromDate(noteModifyDate)
         //        print("Date only: \(dateOnly)")
                 
-                newNote.setValue(displayDateOnlyFormatter.stringFromDate(noteModifyDate), forKey: "noteModifiedDateDay")
-                newNote.setValue(displayTimeOnlyFormatter.stringFromDate(noteModifyDate), forKey: "noteModifiedDateTime")
-                newNote.setValue(noteModifyDate, forKey: "noteModifiedDateTS")
-                
-                newNote.setValue(sourceViewController.noteText, forKey: "noteText")
-       
                 // Update noteBaseReord
                 var count = noteBaseRecord.valueForKey("noteCount") as! Int
                 count += 1
                 noteBaseRecord.setValue(count, forKey:"noteCount")
-                noteBaseRecord.setValue(newNote.valueForKey("noteModifiedDateTS"), forKey:"modifyDateTS")
+//                noteBaseRecord.setValue(noteRecord.valueForKey("noteModifiedDateTS"), forKey:"modifyDateTS")
                 
                 // Create Relationship
                 
                 let notes = noteBaseRecord.mutableSetValueForKey("notes")
-                notes.addObject(newNote)
+                notes.addObject(noteRecord)
 
             }
+            
+           let noteModifyDate = sourceViewController.noteDateTime
+            noteBaseRecord.setValue(noteModifyDate, forKey:"modifyDateTS")
+            noteRecord.setValue(displayDateOnlyFormatter.stringFromDate(noteModifyDate), forKey: "noteModifiedDateDay")
+            noteRecord.setValue(displayTimeOnlyFormatter.stringFromDate(noteModifyDate), forKey: "noteModifiedDateTime")
+            noteRecord.setValue(noteModifyDate, forKey: "noteModifiedDateTS")
+            noteRecord.setValue(sourceViewController.noteText, forKey: "noteText")
+            
+
         // Create/update note entity
         
             do {
                 try managedObjectContext.save()
                 //5
-                noteEntities.append(newNote)
+    //            noteEntities.append(noteRecord)
             } catch let error as NSError  {
                 print("Could not save \(error), \(error.userInfo)")
             }

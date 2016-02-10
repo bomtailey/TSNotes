@@ -24,12 +24,15 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
     // properties from noteEntriesTableViewController
     var noteBaseRecord: NSManagedObject!
     var noteName: String?
+    var noteRecord: NSManagedObject!
+
     var selectedNote = TSNote()
     var bNewNote = true
     
     var noteDateTime = NSDate()
+    var modDateTime = NSDate()
     var noteText = ""
-    
+
     let dayTimePeriodFormatter = NSDateFormatter()
     
     override func viewDidLoad() {
@@ -45,7 +48,7 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
         if bNewNote {
             
             // new note entry
-            selectedNote.modifyDateTime = noteDateTime
+//            selectedNote.modifyDateTime = noteDateTime
             
        //     selectedNote.createDateTime = noteDateTime
        //     noteTextView.becomeFirstResponder()
@@ -55,15 +58,21 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
             
             // existing note mod
             
-            noteDateTime = selectedNote.modifyDateTime
-            noteText = selectedNote.noteText
+            //  noteDateTime = selectedNote.modifyDateTime
+            //            noteText = selectedNote.noteText
+
+            modDateTime = noteRecord.valueForKey("noteModifiedDateTS")   as! NSDate
+//            datetimeDisplay.text = dayTimePeriodFormatter.stringFromDate(modDateTime)
+//            noteDateTime = noteRecord.valueForKey("noteModifiedDateTS")   as! NSDate
+            noteText = (noteRecord.valueForKey("noteText") as? String)!
         }
         
-        datetimeDisplay.text = dayTimePeriodFormatter.stringFromDate(noteDateTime)
+        datetimeDisplay.text = dayTimePeriodFormatter.stringFromDate(modDateTime)
         noteTextView.text = noteText
 
     }
 
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -97,7 +106,7 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
         
         if saveButton === sender {  // save the note
             
-     //       noteDateTime = dayTimePeriodFormatter.dateFromString(datetimeDisplay.text!)!
+//            noteDateTime = dayTimePeriodFormatter.dateFromString(datetimeDisplay.text!)!
             noteText = noteTextView.text!  ?? ""
         } else
             if segID == "segueToDatePicker" {   // go off to date adjustment view
@@ -110,9 +119,12 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
         
     }
     
+    // This actually is unwind from date picker
     @IBAction func unwindFromNoteEntry(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.sourceViewController as? handleDatePickerTableViewController {
+ 
             noteDateTime = sourceViewController.existingDate!
+            datetimeDisplay.text = dayTimePeriodFormatter.stringFromDate(noteDateTime)
         }
     
     }

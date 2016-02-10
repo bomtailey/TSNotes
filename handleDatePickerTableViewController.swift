@@ -123,12 +123,11 @@ class handleDatePickerTableViewController: UITableViewController {
 
     // MARK: - Navigation
 
-    // This method lets you configure a view controller before it's presented.
+    // This returns to noteEntryViewController with possibly changed date
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     
         if saveButton === sender {
-            existingDate = selectedDateNumeric
-        
+            existingDate = selectedDateNumeric        
         }
     }
 
