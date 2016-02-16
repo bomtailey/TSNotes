@@ -9,15 +9,11 @@
 import UIKit
 import CoreData
 
-
 class noteEntriesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
     // Properties
+    // named views so we can pass touch through to tablecll
     
-    // Added for NSFetchedResultsController
-    
-
-//    @IBOutlet weak var tableView: UITableView!
     
     // Properties fron NoteBaseTableController
     var managedObjectContext: NSManagedObjectContext!
@@ -36,6 +32,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     var noteEntry = TSNote()
     
     let displayDateFormatter = NSDateFormatter()
+    let sortableDateOnlyFormatter = NSDateFormatter()
     let displayDateOnlyFormatter = NSDateFormatter()
     let displayTimeOnlyFormatter = NSDateFormatter()
     
@@ -51,7 +48,10 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         navigationItem.title = noteName
 
         displayDateFormatter.dateFormat = "EEEE, MMMM d, yyyy h:mm a"
-        displayDateOnlyFormatter.dateFormat = "EEEE, MMMM d, yyyy"
+        sortableDateOnlyFormatter.dateFormat = "yyyy.MM.dd"
+        
+        displayDateOnlyFormatter.dateFormat = "EEEE MMMM,d yyyy"  // "EEEE, d MMMM yyyy"
+
         displayTimeOnlyFormatter.dateFormat = "h:mm a"
         
         // try fetchcontroller fetch
@@ -62,7 +62,10 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             let fetchError = error as NSError
             print("\(fetchError), \(fetchError.userInfo)")
         }
-
+        let large = UIView(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
+        let small = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+        let point = CGPoint(x: 200, y: 200)
+        large.convertPoint(point, toView: small)
     }
     
     
@@ -109,70 +112,154 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        }
+    }
     
-        // MARK: -
-        // MARK: Fetched Results Controller Delegate Methods
-        func controllerWillChangeContent(controller: NSFetchedResultsController) {
-            tableView.beginUpdates()
-        }
     
-        
-        func controllerDidChangeContent(controller: NSFetchedResultsController) {
-            tableView.endUpdates()
-        }
+    // Enable row deletes
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
     
-        
-        func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
-            switch (type) {
-            case .Insert:
-                if let indexPath = newIndexPath {
-                    tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-                }
-                break;
-            case .Delete:
-                if let indexPath = indexPath {
-                    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-                }
-                break;
-            case .Update:
-                if let indexPath = indexPath {
-                    let cell = tableView.cellForRowAtIndexPath(indexPath) as! TSNoteEntriesTableCell
-                    configureCell(cell, atIndexPath: indexPath)
-                }
-                break;
-            case .Move:
-                if let indexPath = indexPath {
-                    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-                }
-                
-                if let newIndexPath = newIndexPath {
-                    tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
-                }
-                break;
-            }
-        }
-        
-        func configureCell(cell: TSNoteEntriesTableCell, atIndexPath indexPath: NSIndexPath) {
-            
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (editingStyle == .Delete) {
             // Fetch Record
-            let record = fetchedResultsController.objectAtIndexPath(indexPath)
+            let record = fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject
             
-            // Update Cell
-            if let noteModifiedTime = record.valueForKey("noteModifiedDateTime") as? String {
-                noteText = (record.valueForKey("noteText") as? String)!
-                cell.noteTextView.text = record.valueForKey("noteText") as? String
-                let timeDate = "\(noteModifiedTime) - \(record.valueForKey("noteModifiedDateDay"))"
-                cell.noteEntryDateLabel.text = timeDate  //noteModifiedTime
+            // Delete Record
+            managedObjectContext.deleteObject(record)
+            
+            // Update noteBaseReord
+            var count = noteBaseRecord.valueForKey("noteCount") as! Int
+            count -= 1
+            noteBaseRecord.setValue(count, forKey:"noteCount")
+            
+            do {
+                try managedObjectContext.save()
+                //5
+            } catch let error as NSError  {
+                print("Could not save \(error), \(error.userInfo)")
             }
             
         }
+    }
+    
+    
+    
+    
+    // Pass touch event through to cell
+     func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+        for subview in view.subviews as [UIView] {
+            if !subview.hidden && subview.alpha > 0 && subview.userInteractionEnabled && subview.pointInside(view.convertPoint(point, toView: subview), withEvent: event) {
+                return true
+            }
+        }
+        return false
+    }
+
+    
+    
+    // MARK: -
+    // MARK: Fetched Results Controller Delegate Methods
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        tableView.beginUpdates()
+    }
+
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        tableView.endUpdates()
+    }
+
+    
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        switch (type) {
+            
+        case NSFetchedResultsChangeType(rawValue: 0)!:
+            // iOS 8 bug - Do nothing if we get an invalid change type.
+            break;
+
+            
+        case .Insert:
+            if let indexPath = newIndexPath {
+                tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            }
+            break;
+            
+        case .Delete:
+            if let indexPath = indexPath {
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            }
+            break;
+            
+            
+        case .Update:
+            if let indexPath = indexPath {
+                let cell = tableView.cellForRowAtIndexPath(indexPath) as! TSNoteEntriesTableCell
+                configureCell(cell, atIndexPath: indexPath)
+            }
+            break;
+
+        case .Move:
+            if let indexPath = indexPath {
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            }
+            
+            if let newIndexPath = newIndexPath {
+                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
+            }
+            
+            // Mark - TEB: for some reason, adds are getting marked as moves (because they're child objects?) and the
+            // tableview doesn't get updated so we're going to do it explicity which I think, in princple, we shouldn't have to
+            
+            if bNewNote {
+                tableView.reloadData()
+            }
+            break;
+        }
+    }
+    
+    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+        switch type {
+        case .Insert:
+            tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+        case .Delete:
+            tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+        default:
+            return
+        }
+    }
+
+        
+
+    // Configure table cell
+    func configureCell(cell: TSNoteEntriesTableCell, atIndexPath indexPath: NSIndexPath) {
+        
+        // Fetch Record
+        let record = fetchedResultsController.objectAtIndexPath(indexPath)
+        
+        // Update Cell
+        if let noteModifiedTime = record.valueForKey("noteModifiedDateTime") as? String {
+            noteText = (record.valueForKey("noteText") as? String)!
+
+            cell.noteTextView.text = record.valueForKey("noteText") as? String
+
+            // turn selectable off.  It's set to true in storyboard because if it isn't, the UI
+            // ignores the font spec in storyboard.  But I don't want the text to be selectable
+            cell.noteTextView.selectable = false
+            
+            cell.noteTextView.scrollRangeToVisible(NSMakeRange(0, 1))
+
+            let timeDate = "\(noteModifiedTime)"  // - \(record.valueForKey("noteModifiedDateDay"))"
+            cell.noteEntryDateLabel.text = timeDate  //noteModifiedTime
+        }
+        
+    }
         
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
 
     // MARK: - Table view data source
 
@@ -217,22 +304,40 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         if let sections = fetchedResultsController.sections {
             let sectionInfo = sections[section]
             sectionName = sectionInfo.name
-            return sectionInfo.name
+            
+            // reformat the sectionName info
+            let doDate = sortableDateOnlyFormatter.dateFromString(sectionName)
+            let sectionNameReformatted = displayDateOnlyFormatter.stringFromDate(doDate!)
+            return sectionNameReformatted
         }
         
         return ""
   }
     
-   /*
+    // Set section header font/size
+    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.font = UIFont(name: "Helvetica Neue", size: 15)
+        header.textLabel?.textAlignment = NSTextAlignment.Center
+
+        header.textLabel?.font = UIFont.boldSystemFontOfSize(16)
+        
+        
+    }
+    
+   
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
         NSLog("Selected section is: \(indexPath.section) and row is: \(indexPath.row)")
-        let noteEntry = noteEntriesSeparated [indexPath.section][indexPath.row]
-        NSLog("Cell text is: \(noteEntry.noteText)")
+      
+        // This is a work-around to pass the touch on to the table cell
+//        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        
 
     }
-    */
+    
     
     func applicationWillTerminate(application: UIApplication) {
         
@@ -285,7 +390,6 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
 
         bNewNote = segID == "newNoteEntry"
         
-  
         if segue.identifier == "modNoteEntry" { // set up note modification
             
             if let indexPath = tableView.indexPathForSelectedRow {
@@ -302,13 +406,16 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
                 
             }
 
-
-            
+            destinationVC.noteName = noteName
             destinationVC.noteRecord = noteRecord
             
             
         } else {
-            // Add a note
+            
+            // Add a note record object
+            
+            let entityNote = NSEntityDescription.entityForName("Note", inManagedObjectContext: managedObjectContext)
+            noteRecord = NSManagedObject(entity: entityNote!, insertIntoManagedObjectContext: managedObjectContext)            
         }
         
     }
@@ -318,25 +425,14 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
    
         if let sourceViewController = sender.sourceViewController as? noteEntryViewController {
             
+   //         var noteCount = Int()
+            
             if bNewNote {
                 
-                let entityNote = NSEntityDescription.entityForName("Note", inManagedObjectContext: managedObjectContext)
-          //      let newNote = NSManagedObject(entity: entityNote!, insertIntoManagedObjectContext: managedObjectContext)
-                 noteRecord = NSManagedObject(entity: entityNote!, insertIntoManagedObjectContext: managedObjectContext)
-                
-                // Populate note entity
-                
-        //        print("note date: \(noteModifyDate)")
-        //        let dateOnly = displayDateOnlyFormatter.stringFromDate(noteModifyDate)
-        //        print("Date only: \(dateOnly)")
-        //        let timeOnly = displayTimeOnlyFormatter.stringFromDate(noteModifyDate)
-        //        print("Date only: \(dateOnly)")
-                
                 // Update noteBaseReord
-                var count = noteBaseRecord.valueForKey("noteCount") as! Int
-                count += 1
-                noteBaseRecord.setValue(count, forKey:"noteCount")
-//                noteBaseRecord.setValue(noteRecord.valueForKey("noteModifiedDateTS"), forKey:"modifyDateTS")
+                var noteCount = noteBaseRecord.valueForKey("noteCount") as! Int
+                noteCount += 1
+                noteBaseRecord.setValue(noteCount, forKey:"noteCount")
                 
                 // Create Relationship
                 
@@ -346,8 +442,9 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             }
             
            let noteModifyDate = sourceViewController.noteDateTime
-            noteBaseRecord.setValue(noteModifyDate, forKey:"modifyDateTS")
-            noteRecord.setValue(displayDateOnlyFormatter.stringFromDate(noteModifyDate), forKey: "noteModifiedDateDay")
+            noteBaseRecord.setValue(NSDate(), forKey:"modifyDateTS")
+        //    noteRecord.setValue(displayDateOnlyFormatter.stringFromDate(noteModifyDate), forKey: "noteModifiedDateDay")
+            noteRecord.setValue(sortableDateOnlyFormatter.stringFromDate(noteModifyDate), forKey: "noteModifiedDateDay")
             noteRecord.setValue(displayTimeOnlyFormatter.stringFromDate(noteModifyDate), forKey: "noteModifiedDateTime")
             noteRecord.setValue(noteModifyDate, forKey: "noteModifiedDateTS")
             noteRecord.setValue(sourceViewController.noteText, forKey: "noteText")
@@ -358,10 +455,15 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             do {
                 try managedObjectContext.save()
                 //5
-    //            noteEntities.append(noteRecord)
             } catch let error as NSError  {
                 print("Could not save \(error), \(error.userInfo)")
             }
+            
+            // this is what should be an unnecessary work-around for 1st add not showing
+     //       if noteCount == 1 {
+                tableView.reloadData()
+       //     }
+            
         }
     }
     

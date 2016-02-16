@@ -43,7 +43,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
 
-        dayTimePeriodFormatter.dateFormat =  "h:mm a  d MM yyyy - EEEE"
+        dayTimePeriodFormatter.dateFormat =  "h:mm a  MM/d/yy EEEE"
         
         //loadSampleNotes()
         
@@ -84,6 +84,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
     
     // MARK: -
     // MARK: Fetched Results Controller Delegate Methods
+    
     func controllerWillChangeContent(controller: NSFetchedResultsController) {
         tableView.beginUpdates()
     }
@@ -147,28 +148,6 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        
-        /*
-        //2
-        
-        let moc = getManagedContext()
-
-        let fetchRequest = NSFetchRequest(entityName: "NoteBase")
-        
-        // Add Sort Descriptor
-        let sortDescriptor = NSSortDescriptor(key: "modifyDateTS", ascending: false)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-
-        
-        //3
-        do {
-            let results =
-            try moc.executeFetchRequest(fetchRequest)
-            savedNoteBase = results as! [NSManagedObject]
-        } catch let error as NSError {
-            print("Could not fetch \(error), \(error.userInfo)")
-        }
-        */
     }
 
 
@@ -214,7 +193,28 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
     }
 
 
+    // Enable row deletes
     
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (editingStyle == .Delete) {
+            // Fetch Record
+            let record = fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject
+            
+            // Delete Record
+            managedObjectContext.deleteObject(record)
+                        
+            do {
+                try managedObjectContext.save()
+                //5
+            } catch let error as NSError  {
+                print("Could not save \(error), \(error.userInfo)")
+            }
+            
+        }
+    }
+
+    
+    /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
@@ -225,6 +225,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
         if editingStyle == .Delete {
             
             // Delete the row from the data source
+            
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             
          //   let NoteBase = savedNoteBase[indexPath.row]
@@ -246,6 +247,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
+    */
     
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?

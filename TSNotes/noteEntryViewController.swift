@@ -34,6 +34,10 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
     var noteText = ""
 
     let dayTimePeriodFormatter = NSDateFormatter()
+    let originalModTSFormatter = NSDateFormatter()
+
+    var dateString = String()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,35 +45,28 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
         // Do any additional setup after loading the view.
         
         noteTextView?.delegate = self
+        noteTextView.becomeFirstResponder()
         
         self.navigationItem.title = noteName
-        dayTimePeriodFormatter.dateFormat =  "EEEE, MMMM d, yyyy h:mm a"  //" h:mm a"
+        
         
         if bNewNote {
             
             // new note entry
-//            selectedNote.modifyDateTime = noteDateTime
-            
-       //     selectedNote.createDateTime = noteDateTime
-       //     noteTextView.becomeFirstResponder()
-            
             
         } else {
             
             // existing note mod
             
-            //  noteDateTime = selectedNote.modifyDateTime
-            //            noteText = selectedNote.noteText
-
-            modDateTime = noteRecord.valueForKey("noteModifiedDateTS")   as! NSDate
-//            datetimeDisplay.text = dayTimePeriodFormatter.stringFromDate(modDateTime)
-//            noteDateTime = noteRecord.valueForKey("noteModifiedDateTS")   as! NSDate
             noteText = (noteRecord.valueForKey("noteText") as? String)!
+            noteDateTime = (noteRecord.valueForKey("noteModifiedDateTS") as? NSDate)!
         }
         
-        datetimeDisplay.text = dayTimePeriodFormatter.stringFromDate(modDateTime)
-        noteTextView.text = noteText
+        dayTimePeriodFormatter.dateFormat =  "EEEE, d MMMM yyyy h:mm a"
+        dateString = dayTimePeriodFormatter.stringFromDate(noteDateTime)
+        datetimeDisplay.text = dateString
 
+        noteTextView.text = noteText
     }
 
     
@@ -83,6 +80,32 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
     func textViewShouldBeginEditing(aTextView: UITextView) -> Bool
     {
        // moveCursorToStart(noteTextView)
+        return true
+    }
+
+     func textViewDidChange( textView: UITextView) {
+        let textLen = textView.text.characters.count
+        if textLen > 0 {
+            saveButton.enabled = true
+        } else {
+            saveButton.enabled = false
+            
+        }
+        
+    }
+    
+        func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+            
+        let textLen = textView.text.characters.count
+ //       let textLen2 =  text.characters.count
+        
+        if textLen > 0 {
+            saveButton.enabled = true
+        } else {
+            saveButton.enabled = false
+            
+            }
+        
         return true
     }
 
@@ -106,20 +129,20 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
         
         if saveButton === sender {  // save the note
             
-//            noteDateTime = dayTimePeriodFormatter.dateFromString(datetimeDisplay.text!)!
+            noteDateTime = dayTimePeriodFormatter.dateFromString(datetimeDisplay.text!)!
             noteText = noteTextView.text!  ?? ""
         } else
             if segID == "segueToDatePicker" {   // go off to date adjustment view
                 
                 if let destinationVC = segue.destinationViewController as? handleDatePickerTableViewController{
-                    destinationVC.existingDate = noteDateTime
+                    destinationVC.existingDate = modDateTime
                 }
         }
         
         
     }
     
-    // This actually is unwind from date picker
+    // This is unwind from date picker
     @IBAction func unwindFromNoteEntry(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.sourceViewController as? handleDatePickerTableViewController {
  
@@ -128,21 +151,6 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
         }
     
     }
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    
-    /*
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-        
-        if saveButton === sender {
-            noteDateTime = NSDate()
-            noteText = noteTextView.text!
-        }
-        
-    }
-    */
     
 
 }

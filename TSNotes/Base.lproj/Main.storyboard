@@ -19,8 +19,8 @@
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="8kB-Mz-m0A" userLabel="Title Text Field">
                                 <rect key="frame" x="20" y="76" width="560" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -94,7 +94,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="342" id="iVa-a2-TxX"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -125,6 +125,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Notes" id="l4h-T9-q6p">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="c7u-A7-Nmm"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="oqq-Ck-6Rr">
                             <connections>
                                 <segue destination="ez8-ye-WFN" kind="presentation" identifier="AddNoteTitle" id="cL3-pX-lwZ"/>
@@ -144,29 +145,30 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="81" sectionHeaderHeight="28" sectionFooterHeight="28" id="Cvm-nV-1rx" userLabel="noteEntriesTable View">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="90" selectionStyle="default" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="TSNoteEntriesTableCell" rowHeight="100" id="Aj6-q0-rUB" customClass="TSNoteEntriesTableCell" customModule="TSNotes" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="600" height="100"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="90" selectionStyle="blue" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="TSNoteEntriesTableCell" rowHeight="150" id="Aj6-q0-rUB" customClass="TSNoteEntriesTableCell" customModule="TSNotes" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="89" tableViewCell="Aj6-q0-rUB" id="bQ7-Ry-179" userLabel="tableCellContent View">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="99"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="149"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L4w-Bt-mEZ" userLabel="noteEntryDateLabel">
                                             <rect key="frame" x="8" y="8" width="584" height="20"/>
-                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.093112810283687938" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="liD-TN-4cR"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="15"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tem-y6-9qR" userLabel="noteTextView">
-                                            <rect key="frame" x="8" y="33" width="584" height="53"/>
+                                        <textView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="tem-y6-9qR" userLabel="noteTextView">
+                                            <rect key="frame" x="8" y="33" width="584" height="108"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <gestureRecognizers/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                     </subviews>
@@ -179,13 +181,13 @@
                                         <constraint firstItem="L4w-Bt-mEZ" firstAttribute="trailing" secondItem="bQ7-Ry-179" secondAttribute="trailingMargin" id="OzX-4L-jZ0"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="L4w-Bt-mEZ" secondAttribute="trailing" id="PkA-30-Etu"/>
                                         <constraint firstItem="L4w-Bt-mEZ" firstAttribute="top" secondItem="bQ7-Ry-179" secondAttribute="topMargin" id="Z9w-wQ-1BF"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="tem-y6-9qR" secondAttribute="bottom" constant="5" id="rge-7J-Tnc"/>
+                                        <constraint firstItem="tem-y6-9qR" firstAttribute="bottom" secondItem="bQ7-Ry-179" secondAttribute="bottomMargin" id="rge-7J-Tnc"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="noteEntryDateLabel" destination="L4w-Bt-mEZ" id="Qj9-g5-4bW"/>
                                     <outlet property="noteTextView" destination="tem-y6-9qR" id="JzU-N4-OwW"/>
-                                    <segue destination="uUF-cQ-L4o" kind="presentation" identifier="modNoteEntry" id="WXy-UR-5XI"/>
+                                    <segue destination="uUF-cQ-L4o" kind="presentation" identifier="modNoteEntry" id="g9X-W3-Ufb"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -240,13 +242,12 @@
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gr7-6W-GRt" userLabel="noteTextView">
                                 <rect key="frame" x="20" y="102" width="560" height="498"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.95525152729999996" blue="0.51307913360000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="gr7-6W-GRt" firstAttribute="bottom" secondItem="yU6-fM-Grx" secondAttribute="top" id="3iF-Bj-1rK"/>
                             <constraint firstItem="4JR-Oe-tM7" firstAttribute="top" secondItem="8Mg-Pw-K1M" secondAttribute="bottom" constant="8" id="WWN-h1-fU0"/>
@@ -264,7 +265,7 @@
                                 <action selector="cancelEntry:" destination="dl1-k2-BVJ" id="8mX-We-VMF"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="PZO-32-5pt" userLabel="saveButton">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="save" id="PZO-32-5pt" userLabel="saveButton">
                             <connections>
                                 <segue destination="hcg-hy-kr8" kind="unwind" unwindAction="unwindFromNoteEntry:" id="DEU-zm-wgw"/>
                             </connections>
@@ -296,7 +297,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="Ywk-XY-5JK">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <items>
                                 <navigationItem title="Adjust Date/Time" id="2Jj-yZ-A6n">
@@ -317,7 +318,7 @@
                             <tableViewSection headerTitle="Section-1" id="Ccl-7C-fJR">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="sameReuseIdentifier" id="rB8-na-IXA" userLabel="titleCell">
-                                        <rect key="frame" x="0.0" y="72" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="136" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" contentMode="center" tableViewCell="rB8-na-IXA" id="W7c-G2-K29">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -339,10 +340,9 @@
                                                 <constraint firstItem="JWL-om-bkF" firstAttribute="centerX" secondItem="W7c-G2-K29" secondAttribute="centerX" id="yls-N2-D3x"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="1" green="0.95525152729999996" blue="0.51307913360000001" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="sameReuseIdentifier" id="2Bw-dt-ibk" userLabel="adjustYearCell">
-                                        <rect key="frame" x="0.0" y="116" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="180" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" contentMode="center" tableViewCell="2Bw-dt-ibk" id="Jub-0e-reL">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -388,7 +388,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="sameReuseIdentifier" id="tpN-Rh-1kw" userLabel="adjustMonthCell">
-                                        <rect key="frame" x="0.0" y="160" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="224" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" contentMode="center" tableViewCell="tpN-Rh-1kw" id="ZbS-Ug-HQp">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -434,7 +434,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="sameReuseIdentifier" id="4da-Uf-jk8" userLabel="adjustDayCell">
-                                        <rect key="frame" x="0.0" y="204" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="268" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" contentMode="center" tableViewCell="4da-Uf-jk8" id="Eeq-7f-I5k">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -484,7 +484,7 @@
                             <tableViewSection headerTitle="Section-2" id="5vr-g1-alb">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="nSe-qp-KTO">
-                                        <rect key="frame" x="0.0" y="276" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="340" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nSe-qp-KTO" id="uw1-Zl-MZ0">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -492,7 +492,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="200" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="sameReuseIdentifier" rowHeight="254" id="11F-IJ-9M3" userLabel="titleCell">
-                                        <rect key="frame" x="0.0" y="320" width="600" height="254"/>
+                                        <rect key="frame" x="0.0" y="384" width="600" height="254"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" contentMode="center" tableViewCell="11F-IJ-9M3" id="Rdw-6R-Bjx">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="253"/>
@@ -500,20 +500,20 @@
                                             <subviews>
                                                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="C68-sR-vf2" userLabel="datePickerDisplay">
                                                     <rect key="frame" x="140" y="8" width="320" height="237"/>
-                                                    <color key="backgroundColor" red="1" green="0.66134123239999998" blue="0.47032326969999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <date key="date" timeIntervalSinceReferenceDate="467777562.09909999">
                                                         <!--2015-10-29 02:12:42 +0000-->
                                                     </date>
+                                                    <connections>
+                                                        <action selector="datePickerChanged:" destination="dkW-w7-orx" eventType="valueChanged" id="u2b-fd-jg2"/>
+                                                    </connections>
                                                 </datePicker>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.37695777400000002" green="1" blue="0.30323347680000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstItem="C68-sR-vf2" firstAttribute="bottom" secondItem="Rdw-6R-Bjx" secondAttribute="bottomMargin" id="MdM-wU-zKC"/>
                                                 <constraint firstItem="C68-sR-vf2" firstAttribute="centerX" secondItem="Rdw-6R-Bjx" secondAttribute="centerX" id="UlL-ld-dMd"/>
                                                 <constraint firstItem="C68-sR-vf2" firstAttribute="top" secondItem="Rdw-6R-Bjx" secondAttribute="topMargin" id="nTC-Ae-yJL"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="1" green="0.95525152729999996" blue="0.51307913360000001" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -523,6 +523,7 @@
                             <outlet property="delegate" destination="dkW-w7-orx" id="Ftg-Vh-KA9"/>
                         </connections>
                     </tableView>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="cancelButton" destination="Dnt-wH-FqO" id="SJq-5m-Jgv"/>
                         <outlet property="datePickerDisplay" destination="C68-sR-vf2" id="DLT-5e-uF5"/>
@@ -595,6 +596,6 @@
         <image name="Plus signs" width="29" height="29"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="nc5-cB-Nnc"/>
+        <segue reference="g9X-W3-Ufb"/>
     </inferredMetricsTieBreakers>
 </document>

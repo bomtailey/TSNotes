@@ -134,9 +134,10 @@ class handleDatePickerTableViewController: UITableViewController {
     
     // MARK - actions
     
-    @IBAction func datePickerAdjusted(sender: UIDatePicker) {
+    @IBAction func datePickerChanged(sender: AnyObject) {
         
-        labelDateDisplay.text = dayTimePeriodFormatter.stringFromDate(datePickerDisplay.date)
+        selectedDateNumeric = datePickerDisplay.date
+        labelDateDisplay.text = dayTimePeriodFormatter.stringFromDate(selectedDateNumeric)
     }
     
     // Subtract a year
