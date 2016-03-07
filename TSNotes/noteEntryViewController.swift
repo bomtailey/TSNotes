@@ -49,7 +49,6 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
         
         self.navigationItem.title = noteName
         
-        
         if bNewNote {
             
             // new note entry

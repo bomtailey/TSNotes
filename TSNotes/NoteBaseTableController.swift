@@ -13,7 +13,6 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
     
     // MARK: Properties
     
-    let cellIdentifier = "noteListTableViewCell"
 //    let ReuseIdentifierNoteListCell = "noteListTableViewCell"
     
 //    @IBOutlet weak var tableView: UITableView!
@@ -134,8 +133,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
         }
         
         if let count = record.valueForKey("noteCount") as? Int {
-            cell.noteCount.text = "\(count)"
-            
+            cell.noteCount.text = String(count)            
         }
     }
     
@@ -174,7 +172,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("noteListTableViewCell", forIndexPath: indexPath)
             as! noteListTableViewCell
 
         // Configure Table View Cell
@@ -359,9 +357,6 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
     }
     
     func saveNote(newNoteInfo: TSNoteBaseClass) {
-        //1
-//        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-//        let managedContext = appDelegate.managedObjectContext
         
         let moc = getManagedContext()
        
