@@ -11,12 +11,15 @@ import UIKit
 class TitleEntryViewController: UIViewController, UITextFieldDelegate {
     
     // Properties
-    @IBOutlet weak var noteTitleText: UITextField!
+    @IBOutlet weak var noteTitleFieldText: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var createDateTimeLabel: UILabel!
     
     // segue variables
-    var noteTitle: String?
+    var noteTitleField: String?
+    var noteCreateDate: NSDate?
     var segueListNoteInstance = TSNoteBaseClass()
+    var newTitleRequest = Bool(true)
 
     /*
     This value is either passed by `NoteBaseTableController` in `prepareForSegue(_:sender:)`
@@ -26,19 +29,30 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
     
     let dayTimePeriodFormatter = NSDateFormatter()
 
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
 //        dayTimePeriodFormatter.dateFormat = "EEEE, MMMM d, yyyy h:mm a"
-//        noteTitleText.text = dayTimePeriodFormatter.stringFromDate(NSDate())
+//        noteTitleFieldText.text = dayTimePeriodFormatter.stringFromDate(NSDate())
         
         // Handle the text field’s user input through delegate callbacks.
-        noteTitleText.delegate = self
-        self.noteTitleText.becomeFirstResponder()
+        noteTitleFieldText.delegate = self
+        noteTitleFieldText.becomeFirstResponder()
+        self.title = "New Note Title"
+        // If not a new note title, this is an update
+        if newTitleRequest {
+            
+            createDateTimeLabel.text = ""
+        } else {
+            noteTitleFieldText.text = noteTitleField
+            dayTimePeriodFormatter.dateFormat =  "EEEE MM/d/yy h:mm a"
+            createDateTimeLabel.text = "Date Created: " +
+                dayTimePeriodFormatter.stringFromDate(noteCreateDate!)
+
+            self.title = "Modify Note Title"
+       }
 
     }
 
@@ -71,7 +85,7 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
     }
 
     
-    
+    /*
     func textField(textField: UITextField,
         shouldChangeCharactersInRange range: NSRange,
         replacementString string: String)
@@ -83,15 +97,15 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
         
         return true
     }
+*/
     
-    /*
+    // Disable save button if title field is empty
     @IBAction func textFieldEditingDidChange(sender: UITextField) {
-            let text = noteTitleText.text ?? ""
-        avseButton.enabled = text.isEmpty
-        
+        let text = noteTitleFieldText.text ?? ""
+        saveButton.enabled = !text.isEmpty
     }
     
-    
+    /*
     func textFieldDidEndEditing(textField: UITextField) {
         // Enable the Save button only if the text field has a valid Note name.
         checkValidNoteName()
@@ -100,7 +114,7 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
     
     func checkValidNoteName() {
         // Disable the Save button if the text field is empty.
-        let text = noteTitleText.text ?? ""
+        let text = noteTitleFieldText.text ?? ""
         saveButton.enabled = !text.isEmpty
 //        saveButton.a
         
@@ -113,11 +127,13 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
     // Pass the selected object back to the NoteBaseTableController.
        
         if saveButton === sender {
-           // noteTitle = noteTitleText.text
+           // noteTitleField = noteTitleFieldText.text
             let nowTime = NSDate()
-            segueListNoteInstance.createDateTime = nowTime
+            if newTitleRequest {
+                segueListNoteInstance.createDateTime = nowTime
+            }
             segueListNoteInstance.modifyDateTime = nowTime
-            segueListNoteInstance.noteTitle = noteTitleText.text!
+            segueListNoteInstance.noteTitleField = noteTitleFieldText.text!
         }
         
     }

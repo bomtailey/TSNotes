@@ -19,15 +19,30 @@
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="8kB-Mz-m0A" userLabel="Title Text Field">
                                 <rect key="frame" x="20" y="76" width="560" height="30"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                <connections>
+                                    <action selector="textFieldEditingDidChange:" destination="0Z1-4w-TTG" eventType="editingChanged" id="wqK-5n-KLF"/>
+                                </connections>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HJX-Mw-3y9" userLabel="createDateTimeLabel">
+                                <rect key="frame" x="20" y="116" width="250" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="E4G-al-G78"/>
+                                    <constraint firstAttribute="height" constant="25" id="sZ0-QA-GwZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="8kB-Mz-m0A" firstAttribute="top" secondItem="qmg-Uh-tIe" secondAttribute="bottom" constant="12" id="HuY-6L-ERR"/>
                             <constraint firstItem="8kB-Mz-m0A" firstAttribute="leading" secondItem="A5a-Yc-GkE" secondAttribute="leadingMargin" id="Y1s-eY-yV3"/>
+                            <constraint firstItem="HJX-Mw-3y9" firstAttribute="leading" secondItem="A5a-Yc-GkE" secondAttribute="leadingMargin" id="q7l-6D-Wvh"/>
                             <constraint firstItem="8kB-Mz-m0A" firstAttribute="trailing" secondItem="A5a-Yc-GkE" secondAttribute="trailingMargin" id="tE9-RV-JxB"/>
+                            <constraint firstItem="HJX-Mw-3y9" firstAttribute="top" secondItem="8kB-Mz-m0A" secondAttribute="bottom" constant="10" id="uQn-uc-NrH"/>
                         </constraints>
                     </view>
                     <toolbarItems>
@@ -46,7 +61,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="noteTitleText" destination="8kB-Mz-m0A" id="LJ1-Yw-6Wl"/>
+                        <outlet property="createDateTimeLabel" destination="HJX-Mw-3y9" id="pgW-cK-j51"/>
+                        <outlet property="noteTitleFieldText" destination="8kB-Mz-m0A" id="LJ1-Yw-6Wl"/>
                         <outlet property="saveButton" destination="9cs-xn-Kul" id="ttV-n1-2Qg"/>
                     </connections>
                 </viewController>
@@ -71,17 +87,27 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="54"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="43B-vF-gjh" userLabel="noteTitle">
-                                            <rect key="frame" x="8" y="0.0" width="592" height="30"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ae-GV-Bvk" userLabel="noteTitleField">
+                                            <rect key="frame" x="8" y="8" width="584" height="20"/>
+                                            <color key="backgroundColor" red="0.85395697335018284" green="1" blue="0.96597126751387119" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="30" id="5d6-SY-WR5"/>
+                                                <constraint firstAttribute="height" constant="20" id="6DX-o5-3ya"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="17"/>
+                                            <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="14"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lMu-ZM-YsK" userLabel="noteModifyDate">
+                                            <rect key="frame" x="8" y="28" width="342" height="26"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="342" id="iVa-a2-TxX"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4FI-Yj-XU0" userLabel="noteCount">
-                                            <rect key="frame" x="545" y="30" width="35" height="24"/>
+                                            <rect key="frame" x="545" y="28" width="35" height="26"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="35" id="sPZ-Lw-rJL"/>
                                             </constraints>
@@ -89,33 +115,24 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lMu-ZM-YsK" userLabel="noteModifyDate">
-                                            <rect key="frame" x="8" y="30" width="342" height="24"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="342" id="iVa-a2-TxX"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="16"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="6ae-GV-Bvk" firstAttribute="leading" secondItem="hgu-tB-6am" secondAttribute="leadingMargin" id="75b-Xf-AHR"/>
                                         <constraint firstItem="4FI-Yj-XU0" firstAttribute="bottom" secondItem="lMu-ZM-YsK" secondAttribute="bottom" id="CMJ-o3-8Sx"/>
-                                        <constraint firstItem="43B-vF-gjh" firstAttribute="top" secondItem="hgu-tB-6am" secondAttribute="top" id="DoS-9L-wTk"/>
-                                        <constraint firstItem="43B-vF-gjh" firstAttribute="leading" secondItem="hgu-tB-6am" secondAttribute="leadingMargin" id="PnR-7I-Z6F"/>
+                                        <constraint firstItem="6ae-GV-Bvk" firstAttribute="top" secondItem="hgu-tB-6am" secondAttribute="topMargin" id="O1w-Xq-Eic"/>
+                                        <constraint firstItem="lMu-ZM-YsK" firstAttribute="top" secondItem="6ae-GV-Bvk" secondAttribute="bottom" id="TXN-eI-zzm"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="4FI-Yj-XU0" secondAttribute="trailing" constant="12" id="Uew-st-LdT"/>
                                         <constraint firstItem="lMu-ZM-YsK" firstAttribute="leading" secondItem="hgu-tB-6am" secondAttribute="leadingMargin" id="aOi-ow-lZ2"/>
-                                        <constraint firstAttribute="trailing" secondItem="43B-vF-gjh" secondAttribute="trailing" id="gDd-eE-DuL"/>
-                                        <constraint firstItem="lMu-ZM-YsK" firstAttribute="top" secondItem="43B-vF-gjh" secondAttribute="bottom" id="gNY-rc-OuC"/>
-                                        <constraint firstItem="lMu-ZM-YsK" firstAttribute="bottom" secondItem="hgu-tB-6am" secondAttribute="bottom" id="jUa-Hr-4oz"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="6ae-GV-Bvk" secondAttribute="trailing" id="euy-Xq-U2U"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="lMu-ZM-YsK" secondAttribute="bottom" constant="-8" id="hKb-wa-yLR"/>
                                         <constraint firstItem="4FI-Yj-XU0" firstAttribute="height" secondItem="lMu-ZM-YsK" secondAttribute="height" id="ueD-40-Dbf"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="noteCount" destination="4FI-Yj-XU0" id="Omr-pZ-5aX"/>
                                     <outlet property="noteModifyDate" destination="lMu-ZM-YsK" id="VeQ-jl-8my"/>
-                                    <outlet property="noteTitle" destination="43B-vF-gjh" id="SC9-y7-SUL"/>
-                                    <segue destination="CVd-B1-h52" kind="show" identifier="showNoteEntriesSegue" id="W6G-5L-mDk"/>
+                                    <outlet property="noteTitleField" destination="6ae-GV-Bvk" id="l6H-lq-Vit"/>
+                                    <segue destination="cAe-38-Exb" kind="presentation" identifier="showNoteEntriesSegue" id="AFv-Ha-Bgg"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -125,14 +142,22 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Notes" id="l4h-T9-q6p">
-                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="c7u-A7-Nmm"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="c7u-A7-Nmm">
+                            <connections>
+                                <action selector="editButtonClicked:" destination="4gL-X0-Rhg" id="MCG-vY-YQd"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="oqq-Ck-6Rr">
                             <connections>
-                                <segue destination="ez8-ye-WFN" kind="presentation" identifier="AddNoteTitle" id="cL3-pX-lwZ"/>
+                                <segue destination="ez8-ye-WFN" kind="presentation" identifier="AddnoteTitleField" id="cL3-pX-lwZ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="edtButton" destination="c7u-A7-Nmm" id="OpT-Mv-Fd8"/>
+                        <segue destination="ez8-ye-WFN" kind="presentation" identifier="modifyNoteTitle" id="hq6-NA-udW"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0bF-IP-c8P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -156,11 +181,11 @@
                                     <subviews>
                                         <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L4w-Bt-mEZ" userLabel="noteEntryDateLabel">
                                             <rect key="frame" x="8" y="8" width="584" height="20"/>
-                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.093112810283687938" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.7684772838307482" green="1" blue="0.77900667293249659" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="liD-TN-4cR"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                            <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -200,7 +225,7 @@
                     <navigationItem key="navigationItem" title="Note Entries" id="Aub-fk-ypM">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="G6e-Kp-tc4" userLabel="cancelButton">
                             <connections>
-                                <action selector="cancelButton:" destination="CVd-B1-h52" id="Mj9-PL-gWY"/>
+                                <action selector="cancelAction:" destination="CVd-B1-h52" id="gpu-ub-ADa"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="NaO-kt-xnt">
@@ -213,7 +238,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zsr-ti-Mde" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2163" y="-234"/>
+            <point key="canvasLocation" x="2975" y="-234"/>
         </scene>
         <!--Note Entry View Controller-->
         <scene sceneID="L1q-Ce-MgS">
@@ -286,7 +311,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3617" y="-234"/>
+            <point key="canvasLocation" x="4429" y="-234"/>
         </scene>
         <!--newDateAdjustTable View Controller-->
         <scene sceneID="iZY-1o-mQN">
@@ -534,7 +559,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vqH-LJ-AFx" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="aVI-BY-FUB" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4322" y="-234"/>
+            <point key="canvasLocation" x="5134" y="-234"/>
         </scene>
         <!--List of Notes Table Navigation Controller-->
         <scene sceneID="IF9-6k-7Ae">
@@ -588,7 +613,25 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hbV-KS-5Fy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2890" y="-234"/>
+            <point key="canvasLocation" x="3702" y="-234"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="lhl-6I-ybk">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cAe-38-Exb" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ypd-kg-b7S">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="CVd-B1-h52" kind="relationship" relationship="rootViewController" id="QVz-WL-AO8"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lfm-Iw-GXJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2163" y="-234"/>
         </scene>
     </scenes>
     <resources>
@@ -597,5 +640,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="g9X-W3-Ufb"/>
+        <segue reference="hq6-NA-udW"/>
     </inferredMetricsTieBreakers>
 </document>

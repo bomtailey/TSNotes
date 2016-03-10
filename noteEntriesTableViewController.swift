@@ -318,7 +318,10 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         
         let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.font = UIFont(name: "Helvetica Neue", size: 15)
+        //make the background color light blue
+        header.contentView.backgroundColor = UIColor(colorLiteralRed: 0.62, green: 0.80, blue: 0.81, alpha: 1.0)
+        //UIColor(colorWithRed:0.62, colorWithGreen:0.80, colorWithBlue:0.81, alpha:1.0)
+       header.textLabel?.font = UIFont(name: "Times New Roman", size: 15)
         header.textLabel?.textAlignment = NSTextAlignment.Center
 
         header.textLabel?.font = UIFont.boldSystemFontOfSize(16)
@@ -361,16 +364,8 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
 
     
     // Navigation
-    @IBAction func cancelButton(sender: AnyObject) {
-        
-        if let navController = self.navigationController {
-            navController.popViewControllerAnimated(true)
-        }else{
-            
-            print("optional value")
-            
-            
-        }
+    @IBAction func cancelAction(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     //let segueIndentifier = "presentNoteEntryEdit"

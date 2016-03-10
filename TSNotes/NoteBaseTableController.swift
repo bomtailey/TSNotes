@@ -12,6 +12,7 @@ import CoreData
 class NoteBaseTableController: UITableViewController, NSFetchedResultsControllerDelegate {
     
     // MARK: Properties
+    @IBOutlet weak var edtButton: UIBarButtonItem!
     
 //    let ReuseIdentifierNoteListCell = "noteListTableViewCell"
     
@@ -22,6 +23,8 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
     var NoteBase = [TSNoteBaseClass]()
     
     var savedNoteBase = [NSManagedObject]()
+
+    var currentIndexPath: NSIndexPath?
     
     var titleString = ""
     var segueListNoteInstance = TSNoteBaseClass()
@@ -128,7 +131,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
         
         // Update Cell
         if let modifyDateTS = record.valueForKey("modifyDateTS") as? NSDate {
-            cell.noteTitle.text = record.valueForKey("noteName") as? String
+            cell.noteTitleField.text = record.valueForKey("noteName") as? String
             cell.noteModifyDate.text = dayTimePeriodFormatter.stringFromDate(modifyDateTS)
         }
         
@@ -168,7 +171,8 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
             return sectionInfo.numberOfObjects
         }
         
-        return 0   }
+        return 0
+    }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -210,42 +214,6 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
             
         }
     }
-
-    
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        
-        
-        let moc = getManagedContext()
-
-        
-        if editingStyle == .Delete {
-            
-            // Delete the row from the data source
-            
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            
-         //   let NoteBase = savedNoteBase[indexPath.row]
-            
-         //   moc.deleteObject(NoteBase)
-            
-            do {
-                try moc.save()
-            } catch {
-                let saveError = error as NSError
-                print(saveError)
-            }
-
-            savedNoteBase.removeAtIndex(indexPath.row)
-            
-            tableView.reloadData()
-
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
     
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?
@@ -260,11 +228,10 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
  
-        /*
+        
         NSLog("Selected section is: \(indexPath.section) and row is: \(indexPath.row)")
-        let noteEntry = noteEntriesSeparated [indexPath.section][indexPath.row]
-        NSLog("Cell text is: \(noteEntry.noteText)")
-        */
+ //       NSLog("Cell text is: \(noteEntry.noteText)")
+        
         
     }
     
@@ -293,21 +260,86 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
     }
     
 
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
+    //Set up row edit actions
+    
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        
+        let deleteChoice = UITableViewRowAction(style: .Normal, title: "Delete") { action, index in
+            print("delete button tapped")
+        }
+        deleteChoice.backgroundColor = UIColor.redColor()
+        
+        let editChoice = UITableViewRowAction(style: .Normal, title: "Edit") { action, index in
+            print("edit button tapped")
+            self.currentIndexPath = indexPath
+            self.performSegueWithIdentifier("modifyNoteTitle", sender: self)
+        }
+        editChoice.backgroundColor = UIColor.grayColor()
+        
+        return [editChoice, deleteChoice]
     }
-    */
-
+    
     /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+    override func tableView(tableView: UITableView,editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]?  {
+     
+        // 1
+        let editAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Edit" , handler: { (action:UITableViewRowAction!, indexPath:NSIndexPath!) -> Void in
+            
+            
+            // 2
+            
+            // 1
+            let editAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Edit" , handler: { (action:UITableViewRowAction!, indexPath:NSIndexPath!) -> Void in
+                // 2
+                
+                self.performSegueWithIdentifier("modifyNoteName", sender: self)
+            })
+            
+            
+//            self.presentViewController(editMenu, animated: true, completion: nil)
+        })
+       
+        // 2
+        let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Delete" , handler: { (action:UITableViewRowAction!, indexPath:NSIndexPath!) -> Void in
+            // 2
+            let editMenu = UIAlertController(title: nil, message: "Delete", preferredStyle: .ActionSheet)
+            
+            let editAction = UIAlertAction(title: "Edit", style: UIAlertActionStyle.Default, handler: nil)
+            
+            editMenu.addAction(editAction)
+            
+            
+            self.presentViewController(editMenu, animated: true, completion: nil)
+        })
+        
+        /*
+        // 3
+        var rateAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Rate" , handler: { (action:UITableViewRowAction!, indexPath:NSIndexPath!) -> Void in
+            // 4
+            let rateMenu = UIAlertController(title: nil, message: "Rate this App", preferredStyle: .ActionSheet)
+            
+            let appRateAction = UIAlertAction(title: "Rate", style: UIAlertActionStyle.Default, handler: nil)
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+            
+            rateMenu.addAction(appRateAction)
+            rateMenu.addAction(cancelAction)
+            
+            
+            self.presentViewController(rateMenu, animated: true, completion: nil)
+        })
+        */
+        
+        // 5
+        return [deleteAction,editAction]
     }
+
     */
+    // MARK: - Actions
+    
+    // Edit button action
+    @IBAction func editButtonClicked(sender: AnyObject) {
+        NSLog("edit button was clicked", 4)
+    }
 
     
     // MARK: - Navigation
@@ -317,26 +349,49 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
-        if segue.identifier == "showNoteEntriesSegue" {
+        // If we're adding a new note
+        if segue.identifier == "AddnoteTitleField" {
             
-        
-            if let destinationVC = segue.destinationViewController as? noteEntriesTableViewController{
-                    if let indexPath = tableView.indexPathForSelectedRow {
-                        // Fetch Record
-                        let record = fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject
-                        
-                        // Configure View Controller
-                        destinationVC.noteCreateDate = (record.valueForKey("createDateTS") as? NSDate)!
-                        destinationVC.noteName = (record.valueForKey("noteName") as! String)
-                        destinationVC.noteBaseRecord = record
-                        destinationVC.managedObjectContext = managedObjectContext
-                    }
-            }
-            //    }
+            let destinationNavController = segue.destinationViewController as! UINavigationController
+            let destinationVC = destinationNavController.topViewController as? TitleEntryViewController
+            destinationVC!.newTitleRequest = true
+            
+    } else {
 
-          //  }
+            // we're showing the note entries or we're changing the note title
+            
+            // Fetch Record
+            
+            let indexPath = tableView.indexPathForSelectedRow
+                
+            let usableIndexPath = (indexPath ?? currentIndexPath)
+            let record = fetchedResultsController.objectAtIndexPath(usableIndexPath!) as! NSManagedObject
+            
+            // Configure View Controller
+            let noteCreateDate = (record.valueForKey("createDateTS") as? NSDate)!
+            let noteTitle = (record.valueForKey("noteName") as! String)
+        
+            
+            if segue.identifier == "showNoteEntriesSegue" {
+                
+                let destinationNavController = segue.destinationViewController as! UINavigationController
+                let destinationVC = destinationNavController.topViewController as? noteEntriesTableViewController
+                destinationVC!.noteCreateDate = noteCreateDate
+                destinationVC!.noteName = noteTitle
+                destinationVC!.noteBaseRecord = record
+                destinationVC!.managedObjectContext = managedObjectContext
+
+            } else if segue.identifier == "modifyNoteTitle" {
+                
+                let destinationNavController = segue.destinationViewController as! UINavigationController
+                let destinationVC = destinationNavController.topViewController as? TitleEntryViewController
+                destinationVC!.noteCreateDate = noteCreateDate
+                destinationVC!.noteTitleField = noteTitle
+                destinationVC!.newTitleRequest = false
+            }
         }
     }
+    
     
     
     
@@ -346,40 +401,35 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
          let sourceViewController = sender.sourceViewController as? TitleEntryViewController,
             segueListNoteInstance = sourceViewController!.segueListNoteInstance
  
-   //             NSLog("numberOfRowsInSection: \(tableView.numberOfRowsInSection(0))")
-        
-        
-        saveNote(segueListNoteInstance)
+        saveNote(segueListNoteInstance, boolNewNote:  sourceViewController?.newTitleRequest)
         tableView.reloadData()
         
 
         
     }
     
-    func saveNote(newNoteInfo: TSNoteBaseClass) {
+    func saveNote(newNoteInfo: TSNoteBaseClass, boolNewNote: Bool?) {
         
         let moc = getManagedContext()
        
         //2
 
-        let entity =  NSEntityDescription.entityForName("NoteBase",
-            inManagedObjectContext:moc)
-        
-        let noteHeader = NSManagedObject(entity: entity!,
-            insertIntoManagedObjectContext: moc)
+        let entity =  NSEntityDescription.entityForName("NoteBase", inManagedObjectContext:moc)
+        let noteHeader = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: moc)
         
         //3
-        
-        
+           
         noteHeader.setValue(newNoteInfo.modifyDateTime, forKey: "modifyDateTS")
         noteHeader.setValue(newNoteInfo.createDateTime, forKey: "createDateTS")
-        noteHeader.setValue(newNoteInfo.noteTitle, forKey: "noteName")
+        noteHeader.setValue(newNoteInfo.noteTitleField, forKey: "noteName")
         
         //4
         do {
             try moc.save()
             //5
-            savedNoteBase.append(noteHeader)
+            if boolNewNote! {
+                savedNoteBase.append(noteHeader)
+            }
         } catch let error as NSError  {
             print("Could not save \(error), \(error.userInfo)")
         }

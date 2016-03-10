@@ -11,11 +11,7 @@ import UIKit
 class noteListTableViewCell: UITableViewCell {
     
     // Properties
-//    @IBOutlet weak var noteTitle: UILabel!
- //   @IBOutlet weak var noteModifyDate: UILabel!
-//    @IBOutlet weak var noteCreateDate: UILabel!
-//    @IBOutlet weak var noteCount: UILabel!
-    @IBOutlet weak var noteTitle: UILabel!
+    @IBOutlet weak var noteTitleField: UILabel!
     @IBOutlet weak var noteModifyDate: UILabel!
     @IBOutlet weak var noteCount: UILabel!
    

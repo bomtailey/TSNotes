@@ -29,7 +29,7 @@ class TSNoteBaseClass: NSObject {
     
     var createDateTime: NSDate
     var modifyDateTime: NSDate
-    var noteTitle: String
+    var noteTitleField: String
     var noteCount: Int
     
     
@@ -38,7 +38,7 @@ class TSNoteBaseClass: NSObject {
     
     // MARK: Initialization
     
-    init(_ noteTitle: String = "", modifyDate: String? = nil, createDate: String? = nil, noteCount: Int? = nil) {
+    init(_ noteTitleField: String = "", modifyDate: String? = nil, createDate: String? = nil, noteCount: Int? = nil) {
         
         let nowDate = NSDate()
         dayTimePeriodFormatter.dateFormat = "MMM d,yyyy h:m a"
@@ -61,9 +61,9 @@ class TSNoteBaseClass: NSObject {
             self.noteCount = 0
         }
        
-        self.noteTitle = noteTitle
-        if noteTitle.isEmpty {
-            self.noteTitle = dayTimePeriodFormatter.stringFromDate(nowDate)
+        self.noteTitleField = noteTitleField
+        if noteTitleField.isEmpty {
+            self.noteTitleField = dayTimePeriodFormatter.stringFromDate(nowDate)
         }
         
     }

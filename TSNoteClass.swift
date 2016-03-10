@@ -22,7 +22,7 @@ class TSNote: NSObject {
     
     // MARK: Initialization
     
-    init(_ noteTitle: String = "", modifyDate: NSDate? = nil, createDate: NSDate? = nil) {
+    init(_ noteTitleField: String = "", modifyDate: NSDate? = nil, createDate: NSDate? = nil) {
         
         let nowDate = NSDate()
 //        dayTimePeriodFormatter.dateFormat = "MMM d,yyyy h:m a"
@@ -44,8 +44,8 @@ class TSNote: NSObject {
         */
         
         
-        self.noteText = noteTitle
-        if noteTitle.isEmpty {
+        self.noteText = noteTitleField
+        if noteTitleField.isEmpty {
             self.noteText = dayTimePeriodFormatter.stringFromDate(nowDate)
         }
         
