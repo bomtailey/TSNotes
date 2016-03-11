@@ -32,7 +32,7 @@
                                     <constraint firstAttribute="height" constant="25" id="sZ0-QA-GwZ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -80,25 +80,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="noteListTableViewCell" rowHeight="55" id="lLD-Kq-eh4" customClass="noteListTableViewCell" customModule="TSNotes" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="600" height="55"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="noteListTableViewCell" rowHeight="61" id="lLD-Kq-eh4" customClass="noteListTableViewCell" customModule="TSNotes" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="61"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lLD-Kq-eh4" id="hgu-tB-6am">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="54"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ae-GV-Bvk" userLabel="noteTitleField">
-                                            <rect key="frame" x="8" y="8" width="584" height="20"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="26"/>
                                             <color key="backgroundColor" red="0.85395697335018284" green="1" blue="0.96597126751387119" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="20" id="6DX-o5-3ya"/>
+                                                <constraint firstAttribute="height" constant="26" id="6DX-o5-3ya"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="14"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lMu-ZM-YsK" userLabel="noteModifyDate">
-                                            <rect key="frame" x="8" y="28" width="342" height="26"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lMu-ZM-YsK" userLabel="noteModifyDate">
+                                            <rect key="frame" x="0.0" y="26" width="342" height="39"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="342" id="iVa-a2-TxX"/>
                                             </constraints>
@@ -106,8 +106,8 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4FI-Yj-XU0" userLabel="noteCount">
-                                            <rect key="frame" x="545" y="28" width="35" height="26"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4FI-Yj-XU0" userLabel="noteCount">
+                                            <rect key="frame" x="565" y="26" width="35" height="39"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="35" id="sPZ-Lw-rJL"/>
                                             </constraints>
@@ -117,17 +117,19 @@
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="6ae-GV-Bvk" firstAttribute="leading" secondItem="hgu-tB-6am" secondAttribute="leadingMargin" id="75b-Xf-AHR"/>
                                         <constraint firstItem="4FI-Yj-XU0" firstAttribute="bottom" secondItem="lMu-ZM-YsK" secondAttribute="bottom" id="CMJ-o3-8Sx"/>
-                                        <constraint firstItem="6ae-GV-Bvk" firstAttribute="top" secondItem="hgu-tB-6am" secondAttribute="topMargin" id="O1w-Xq-Eic"/>
-                                        <constraint firstItem="lMu-ZM-YsK" firstAttribute="top" secondItem="6ae-GV-Bvk" secondAttribute="bottom" id="TXN-eI-zzm"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="4FI-Yj-XU0" secondAttribute="trailing" constant="12" id="Uew-st-LdT"/>
-                                        <constraint firstItem="lMu-ZM-YsK" firstAttribute="leading" secondItem="hgu-tB-6am" secondAttribute="leadingMargin" id="aOi-ow-lZ2"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="6ae-GV-Bvk" secondAttribute="trailing" id="euy-Xq-U2U"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="lMu-ZM-YsK" secondAttribute="bottom" constant="-8" id="hKb-wa-yLR"/>
+                                        <constraint firstItem="lMu-ZM-YsK" firstAttribute="top" secondItem="6ae-GV-Bvk" secondAttribute="bottom" constant="2" id="TXN-eI-zzm"/>
                                         <constraint firstItem="4FI-Yj-XU0" firstAttribute="height" secondItem="lMu-ZM-YsK" secondAttribute="height" id="ueD-40-Dbf"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <constraints>
+                                    <constraint firstItem="6ae-GV-Bvk" firstAttribute="leading" secondItem="lLD-Kq-eh4" secondAttribute="leading" id="ITO-Es-nws"/>
+                                    <constraint firstAttribute="trailing" secondItem="6ae-GV-Bvk" secondAttribute="trailing" id="JqC-XU-QHx"/>
+                                    <constraint firstItem="6ae-GV-Bvk" firstAttribute="top" secondItem="lLD-Kq-eh4" secondAttribute="top" id="N74-dO-KN9"/>
+                                    <constraint firstItem="lMu-ZM-YsK" firstAttribute="leading" secondItem="lLD-Kq-eh4" secondAttribute="leading" id="UiV-63-aZn"/>
+                                    <constraint firstAttribute="bottom" secondItem="lMu-ZM-YsK" secondAttribute="bottom" id="gxb-p7-MgI"/>
+                                    <constraint firstAttribute="trailing" secondItem="4FI-Yj-XU0" secondAttribute="trailing" id="krW-cx-my4"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="noteCount" destination="4FI-Yj-XU0" id="Omr-pZ-5aX"/>
                                     <outlet property="noteModifyDate" destination="lMu-ZM-YsK" id="VeQ-jl-8my"/>

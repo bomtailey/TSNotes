@@ -45,7 +45,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
 
-        dayTimePeriodFormatter.dateFormat =  "h:mm a  MM/d/yy EEEE"
+        dayTimePeriodFormatter.dateFormat =  "EEEE MM/d/yy h:mm a"
         
         //loadSampleNotes()
         
@@ -199,6 +199,8 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if (editingStyle == .Delete) {
+         
+            /*  LOGIC MOVED to editActionsForRowAtIndexPath 3/10/16
             // Fetch Record
             let record = fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject
             
@@ -211,7 +213,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
             } catch let error as NSError  {
                 print("Could not save \(error), \(error.userInfo)")
             }
-            
+            */
         }
     }
     
@@ -266,6 +268,20 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
         
         let deleteChoice = UITableViewRowAction(style: .Normal, title: "Delete") { action, index in
             print("delete button tapped")
+            
+            // Fetch Record
+            let record = self.fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject
+            
+            // Delete Record
+            self.managedObjectContext.deleteObject(record)
+            
+            do {
+                try self.managedObjectContext.save()
+                //5
+            } catch let error as NSError  {
+                print("Could not save \(error), \(error.userInfo)")
+            }
+
         }
         deleteChoice.backgroundColor = UIColor.redColor()
         
