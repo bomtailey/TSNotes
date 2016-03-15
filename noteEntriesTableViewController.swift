@@ -372,7 +372,9 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-       let segID = segue.identifier
+        let segID = segue.identifier
+        var noteText = String()
+        var noteModDateTime = NSDate()
         
         // This is a superfluous
         guard   segID == "newNoteEntry" || segID == "modNoteEntry"  else {
@@ -385,35 +387,30 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
 
         bNewNote = segID == "newNoteEntry"
         
-        if segue.identifier == "modNoteEntry" { // set up note modification
+        if bNewNote { // set up new note
+            
+            
+        } else { // set up note modification
             
             if let indexPath = tableView.indexPathForSelectedRow {
-                
-            // Configure Note Entry View Controller
             
             // Fetch Record
             noteRecord = fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject
-
-            // NSLog("noteEntriesTableViewController - Cell text is: \(noteEntry.noteText)")
-            // print("row \(row) was selected")
-            
-            destinationVC.bNewNote = false
+                
+            noteText = (noteRecord.valueForKey("noteText") as? String)!
+            noteModDateTime = (noteRecord.valueForKey("noteModifiedDateTS") as? NSDate)!
                 
             }
 
-            destinationVC.noteName = noteName
-            destinationVC.noteRecord = noteRecord
             
-            
-        } else {
-            
-            // Add a note record object
-            
-            let entityNote = NSEntityDescription.entityForName("Note", inManagedObjectContext: managedObjectContext)
-            noteRecord = NSManagedObject(entity: entityNote!, insertIntoManagedObjectContext: managedObjectContext)            
         }
         
+        destinationVC.noteName = noteName
+        destinationVC.noteText = noteText
+        destinationVC.bNewNote = bNewNote
+        destinationVC.noteModDateTime = noteModDateTime
     }
+    
     
     
     @IBAction func unwindFromNoteEntry(sender: UIStoryboardSegue) {
@@ -423,6 +420,12 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
    //         var noteCount = Int()
             
             if bNewNote {
+                
+                // Add a note record object
+                
+                let entityNote = NSEntityDescription.entityForName("Note", inManagedObjectContext: managedObjectContext)
+                noteRecord = NSManagedObject(entity: entityNote!, insertIntoManagedObjectContext: managedObjectContext)
+
                 
                 // Update noteBaseReord
                 var noteCount = noteBaseRecord.valueForKey("noteCount") as! Int
@@ -436,11 +439,10 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
 
             }
             
-           let noteModifyDate = sourceViewController.noteDateTime
+           let noteModifyDate = sourceViewController.noteModDateTime
             noteBaseRecord.setValue(NSDate(), forKey:"modifyDateTS")
-        //    noteRecord.setValue(displayDateOnlyFormatter.stringFromDate(noteModifyDate), forKey: "noteModifiedDateDay")
-            noteRecord.setValue(sortableDateOnlyFormatter.stringFromDate(noteModifyDate), forKey: "noteModifiedDateDay")
-            noteRecord.setValue(displayTimeOnlyFormatter.stringFromDate(noteModifyDate), forKey: "noteModifiedDateTime")
+            noteRecord.setValue(sortableDateOnlyFormatter.stringFromDate(noteModifyDate!), forKey: "noteModifiedDateDay")
+            noteRecord.setValue(displayTimeOnlyFormatter.stringFromDate(noteModifyDate!), forKey: "noteModifiedDateTime")
             noteRecord.setValue(noteModifyDate, forKey: "noteModifiedDateTS")
             noteRecord.setValue(sourceViewController.noteText, forKey: "noteText")
             

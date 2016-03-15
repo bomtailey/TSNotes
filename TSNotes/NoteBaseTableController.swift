@@ -52,6 +52,12 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
         // Use the edit button item provided by the table view controller.
         navigationItem.leftBarButtonItem = editButtonItem()
         
+        
+        // Show location of database
+        let dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        print("App Path: \(dirPaths)")
+
+        
         // try fetchcontroller fetch
         do {
             try self.fetchedResultsController.performFetch()
@@ -59,10 +65,6 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
             let fetchError = error as NSError
             print("\(fetchError), \(fetchError.userInfo)")
         }
-        
-        // Show location of database
-        let dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-        print("App Path: \(dirPaths)")
         
     }
     

@@ -8,7 +8,7 @@
         <!--Title Entry View Controller-->
         <scene sceneID="tmb-Dw-foE">
             <objects>
-                <viewController title="Enter Note Title" id="0Z1-4w-TTG" userLabel="Title Entry View Controller" customClass="TitleEntryViewController" customModule="TSNotes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="titleEntryViewController" title="Enter Note Title" id="0Z1-4w-TTG" userLabel="Title Entry View Controller" customClass="TitleEntryViewController" customModule="TSNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qmg-Uh-tIe"/>
                         <viewControllerLayoutGuide type="bottom" id="qfN-Gi-u6w"/>
@@ -74,7 +74,7 @@
         <!--List of Notes Table View Controller-->
         <scene sceneID="sWA-l9-tNA">
             <objects>
-                <tableViewController id="4gL-X0-Rhg" userLabel="List of Notes Table View Controller" customClass="NoteBaseTableController" customModule="TSNotes" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="listOfNotesTableViewControl" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4gL-X0-Rhg" userLabel="List of Notes Table View Controller" customClass="NoteBaseTableController" customModule="TSNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="f2h-Eb-RFv">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -88,7 +88,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ae-GV-Bvk" userLabel="noteTitleField">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="26"/>
+                                            <rect key="frame" x="5" y="0.0" width="590" height="26"/>
                                             <color key="backgroundColor" red="0.85395697335018284" green="1" blue="0.96597126751387119" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="26" id="6DX-o5-3ya"/>
@@ -97,38 +97,39 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lMu-ZM-YsK" userLabel="noteModifyDate">
-                                            <rect key="frame" x="0.0" y="26" width="342" height="39"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lMu-ZM-YsK" userLabel="noteModifyDate">
+                                            <rect key="frame" x="5" y="28" width="342" height="33"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="342" id="iVa-a2-TxX"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="14"/>
+                                            <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4FI-Yj-XU0" userLabel="noteCount">
-                                            <rect key="frame" x="565" y="26" width="35" height="39"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4FI-Yj-XU0" userLabel="noteCount">
+                                            <rect key="frame" x="550" y="28" width="35" height="33"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="35" id="sPZ-Lw-rJL"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="15"/>
+                                            <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="6ae-GV-Bvk" firstAttribute="top" secondItem="hgu-tB-6am" secondAttribute="topMargin" constant="-8" id="8fU-Q7-3p3"/>
                                         <constraint firstItem="4FI-Yj-XU0" firstAttribute="bottom" secondItem="lMu-ZM-YsK" secondAttribute="bottom" id="CMJ-o3-8Sx"/>
+                                        <constraint firstItem="4FI-Yj-XU0" firstAttribute="top" secondItem="lMu-ZM-YsK" secondAttribute="top" id="LeC-eo-ZiE"/>
+                                        <constraint firstItem="lMu-ZM-YsK" firstAttribute="leading" secondItem="hgu-tB-6am" secondAttribute="leadingMargin" constant="-3" id="N43-ys-xTc"/>
                                         <constraint firstItem="lMu-ZM-YsK" firstAttribute="top" secondItem="6ae-GV-Bvk" secondAttribute="bottom" constant="2" id="TXN-eI-zzm"/>
+                                        <constraint firstItem="6ae-GV-Bvk" firstAttribute="leading" secondItem="hgu-tB-6am" secondAttribute="leadingMargin" constant="-3" id="jmw-OR-YXt"/>
                                         <constraint firstItem="4FI-Yj-XU0" firstAttribute="height" secondItem="lMu-ZM-YsK" secondAttribute="height" id="ueD-40-Dbf"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <constraints>
-                                    <constraint firstItem="6ae-GV-Bvk" firstAttribute="leading" secondItem="lLD-Kq-eh4" secondAttribute="leading" id="ITO-Es-nws"/>
-                                    <constraint firstAttribute="trailing" secondItem="6ae-GV-Bvk" secondAttribute="trailing" id="JqC-XU-QHx"/>
-                                    <constraint firstItem="6ae-GV-Bvk" firstAttribute="top" secondItem="lLD-Kq-eh4" secondAttribute="top" id="N74-dO-KN9"/>
-                                    <constraint firstItem="lMu-ZM-YsK" firstAttribute="leading" secondItem="lLD-Kq-eh4" secondAttribute="leading" id="UiV-63-aZn"/>
+                                    <constraint firstAttribute="trailing" secondItem="6ae-GV-Bvk" secondAttribute="trailing" constant="5" id="JqC-XU-QHx"/>
                                     <constraint firstAttribute="bottom" secondItem="lMu-ZM-YsK" secondAttribute="bottom" id="gxb-p7-MgI"/>
-                                    <constraint firstAttribute="trailing" secondItem="4FI-Yj-XU0" secondAttribute="trailing" id="krW-cx-my4"/>
+                                    <constraint firstAttribute="trailing" secondItem="4FI-Yj-XU0" secondAttribute="trailing" constant="15" id="krW-cx-my4"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="noteCount" destination="4FI-Yj-XU0" id="Omr-pZ-5aX"/>
@@ -168,7 +169,7 @@
         <!--Note Entries Table View Controller-->
         <scene sceneID="6n8-ho-hI9">
             <objects>
-                <tableViewController id="CVd-B1-h52" userLabel="Note Entries Table View Controller" customClass="noteEntriesTableViewController" customModule="TSNotes" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="specificNoteEntriesTableView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CVd-B1-h52" userLabel="Note Entries Table View Controller" customClass="noteEntriesTableViewController" customModule="TSNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="81" sectionHeaderHeight="28" sectionFooterHeight="28" id="Cvm-nV-1rx" userLabel="noteEntriesTable View">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -245,7 +246,7 @@
         <!--Note Entry View Controller-->
         <scene sceneID="L1q-Ce-MgS">
             <objects>
-                <viewController id="dl1-k2-BVJ" userLabel="Note Entry View Controller" customClass="noteEntryViewController" customModule="TSNotes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="noteEntryViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dl1-k2-BVJ" userLabel="Note Entry View Controller" customClass="noteEntryViewController" customModule="TSNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8Mg-Pw-K1M"/>
                         <viewControllerLayoutGuide type="bottom" id="yU6-fM-Grx"/>
@@ -318,7 +319,7 @@
         <!--newDateAdjustTable View Controller-->
         <scene sceneID="iZY-1o-mQN">
             <objects>
-                <tableViewController id="dkW-w7-orx" userLabel="newDateAdjustTable View Controller" customClass="handleDatePickerTableViewController" customModule="TSNotes" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="dateAdjustViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dkW-w7-orx" userLabel="newDateAdjustTable View Controller" customClass="handleDatePickerTableViewController" customModule="TSNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="RAC-GH-I0V">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -566,7 +567,7 @@
         <!--List of Notes Table Navigation Controller-->
         <scene sceneID="IF9-6k-7Ae">
             <objects>
-                <navigationController storyboardIdentifier="StoryboardIDRootNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="7wD-XE-Jmh" userLabel="List of Notes Table Navigation Controller" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="StoryboardIDRootNavigationController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7wD-XE-Jmh" userLabel="List of Notes Table Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="d0T-fE-wdw">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -584,7 +585,7 @@
         <!--Add Title View Navigation Controller-->
         <scene sceneID="IQe-oX-3qd">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ez8-ye-WFN" userLabel="Add Title View Navigation Controller" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="TitleViewNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ez8-ye-WFN" userLabel="Add Title View Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rX5-jf-VM7">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -602,7 +603,7 @@
         <!--Enter Note View Navigation Controller-->
         <scene sceneID="gbx-sV-UVS">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uUF-cQ-L4o" userLabel="Enter Note View Navigation Controller" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NoteEntryNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="uUF-cQ-L4o" userLabel="Enter Note View Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="iHm-bm-7RA">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -617,10 +618,10 @@
             </objects>
             <point key="canvasLocation" x="3702" y="-234"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--NoteEntriesNavigation Controller-->
         <scene sceneID="lhl-6I-ybk">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cAe-38-Exb" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NoteEntriesNav Controller" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cAe-38-Exb" userLabel="NoteEntriesNavigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ypd-kg-b7S">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

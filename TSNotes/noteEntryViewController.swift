@@ -22,17 +22,15 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
     
     
     // properties from noteEntriesTableViewController
-    var noteBaseRecord: NSManagedObject!
     var noteName: String?
-    var noteRecord: NSManagedObject!
+    var noteText:  String?
+    var noteModDateTime: NSDate?
+    
+//    var noteRecord: NSManagedObject!
 
-    var selectedNote = TSNote()
+//    var selectedNote = TSNote()
     var bNewNote = true
     
-    var noteDateTime = NSDate()
-    var modDateTime = NSDate()
-    var noteText = ""
-
     let dayTimePeriodFormatter = NSDateFormatter()
     let originalModTSFormatter = NSDateFormatter()
 
@@ -57,12 +55,10 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
             
             // existing note mod
             
-            noteText = (noteRecord.valueForKey("noteText") as? String)!
-            noteDateTime = (noteRecord.valueForKey("noteModifiedDateTS") as? NSDate)!
         }
         
         dayTimePeriodFormatter.dateFormat =  "EEEE, d MMMM yyyy h:mm a"
-        dateString = dayTimePeriodFormatter.stringFromDate(noteDateTime)
+        dateString = dayTimePeriodFormatter.stringFromDate(noteModDateTime!)
         datetimeDisplay.text = dateString
 
         noteTextView.text = noteText
@@ -128,13 +124,13 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
         
         if saveButton === sender {  // save the note
             
-            noteDateTime = dayTimePeriodFormatter.dateFromString(datetimeDisplay.text!)!
+            noteModDateTime = dayTimePeriodFormatter.dateFromString(datetimeDisplay.text!)!
             noteText = noteTextView.text!  ?? ""
         } else
             if segID == "segueToDatePicker" {   // go off to date adjustment view
                 
                 if let destinationVC = segue.destinationViewController as? handleDatePickerTableViewController{
-                    destinationVC.existingDate = modDateTime
+                    destinationVC.existingDate = noteModDateTime
                 }
         }
         
@@ -145,11 +141,36 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
     @IBAction func unwindFromNoteEntry(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.sourceViewController as? handleDatePickerTableViewController {
  
-            noteDateTime = sourceViewController.existingDate!
-            datetimeDisplay.text = dayTimePeriodFormatter.stringFromDate(noteDateTime)
+            noteModDateTime = sourceViewController.existingDate!
+            datetimeDisplay.text = dayTimePeriodFormatter.stringFromDate(noteModDateTime!)
         }
     
     }
+    
+    // Preserve/restore state data if interrupted
+    override func encodeRestorableStateWithCoder(coder: NSCoder) {
+        //1
+        if let noteName = noteName {
+            coder.encodeObject(noteName, forKey: "noteName")
+            coder.encodeObject(noteTextView.text, forKey: "noteText")
+            coder.encodeObject(noteModDateTime, forKey: "noteModDateTime")
+            coder.encodeBool(bNewNote, forKey: "bNewNote")
+        }
+        
+        //2
+        super.encodeRestorableStateWithCoder(coder)
+    }
+    
+    override func decodeRestorableStateWithCoder(coder: NSCoder) {
+        noteName = coder.decodeObjectForKey("noteName")! as? String
+        noteTextView.text = coder.decodeObjectForKey("noteText")! as? String
+        noteModDateTime = (coder.decodeObjectForKey("noteModDateTime")! as? NSDate)!
+        bNewNote = (coder.decodeObjectForKey("bNewNote")! as? Bool)!
+
+        
+        super.decodeRestorableStateWithCoder(coder)
+    }
+
     
 
 }
