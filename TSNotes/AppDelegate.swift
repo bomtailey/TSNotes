@@ -8,7 +8,7 @@
 
 import UIKit
 import CoreData
-//import IQKeyboardManagerSwift
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,7 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-   
+
+        // Set up handling move entry fields above keyboard
+        IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.sharedManager().canAdjustTextView = true
+           
         
         // added 1/28/16 for NSFetchedResultsController
         // Fetch Main Storyboard

@@ -268,17 +268,17 @@
                                     <outletCollection property="gestureRecognizers" destination="KKW-EU-7Dz" appends="YES" id="x6N-Gb-Zfj"/>
                                 </connections>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gr7-6W-GRt" userLabel="noteTextView">
-                                <rect key="frame" x="20" y="102" width="560" height="498"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gr7-6W-GRt" userLabel="noteTextView">
+                                <rect key="frame" x="20" y="101" width="560" height="493"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="gr7-6W-GRt" firstAttribute="bottom" secondItem="yU6-fM-Grx" secondAttribute="top" id="3iF-Bj-1rK"/>
-                            <constraint firstItem="4JR-Oe-tM7" firstAttribute="top" secondItem="8Mg-Pw-K1M" secondAttribute="bottom" constant="8" id="WWN-h1-fU0"/>
+                            <constraint firstItem="gr7-6W-GRt" firstAttribute="bottom" secondItem="yU6-fM-Grx" secondAttribute="top" constant="-5" id="3iF-Bj-1rK"/>
+                            <constraint firstItem="4JR-Oe-tM7" firstAttribute="top" secondItem="8Mg-Pw-K1M" secondAttribute="bottom" constant="8" id="ZFG-5O-1Zw"/>
                             <constraint firstItem="gr7-6W-GRt" firstAttribute="trailing" secondItem="aIe-5p-VHK" secondAttribute="trailingMargin" id="how-KI-MMO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="4JR-Oe-tM7" secondAttribute="trailing" id="pvi-iE-sHc"/>
                             <constraint firstItem="gr7-6W-GRt" firstAttribute="top" secondItem="4JR-Oe-tM7" secondAttribute="bottom" id="rjr-Nm-ZKa"/>
@@ -301,6 +301,7 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="IQLayoutGuideConstraint" destination="3iF-Bj-1rK" id="Xoh-y0-hwd"/>
                         <outlet property="datetimeDisplay" destination="4JR-Oe-tM7" id="xyf-hk-v7f"/>
                         <outlet property="noteTextView" destination="gr7-6W-GRt" id="oy4-b1-U2f"/>
                         <outlet property="saveButton" destination="PZO-32-5pt" id="0mM-Qb-SIs"/>

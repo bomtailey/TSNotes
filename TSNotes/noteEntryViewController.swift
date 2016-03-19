@@ -43,13 +43,13 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
         // Do any additional setup after loading the view.
         
         noteTextView?.delegate = self
-        noteTextView.becomeFirstResponder()
         
         self.navigationItem.title = noteName
         
         if bNewNote {
             
             // new note entry
+            noteTextView.becomeFirstResponder()
             
         } else {
             
