@@ -17,19 +17,23 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     
     // Properties fron NoteBaseTableController
     var managedObjectContext: NSManagedObjectContext!
-    var noteBaseRecord: NSManagedObject!
+    var noteBaseRecord: NoteBase!
     var noteName = String()
     var noteCreateDate = NSDate()
 
     var bNewNote = true
-    var noteRecord: NSManagedObject!
+    var noteRecord: Note!
+    
+    var bIsRestore = true
+    
+    var myViewController = UIViewController()
     
     
     let calendar = NSCalendar.currentCalendar()
 //    var dateOnlyComponents1 = calendar.components([.Day, .Month, .Year],  fromDate: noteCreateDate)
     
-    var noteEntries = [TSNote]()
-    var noteEntry = TSNote()
+//    var noteEntries = [TSNote]()
+//    var noteEntry = TSNote()
     
     let displayDateFormatter = NSDateFormatter()
     let sortableDateOnlyFormatter = NSDateFormatter()
@@ -39,21 +43,29 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     // Temporary debug vars
     var sectionName = String()
     var noteText = String()
+    var noteModDateTime = NSDate()
+
     
     override func viewDidLoad() {
         
+        
+        
         super.viewDidLoad()
         
-        noteName = (noteBaseRecord.valueForKey("noteName") as? String!)!
-        navigationItem.title = noteName
+        // temp move to see if we can get restore decode called
+        //return ()
+        
+//        noteName = (noteBaseRecord.valueForKey("noteName") as? String!)!
+//        navigationItem.title = noteName
 
-        displayDateFormatter.dateFormat = "EEEE, MMMM d, yyyy h:mm a"
+        displayDateFormatter.dateFormat = "h:mm a  EEEE, MMMM d, yyyy"
         sortableDateOnlyFormatter.dateFormat = "yyyy.MM.dd"
         
         displayDateOnlyFormatter.dateFormat = "EEEE MMMM,d yyyy"  // "EEEE, d MMMM yyyy"
 
         displayTimeOnlyFormatter.dateFormat = "h:mm a"
         
+ /*
         // try fetchcontroller fetch
         
         do {
@@ -62,6 +74,8 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             let fetchError = error as NSError
             print("\(fetchError), \(fetchError.userInfo)")
         }
+         */
+
         let large = UIView(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
         let small = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
         let point = CGPoint(x: 200, y: 200)
@@ -110,7 +124,32 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     }
     
     override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+      //  super.viewWillAppear(animated)
+        
+/*
+        if managedObjectContext == nil {
+            managedObjectContext = getManagedContext ()
+            if managedObjectContext == nil {
+                print("managedObjectContext has nil value")
+                //exit(0)
+            }
+        }
+        
+ */
+        
+        noteName = noteBaseRecord.noteName!
+//        noteName = (noteBaseRecord.valueForKey("noteName") as? String!)!
+        navigationItem.title = noteName
+
+        // try fetchcontroller fetch
+        do {
+            try self.fetchedResultsController.performFetch()
+        } catch {
+            let fetchError = error as NSError
+            print("\(fetchError), \(fetchError.userInfo)")
+        }
+        
+
         
     }
     
@@ -333,10 +372,10 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
-        NSLog("Selected section is: \(indexPath.section) and row is: \(indexPath.row)")
+    //    NSLog("Selected section is: \(indexPath.section) and row is: \(indexPath.row)")
       
-        // This is a work-around to pass the touch on to the table cell
-//        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        // This is to restore the color scheme to the cell after selection
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
 
     }
@@ -363,9 +402,34 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     }
 
     
+    // Preserve/restore state data if interrupted
+    override func encodeRestorableStateWithCoder(coder: NSCoder) {
+        //1
+        coder.encodeObject(noteName, forKey: "noteName")
+        coder.encodeObject(noteText, forKey: "noteText")
+        coder.encodeObject(noteModDateTime, forKey: "noteModDateTime")
+        coder.encodeBool(bNewNote, forKey: "bNewNote")
+        
+        //2
+        super.encodeRestorableStateWithCoder(coder)
+    }
+    
+    override func decodeRestorableStateWithCoder(coder: NSCoder) {
+        noteName = (coder.decodeObjectForKey("noteName")! as? String)!
+        noteText = (coder.decodeObjectForKey("noteText")! as? String)!
+        noteModDateTime = (coder.decodeObjectForKey("noteModDateTime")! as? NSDate)!
+        bNewNote = (coder.decodeObjectForKey("bNewNote")! as? Bool)!
+        
+        
+        super.decodeRestorableStateWithCoder(coder)
+    }
+    
+
+    
     // Navigation
     @IBAction func cancelAction(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
+ //       tableView.reloadData()
     }
     
     //let segueIndentifier = "presentNoteEntryEdit"
@@ -373,8 +437,6 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         let segID = segue.identifier
-        var noteText = String()
-        var noteModDateTime = NSDate()
         
         // This is a superfluous
         guard   segID == "newNoteEntry" || segID == "modNoteEntry"  else {
@@ -388,27 +450,40 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         bNewNote = segID == "newNoteEntry"
         
         if bNewNote { // set up new note
+            noteText = ""
+            
+            // Add a note record object       
+            let entityNote = NSEntityDescription.entityForName("Note", inManagedObjectContext: managedObjectContext)
+            noteRecord = NSManagedObject(entity: entityNote!, insertIntoManagedObjectContext: managedObjectContext) as! Note
             
             
         } else { // set up note modification
             
             if let indexPath = tableView.indexPathForSelectedRow {
             
-            // Fetch Record
-            noteRecord = fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject
+            // Fetch note record
+            noteRecord = fetchedResultsController.objectAtIndexPath(indexPath) as! Note
                 
-            noteText = (noteRecord.valueForKey("noteText") as? String)!
-            noteModDateTime = (noteRecord.valueForKey("noteModifiedDateTS") as? NSDate)!
+            noteText = noteRecord.noteText!
+//            noteText = (noteRecord.valueForKey("noteText") as? String)!
+            noteModDateTime = noteRecord.noteModifiedDateTS!
+//            noteModDateTime = (noteRecord.valueForKey("noteModifiedDateTS") as? NSDate)!
                 
             }
 
             
         }
         
-        destinationVC.noteName = noteName
-        destinationVC.noteText = noteText
+ 
+//        destinationVC.noteBaseRecord = noteBaseRecord
         destinationVC.bNewNote = bNewNote
-        destinationVC.noteModDateTime = noteModDateTime
+        destinationVC.noteRecord = noteRecord
+        destinationVC.noteName = noteName
+ 
+//        destinationVC.noteText = noteText
+//        destinationVC.noteModDateTime = noteModDateTime
+        
+ 
     }
     
     
@@ -417,15 +492,10 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
    
         if let sourceViewController = sender.sourceViewController as? noteEntryViewController {
             
-   //         var noteCount = Int()
+   //         var noteBaseRecord = Int()
             
             if bNewNote {
                 
-                // Add a note record object
-                
-                let entityNote = NSEntityDescription.entityForName("Note", inManagedObjectContext: managedObjectContext)
-                noteRecord = NSManagedObject(entity: entityNote!, insertIntoManagedObjectContext: managedObjectContext)
-
                 
                 // Update noteBaseReord
                 var noteCount = noteBaseRecord.valueForKey("noteCount") as! Int
@@ -439,13 +509,18 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
 
             }
             
-           let noteModifyDate = sourceViewController.noteModDateTime
-            noteBaseRecord.setValue(NSDate(), forKey:"modifyDateTS")
+            noteBaseRecord.modifyDateTS = NSDate()
+
+//            noteBaseRecord.setValue(NSDate(), forKey:"modifyDateTS")
+            
+/*
+            let noteModifyDate = sourceViewController.noteModDateTime
+            
             noteRecord.setValue(sortableDateOnlyFormatter.stringFromDate(noteModifyDate!), forKey: "noteModifiedDateDay")
             noteRecord.setValue(displayTimeOnlyFormatter.stringFromDate(noteModifyDate!), forKey: "noteModifiedDateTime")
             noteRecord.setValue(noteModifyDate, forKey: "noteModifiedDateTS")
             noteRecord.setValue(sourceViewController.noteText, forKey: "noteText")
-            
+*/            
 
         // Create/update note entity
         
@@ -458,10 +533,23 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             
             // this is what should be an unnecessary work-around for 1st add not showing
      //       if noteCount == 1 {
-                tableView.reloadData()
        //     }
             
         }
+        
+        
+        /*
+        
+        func application(application: UIApplication, viewControllerWithRestorationIdentifierPath identifierComponents: [AnyObject], coder: NSCoder) -> UIViewController? {
+           
+            return myViewController
+        }
+ 
+        */
+        
+        tableView.reloadData()
+
+
     }
     
     

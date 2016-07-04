@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CoreData
+
 
 class TitleEntryViewController: UIViewController, UITextFieldDelegate {
     
@@ -18,14 +20,20 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
     // segue variables
     var noteTitleField: String?
     var noteCreateDate: NSDate?
-    var segueListNoteInstance = TSNoteBaseClass()
+    var noteBaseRecord: NoteBase!
+    var managedObjectContext: NSManagedObjectContext!
+
+
+    var segueListNoteInstance: NoteBase!
+    var savedNoteBase = [NSManagedObject]()
+
     var newTitleRequest = Bool(true)
 
     /*
     This value is either passed by `NoteBaseTableController` in `prepareForSegue(_:sender:)`
     or constructed as beginning of adding a new note.
     */
- //   var note: TSNote?
+
     
     let dayTimePeriodFormatter = NSDateFormatter()
 
@@ -34,11 +42,17 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
 
         // Do any additional setup after loading the view.
         
-//        dayTimePeriodFormatter.dateFormat = "EEEE, MMMM d, yyyy h:mm a"
+        noteCreateDate = (noteBaseRecord.valueForKey("createDateTS") as? NSDate)!
+        noteTitleField = (noteBaseRecord.valueForKey("noteName") as! String)
+
+        
+        
+        //        dayTimePeriodFormatter.dateFormat = "EEEE, MMMM d, yyyy h:mm a"
 //        noteTitleFieldText.text = dayTimePeriodFormatter.stringFromDate(NSDate())
         
         // Handle the text field’s user input through delegate callbacks.
         noteTitleFieldText.delegate = self
+        
         noteTitleFieldText.becomeFirstResponder()
         self.title = "New Note Title"
         // If not a new note title, this is an update
@@ -122,18 +136,45 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
     */
     
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    // Pass the data back to the NoteBaseTableController.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Pass the selected object back to the NoteBaseTableController.
        
         if saveButton === sender {
            // noteTitleField = noteTitleFieldText.text
             let nowTime = NSDate()
+
             if newTitleRequest {
-                segueListNoteInstance.createDateTime = nowTime
+                let entity =  NSEntityDescription.entityForName("NoteBase", inManagedObjectContext: managedObjectContext)
+                 segueListNoteInstance = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedObjectContext) as! NoteBase
+                
+                segueListNoteInstance.setValue(nowTime, forKey: "createDateTS")
+                segueListNoteInstance.setValue(nowTime, forKey: "modifyDateTS")
+                segueListNoteInstance.setValue(noteTitleFieldText.text!, forKey: "noteName")
+                segueListNoteInstance.setValue(0, forKey:"noteCount")
+
+            } else {
+                
+           let     noteCreateDate1 = (noteBaseRecord.valueForKey("createDateTS") as? NSDate)!
+            let    noteTitleField1 = (noteBaseRecord.valueForKey("noteName") as! String)
+
+ 
+                noteBaseRecord.setValue(nowTime, forKey: "modifyDateTS")
+                noteBaseRecord.setValue(noteTitleFieldText.text!, forKey: "noteName")
             }
-            segueListNoteInstance.modifyDateTime = nowTime
-            segueListNoteInstance.noteTitleField = noteTitleFieldText.text!
+            
+
+            // Try save managed context
+            do {
+                try managedObjectContext.save()
+                //5
+                if newTitleRequest {
+                    savedNoteBase.append(segueListNoteInstance)
+                }
+            } catch let error as NSError  {
+                print("Could not save \(error), \(error.userInfo)")
+            }
+            
+
         }
         
     }

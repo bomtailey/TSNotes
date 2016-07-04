@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9520" systemVersion="15D21" minimumToolsVersion="Xcode 7.0">
-    <entity name="Note" syncable="YES">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Xcode 7.0">
+    <entity name="Note" representedClassName=".Note" syncable="YES">
         <attribute name="noteModifiedDateDay" attributeType="String" syncable="YES"/>
         <attribute name="noteModifiedDateTime" attributeType="String" syncable="YES"/>
         <attribute name="noteModifiedDateTS" attributeType="Date" syncable="YES"/>
         <attribute name="noteText" attributeType="String" syncable="YES"/>
         <relationship name="notesList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NoteBase" inverseName="notes" inverseEntity="NoteBase" syncable="YES"/>
     </entity>
-    <entity name="NoteBase" syncable="YES">
+    <entity name="NoteBase" representedClassName=".NoteBase" syncable="YES">
         <attribute name="createDateTS" attributeType="Date" syncable="YES"/>
         <attribute name="modifyDateTS" attributeType="Date" syncable="YES"/>
         <attribute name="noteCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>

@@ -20,8 +20,8 @@ let components = NSDateComponents()
 class handleDatePickerTableViewController: UITableViewController {
   
     // MARK - properties
-    @IBOutlet weak var labelDateDisplay: UILabel!
     @IBOutlet weak var datePickerDisplay: UIDatePicker!
+    @IBOutlet weak var labelDateDisplay: UILabel!
         
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var saveButton: UIBarButtonItem!
@@ -186,11 +186,16 @@ class handleDatePickerTableViewController: UITableViewController {
         datePickerDisplay.setDate(selectedDateNumeric, animated: false)
     }
     
+    @IBAction func nowButton(sender: UIButton) {
+        selectedDateNumeric = NSDate()
+        setDateDisplay()
+  }
+    
+    
     // Navigation
     
     @IBAction func cancelButton(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
-        
     }
 
     

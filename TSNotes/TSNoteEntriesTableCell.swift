@@ -20,10 +20,29 @@ class TSNoteEntriesTableCell: UITableViewCell {
         // Initialization code
     }
 
+
+    /*
+    override func setHighlighted(highlighted: Bool, animated: Bool) {
+        let color1 = noteEntryDateLabel.backgroundColor      // Store the color
+        let color2 = noteTextView.backgroundColor      // Store the color
+        super.setHighlighted(highlighted, animated: animated)
+        noteEntryDateLabel.backgroundColor = color1
+        noteTextView.backgroundColor = color2
+    }
+
+    
+    
     override func setSelected(selected: Bool, animated: Bool) {
+
+        let color1 = noteEntryDateLabel.backgroundColor      // Store the color
+        let color2 = noteTextView.backgroundColor      // Store the color
+
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+        noteEntryDateLabel.backgroundColor = color1
+        noteTextView.backgroundColor = color2
     }
-
+    */
+ 
 }

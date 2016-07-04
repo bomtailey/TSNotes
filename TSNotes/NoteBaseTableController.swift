@@ -20,14 +20,23 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
     
     var managedObjectContext: NSManagedObjectContext!
     
-    var NoteBase = [TSNoteBaseClass]()
     
-    var savedNoteBase = [NSManagedObject]()
+    
+//    var NoteBase = [TSNoteBaseClass]()
+    
+//    var testClass = NoteBase()
+    var noteCreateDate = NSDate()
+    var noteTitle = String()
+
+    var noteBaseRecord: NoteBase!
+//    var newNoteBaseRecord = NSManagedObject()
+    
+//    var savedNoteBase = [NSManagedObject]()
 
     var currentIndexPath: NSIndexPath?
     
     var titleString = ""
-    var segueListNoteInstance = TSNoteBaseClass()
+    var segueListNoteInstance : NoteBase!
     
     var selectedCreateDate = NSDate()
     
@@ -38,9 +47,16 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//NoteBase
+        
+        
+    //    restorationIdentifier = "NoteBaseTableController"
+    //    restorationIdentifier = "listOfNotesTableViewControl"
+ //       let restorationClass = NoteBaseTableController.self as NoteBaseTableController
 
         // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+         self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
@@ -58,6 +74,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
         print("App Path: \(dirPaths)")
 
         
+        /*
         // try fetchcontroller fetch
         do {
             try self.fetchedResultsController.performFetch()
@@ -65,11 +82,83 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
             let fetchError = error as NSError
             print("\(fetchError), \(fetchError.userInfo)")
         }
+        */
         
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        
+        if managedObjectContext == nil {
+            managedObjectContext = getManagedContext ()
+            if managedObjectContext == nil {
+                print("managedObjectContext has nil value")
+                //exit(0)
+            }
+        }
+        
+//        let entity = NSEntityDescription.entityForName("NoteBase", inManagedObjectContext: managedObjectContext)
+//        noteBaseRecord = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedObjectContext) as! NoteBase
+        
+        
+         // try fetchcontroller fetch
+         do {
+         try self.fetchedResultsController.performFetch()
+         } catch {
+         let fetchError = error as NSError
+         print("\(fetchError), \(fetchError.userInfo)")
+         }
+ 
+        
+        super.viewWillAppear(animated);
+        
+
+        
+    }
+    
+    func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        // Override point for customization before application launch.
+        
+        //      let appState = application.applicationState
+        
+        /*
+         // try fetchcontroller fetch
+         do {
+         try fetchedResultsController.performFetch()
+         } catch {
+         let fetchError = error as NSError
+         print("\(fetchError), \(fetchError.userInfo)")
+         }
+         
+         */
+         
+         return true
+         }
+ 
+        
+    
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        // try fetchcontroller fetch
+        do {
+            try self.fetchedResultsController.performFetch()
+        } catch {
+            let fetchError = error as NSError
+            print("\(fetchError), \(fetchError.userInfo)")
+        }
+
+        return true
     }
     
     // Initialize fetchedResultsController
     lazy var fetchedResultsController: NSFetchedResultsController = {
+        
+       /*
+        if self.managedObjectContext  == nil {
+            self.decodeRestorableStateWithCoder(coder)
+        }
+        */
+        
         // Initialize Fetch Request
         let fetchRequest = NSFetchRequest(entityName: "NoteBase")
         
@@ -88,6 +177,14 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
     
     // MARK: -
     // MARK: Fetched Results Controller Delegate Methods
+    
+    /*
+    static func viewControllerWithRestorationIdentifierPath(_: [,"NoteBaseTableController"], coder: NSCoder) -> UIViewController? {
+        
+        return self.managedObjectContext
+    }
+    */
+
     
     func controllerWillChangeContent(controller: NSFetchedResultsController) {
         tableView.beginUpdates()
@@ -129,15 +226,16 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
     
     func configureCell(cell: noteListTableViewCell, atIndexPath indexPath: NSIndexPath) {
         // Fetch Record
-        let record = fetchedResultsController.objectAtIndexPath(indexPath)
+ //       let record = fetchedResultsController.objectAtIndexPath(indexPath)
+         noteBaseRecord = fetchedResultsController.objectAtIndexPath(indexPath)  as! NoteBase
         
         // Update Cell
-        if let modifyDateTS = record.valueForKey("modifyDateTS") as? NSDate {
-            cell.noteTitleField.text = record.valueForKey("noteName") as? String
+        if let modifyDateTS = noteBaseRecord.valueForKey("modifyDateTS") as? NSDate {
+            cell.noteTitleField.text = noteBaseRecord.valueForKey("noteName") as? String
             cell.noteModifyDate.text = dayTimePeriodFormatter.stringFromDate(modifyDateTS)
         }
         
-        if let count = record.valueForKey("noteCount") as? Int {
+        if let count = noteBaseRecord.valueForKey("noteCount") as? Int {
             cell.noteCount.text = String(count)            
         }
     }
@@ -148,10 +246,6 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
     }
     
 
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-
-    }
 
 
     // MARK: - Table view data source
@@ -234,6 +328,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
  
         
         NSLog("Selected section is: \(indexPath.section) and row is: \(indexPath.row)")
+        tableView .deselectRowAtIndexPath(indexPath, animated: true)
  //       NSLog("Cell text is: \(noteEntry.noteText)")
         
         
@@ -366,6 +461,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
     // segue to noteEntriesTableViewController
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
 
         // If we're adding a new note
         if segue.identifier == "AddnoteTitleField" {
@@ -373,21 +469,21 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
             let destinationNavController = segue.destinationViewController as! UINavigationController
             let destinationVC = destinationNavController.topViewController as? TitleEntryViewController
             destinationVC!.newTitleRequest = true
+            destinationVC!.managedObjectContext = managedObjectContext
             
     } else {
 
             // we're showing the note entries or we're changing the note title
             
-            // Fetch Record
-            
+            // Fetch current base record
             let indexPath = tableView.indexPathForSelectedRow
-                
             let usableIndexPath = (indexPath ?? currentIndexPath)
-            let record = fetchedResultsController.objectAtIndexPath(usableIndexPath!) as! NSManagedObject
+            noteBaseRecord = fetchedResultsController.objectAtIndexPath(usableIndexPath!) as! NoteBase
             
+          
             // Configure View Controller
-            let noteCreateDate = (record.valueForKey("createDateTS") as? NSDate)!
-            let noteTitle = (record.valueForKey("noteName") as! String)
+             noteCreateDate = (noteBaseRecord.valueForKey("createDateTS") as? NSDate)!
+             noteTitle = (noteBaseRecord.valueForKey("noteName") as! String)
         
             
             if segue.identifier == "showNoteEntriesSegue" {
@@ -396,61 +492,82 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
                 let destinationVC = destinationNavController.topViewController as? noteEntriesTableViewController
                 destinationVC!.noteCreateDate = noteCreateDate
                 destinationVC!.noteName = noteTitle
-                destinationVC!.noteBaseRecord = record
+                destinationVC!.noteBaseRecord = noteBaseRecord as NoteBase
                 destinationVC!.managedObjectContext = managedObjectContext
 
             } else if segue.identifier == "modifyNoteTitle" {
                 
                 let destinationNavController = segue.destinationViewController as! UINavigationController
                 let destinationVC = destinationNavController.topViewController as? TitleEntryViewController
-                destinationVC!.noteCreateDate = noteCreateDate
-                destinationVC!.noteTitleField = noteTitle
+//                destinationVC!.noteBaseRecord = noteBaseRecord as NoteBase
+//                destinationVC!.noteCreateDate = noteCreateDate
+//                destinationVC!.noteTitleField = noteTitle
                 destinationVC!.newTitleRequest = false
-            }
+                destinationVC!.noteBaseRecord = noteBaseRecord as NoteBase
+                destinationVC!.managedObjectContext = managedObjectContext
+           }
         }
+        
     }
     
     
     
     
     
-    @IBAction func unwindToTitleEntry(sender: UIStoryboardSegue) {
+    @IBAction func unwindFromTitleEntry(sender: UIStoryboardSegue) {
         
-         let sourceViewController = sender.sourceViewController as? TitleEntryViewController,
-            segueListNoteInstance = sourceViewController!.segueListNoteInstance
+//        let sourceViewController = sender.sourceViewController as? TitleEntryViewController,
+//        segueListNoteInstance = sourceViewController!.segueListNoteInstance
  
-        saveNote(segueListNoteInstance, boolNewNote:  sourceViewController?.newTitleRequest)
-        tableView.reloadData()
-        
-
-        
+//    saveNote(segueListNoteInstance, boolNewNote:  sourceViewController?.newTitleRequest)
+      tableView.reloadData()
     }
     
-    func saveNote(newNoteInfo: TSNoteBaseClass, boolNewNote: Bool?) {
-        
+    func saveNote(newNoteInfo: NoteBase, boolNewNote: Bool?) {
+    
         let moc = getManagedContext()
        
         //2
 
-        let entity =  NSEntityDescription.entityForName("NoteBase", inManagedObjectContext:moc)
-        let noteHeader = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: moc)
+//        let noteRecodMO = NSManagedObject()
         
-        //3
-           
-        noteHeader.setValue(newNoteInfo.modifyDateTime, forKey: "modifyDateTS")
-        noteHeader.setValue(newNoteInfo.createDateTime, forKey: "createDateTS")
-        noteHeader.setValue(newNoteInfo.noteTitleField, forKey: "noteName")
+        if boolNewNote! {
+            
+            /*
+            let entity =  NSEntityDescription.entityForName("NoteBase", inManagedObjectContext:moc)
+            var newNote = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: moc) as! NoteBase
+            newNote = newNoteInfo
+            
+            noteRecodMO.setValue(newNoteInfo.createDateTS, forKey: "createDateTS")
+            noteRecodMO.setValue(newNoteInfo.createDateTS, forKey: "createDateTS")
+            noteRecodMO.setValue(newNoteInfo.modifyDateTS, forKey: "modifyDateTS")
+            noteRecodMO.setValue(newNoteInfo.noteName, forKey: "noteName")
+            */
+ 
+            } else {
+            
+//            noteBaseRecord.setValue(newNoteInfo.modifyDateTS, forKey: "modifyDateTS")
+            noteBaseRecord.modifyDateTS = newNoteInfo.modifyDateTS
+//            noteBaseRecord.setValue(newNoteInfo.noteName, forKey: "noteName")
+            noteBaseRecord.noteName = newNoteInfo.noteName
+            
+
+  }
+    
+            //3
+               
         
         //4
         do {
             try moc.save()
             //5
             if boolNewNote! {
-                savedNoteBase.append(noteHeader)
+//                savedNoteBase.append(noteRecodMO)
             }
         } catch let error as NSError  {
             print("Could not save \(error), \(error.userInfo)")
         }
+        
         
     }
     
@@ -459,6 +576,48 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         return appDelegate.managedObjectContext!
     }
+    
+    
+    // Preserve/restore state data if interrupted
+    override func encodeRestorableStateWithCoder(coder: NSCoder) {
+        //1
+        coder.encodeObject(noteCreateDate, forKey: "noteCreateDate")
+        coder.encodeObject(noteTitle, forKey: "noteTitle")
+//        coder.encodeObject(record, forKey: "noteBaseRecord")
+        coder.encodeObject(managedObjectContext, forKey: "MOC")
+     
+        //2
+        super.encodeRestorableStateWithCoder(coder)
+    }
+    
+    override func decodeRestorableStateWithCoder(coder: NSCoder) {
 
 
+        managedObjectContext = coder.decodeObjectForKey("MOC") as! NSManagedObjectContext!
+        noteCreateDate = coder.decodeObjectForKey("noteCreateDate") as! NSDate!
+        noteTitle = coder.decodeObjectForKey("noteTitle") as! String!
+ //       record = coder.decodeObjectForKey("noteBaseRecord") as! NSManagedObject!
+     
+        super.decodeRestorableStateWithCoder(coder)
+    }
+ 
+     override func applicationFinishedRestoringState() {
+        NSLog("called applicationFinishedRestoringState")
+//        performSegueWithIdentifier("mySegue", sender: self)
+
+        
+    }
+ 
 }
+
+
+
+/*
+extension NoteBaseTableController: UIViewControllerRestoration {
+    static func viewControllerWithRestorationIdentifierPath(identifierComponents: [AnyObject],
+                                                            coder: NSCoder) -> UIViewController? {
+        let vc = NoteBaseTableController()
+        return vc
+    }
+}
+ */

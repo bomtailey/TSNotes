@@ -11,28 +11,36 @@ import CoreData
 
 
 
-class noteEntryViewController: UIViewController, UITextViewDelegate {
+class noteEntryViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate {
   
     //Properties
 
     // UI outlets
-    @IBOutlet weak var datetimeDisplay: UILabel!
     @IBOutlet weak var noteTextView: UITextView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
-    
+    @IBOutlet weak var datetimeDisplay: UILabel!
+    @IBOutlet weak var titleText: UINavigationItem!
     
     // properties from noteEntriesTableViewController
+//    var noteBaseRecord = NSManagedObject() as! NoteBase
+    var noteRecord: Note!
+    var bNewNote = true
     var noteName: String?
     var noteText:  String?
+
+    
     var noteModDateTime: NSDate?
+    var bIsRestore = Bool(true)
     
 //    var noteRecord: NSManagedObject!
 
 //    var selectedNote = TSNote()
-    var bNewNote = true
     
     let dayTimePeriodFormatter = NSDateFormatter()
     let originalModTSFormatter = NSDateFormatter()
+    let sortableDateOnlyFormatter = NSDateFormatter()
+    let displayDateOnlyFormatter = NSDateFormatter()
+    let displayTimeOnlyFormatter = NSDateFormatter()
 
     var dateString = String()
     
@@ -43,31 +51,61 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
         // Do any additional setup after loading the view.
         
         noteTextView?.delegate = self
-        
+                
         self.navigationItem.title = noteName
         
         if bNewNote {
             
             // new note entry
             noteTextView.becomeFirstResponder()
+            noteModDateTime = NSDate()
+            noteRecord.noteText = ""
             
         } else {
             
             // existing note mod
+            noteModDateTime = noteRecord.noteModifiedDateTS
             
         }
         
         dayTimePeriodFormatter.dateFormat =  "EEEE, d MMMM yyyy h:mm a"
+        sortableDateOnlyFormatter.dateFormat = "yyyy.MM.dd"
+        displayDateOnlyFormatter.dateFormat = "EEEE MMMM,d yyyy"  // "EEEE, d MMMM yyyy"
+        displayTimeOnlyFormatter.dateFormat = "h:mm a"
+
+//        noteName = noteRecord.n
+        
+//        noteTextView.scrollEnabled = false
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        
         dateString = dayTimePeriodFormatter.stringFromDate(noteModDateTime!)
         datetimeDisplay.text = dateString
+        
+        noteTextView.scrollEnabled = true
+        noteTextView.text = noteRecord.noteText
 
-        noteTextView.text = noteText
+
     }
+
 
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+
+    // Textfield functions
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        if textField == datetimeDisplay {
+        return false
+        }
+        
+        return true;
     }
  
     // textview function overrides
@@ -104,6 +142,8 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
         return true
     }
 
+    // Actions
+    
     
     // MARK: - Navigation
     
@@ -114,6 +154,25 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+    
+    @IBAction func timeDisplayLongPress(sender: UILongPressGestureRecognizer) {
+        
+        if (sender.state == UIGestureRecognizerState.Began) {
+        
+            let oldTimeStamp = datetimeDisplay.text
+            noteTextView.text = "\n\n" + oldTimeStamp! + "\n\n" + noteTextView.text
+            noteTextView.becomeFirstResponder()
+
+            noteTextView.selectedRange = NSMakeRange(0, 0)
+
+            dateString = dayTimePeriodFormatter.stringFromDate(NSDate())
+            datetimeDisplay.text = dateString
+            
+            saveButton.enabled = true
+            
+        }
+        return
+    }
    
     // Save note
 //    @IBAction func returnToNoteEntriesView(segue: UIStoryboardSegue, sender: AnyObject?)
@@ -126,12 +185,21 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
             
             noteModDateTime = dayTimePeriodFormatter.dateFromString(datetimeDisplay.text!)!
             noteText = noteTextView.text!  ?? ""
+
+            noteRecord.noteModifiedDateDay = sortableDateOnlyFormatter.stringFromDate(noteModDateTime!)
+            noteRecord.noteModifiedDateTime = displayTimeOnlyFormatter.stringFromDate(noteModDateTime!)
+            noteRecord.noteModifiedDateTS = noteModDateTime
+            noteRecord.noteText = noteText
+
+        
         } else
             if segID == "segueToDatePicker" {   // go off to date adjustment view
                 
-                if let destinationVC = segue.destinationViewController as? handleDatePickerTableViewController{
-                    destinationVC.existingDate = noteModDateTime
-                }
+                let destinationNavController = segue.destinationViewController as! UINavigationController
+                let destinationVC = destinationNavController.topViewController as? handleDatePickerTableViewController
+              //  if let destinationVC = segue.destinationViewController as? handleDatePickerTableViewController{
+                    destinationVC!.existingDate = noteModDateTime
+                //}
         }
         
         
@@ -143,10 +211,12 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
  
             noteModDateTime = sourceViewController.existingDate!
             datetimeDisplay.text = dayTimePeriodFormatter.stringFromDate(noteModDateTime!)
+            saveButton.enabled = true
         }
     
     }
     
+
     // Preserve/restore state data if interrupted
     override func encodeRestorableStateWithCoder(coder: NSCoder) {
         //1
@@ -170,7 +240,5 @@ class noteEntryViewController: UIViewController, UITextViewDelegate {
         
         super.decodeRestorableStateWithCoder(coder)
     }
-
-    
 
 }

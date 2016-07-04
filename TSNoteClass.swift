@@ -7,14 +7,15 @@
 //
 
 import UIKit
+import CoreData
 
-class TSNote: NSObject {
+class TSNote: NSManagedObject {
     
     // MARK: Properties
     
 //    var createDateTime: NSDate
-    var modifyDateTime: NSDate
-    var noteText: String
+    @NSManaged var modifyDateTime: NSDate
+    @NSManaged var noteText: String
     
     
 //    let dayTimePeriodFormatter = NSDateFormatter()

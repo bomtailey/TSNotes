@@ -6,7 +6,7 @@
 //  Copyright © 2015 LCI. All rights reserved.
 //
 
-import Foundation
+//import Foundation
 //
 //  TSNote.swift
 //  TSNotes
@@ -16,41 +16,44 @@ import Foundation
 //
 
 import UIKit
-
+import CoreData
 
 // Types
 
 //  12/6/15 this is an entry in the list of notes
 
+// Must call a designated initializer of the superclass 'NSManagedObject'
 
-class TSNoteBaseClass: NSObject {
+
+class TSNoteBaseClass: NSManagedObject {
     
     // MARK: Properties
     
-    var createDateTime: NSDate
-    var modifyDateTime: NSDate
-    var noteTitleField: String
-    var noteCount: Int
+    @NSManaged var createDateTime: NSDate
+    @NSManaged var modifyDateTime: NSDate
+    @NSManaged var noteTitleField: String
+    @NSManaged var noteCount: Int
     
     
-    let dayTimePeriodFormatter = NSDateFormatter()
+//    let dayTimePeriodFormatter = NSDateFormatter()
     
     
     // MARK: Initialization
     
-    init(_ noteTitleField: String = "", modifyDate: String? = nil, createDate: String? = nil, noteCount: Int? = nil) {
+    init(_ noteTitleField: String = "", modifyDate: NSDate? = nil, createDate: NSDate? = nil, noteCount: Int? = nil) {
         
+//        super.init()
         let nowDate = NSDate()
-        dayTimePeriodFormatter.dateFormat = "MMM d,yyyy h:m a"
+//        dayTimePeriodFormatter.dateFormat = "MMM d,yyyy h:m a"
         
         if let modifyDate = modifyDate {
-            self.modifyDateTime = dayTimePeriodFormatter.dateFromString(modifyDate)!
+            self.modifyDateTime = modifyDate
         } else {
             self.modifyDateTime = nowDate
         }
         
         if let createDate = createDate {
-            self.createDateTime = dayTimePeriodFormatter.dateFromString(createDate)!
+            self.createDateTime = createDate
         } else {
             self.createDateTime = nowDate
         }
