@@ -20,6 +20,7 @@
 		FAD2061E1C3D25ED00A045E5 /* noteEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2061D1C3D25ED00A045E5 /* noteEntryViewController.swift */; };
 		FAE72BC51BE043B20053F50E /* handleDatePickerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE72BC41BE043B20053F50E /* handleDatePickerTableViewController.swift */; };
 		FAE9229D1BF34315001E37FD /* noteListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE9229C1BF34315001E37FD /* noteListTableViewCell.swift */; };
+		FAE9FDA31D2CB5AE00288221 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE9FDA21D2CB5AE00288221 /* PopoverViewController.swift */; };
 		FAED29B21D2459F10009C873 /* NoteBase+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED29B01D2459F10009C873 /* NoteBase+CoreDataProperties.swift */; };
 		FAED29B31D2459F10009C873 /* NoteBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED29B11D2459F10009C873 /* NoteBase.swift */; };
 		FAED29B61D24A8720009C873 /* TSNotesDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAED29B41D24A8720009C873 /* TSNotesDataModel.xcdatamodeld */; };
@@ -59,6 +60,7 @@
 		FAD2061D1C3D25ED00A045E5 /* noteEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = noteEntryViewController.swift; sourceTree = "<group>"; };
 		FAE72BC41BE043B20053F50E /* handleDatePickerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = handleDatePickerTableViewController.swift; path = ../handleDatePickerTableViewController.swift; sourceTree = "<group>"; };
 		FAE9229C1BF34315001E37FD /* noteListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = noteListTableViewCell.swift; sourceTree = "<group>"; };
+		FAE9FDA21D2CB5AE00288221 /* PopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		FAED29B01D2459F10009C873 /* NoteBase+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NoteBase+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		FAED29B11D2459F10009C873 /* NoteBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteBase.swift; sourceTree = "<group>"; };
 		FAED29B51D24A8720009C873 /* TSNotesDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TSNotesDataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				FAED29B11D2459F10009C873 /* NoteBase.swift */,
 				FAED29BB1D24F6480009C873 /* Note+CoreDataProperties.swift */,
 				FAD2061D1C3D25ED00A045E5 /* noteEntryViewController.swift */,
+				FAE9FDA21D2CB5AE00288221 /* PopoverViewController.swift */,
 				FA7CE5D51BF2C971008FD365 /* TitleEntryViewController.swift */,
 				FAE9229C1BF34315001E37FD /* noteListTableViewCell.swift */,
 				FA6D27FE1BEDA80100768930 /* NoteBaseTableController.swift */,
@@ -315,6 +318,7 @@
 				FAD2061E1C3D25ED00A045E5 /* noteEntryViewController.swift in Sources */,
 				FA3F5B491BF0857600A7804C /* TSNoteEntriesTableCell.swift in Sources */,
 				FAED29B21D2459F10009C873 /* NoteBase+CoreDataProperties.swift in Sources */,
+				FAE9FDA31D2CB5AE00288221 /* PopoverViewController.swift in Sources */,
 				FAED29B31D2459F10009C873 /* NoteBase.swift in Sources */,
 				FA73889C1BF5703B00758E68 /* noteEntriesTableViewController.swift in Sources */,
 				FAED29B61D24A8720009C873 /* TSNotesDataModel.xcdatamodeld in Sources */,

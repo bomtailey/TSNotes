@@ -22,18 +22,14 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
     @IBOutlet weak var titleText: UINavigationItem!
     
     // properties from noteEntriesTableViewController
-//    var noteBaseRecord = NSManagedObject() as! NoteBase
-    var noteRecord: Note!
     var bNewNote = true
     var noteName: String?
     var noteText:  String?
+    var noteModDateTime: NSDate?
 
     
-    var noteModDateTime: NSDate?
     var bIsRestore = Bool(true)
     
-//    var noteRecord: NSManagedObject!
-
 //    var selectedNote = TSNote()
     
     let dayTimePeriodFormatter = NSDateFormatter()
@@ -59,16 +55,16 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
             // new note entry
             noteTextView.becomeFirstResponder()
             noteModDateTime = NSDate()
-            noteRecord.noteText = ""
+//            noteRecord.noteText = ""
             
         } else {
             
             // existing note mod
-            noteModDateTime = noteRecord.noteModifiedDateTS
+//            noteModDateTime = noteRecord.noteModifiedDateTS
             
         }
         
-        dayTimePeriodFormatter.dateFormat =  "EEEE, d MMMM yyyy h:mm a"
+        dayTimePeriodFormatter.dateFormat =  "EEEE, d MMMM yyyy   h:mm a"
         sortableDateOnlyFormatter.dateFormat = "yyyy.MM.dd"
         displayDateOnlyFormatter.dateFormat = "EEEE MMMM,d yyyy"  // "EEEE, d MMMM yyyy"
         displayTimeOnlyFormatter.dateFormat = "h:mm a"
@@ -86,11 +82,10 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
         datetimeDisplay.text = dateString
         
         noteTextView.scrollEnabled = true
-        noteTextView.text = noteRecord.noteText
+        noteTextView.text = noteText
 
 
     }
-
 
     
     override func didReceiveMemoryWarning() {
@@ -98,15 +93,6 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
         // Dispose of any resources that can be recreated.
     }
     
-
-    // Textfield functions
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        if textField == datetimeDisplay {
-        return false
-        }
-        
-        return true;
-    }
  
     // textview function overrides
     
@@ -141,6 +127,14 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
         
         return true
     }
+    
+    func textViewShouldEndEditing(textView: UITextView) -> Bool {
+        
+        noteText = noteTextView.text
+        
+        return true
+
+    }
 
     // Actions
     
@@ -159,8 +153,11 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
         
         if (sender.state == UIGestureRecognizerState.Began) {
         
-            let oldTimeStamp = datetimeDisplay.text
-            noteTextView.text = "\n\n" + oldTimeStamp! + "\n\n" + noteTextView.text
+//            let oldTimeStamp = formatAttributedStringWithHighlights(datetimeDisplay.text!)
+           let oldTimeStamp = datetimeDisplay.text!
+            
+            
+            noteTextView.text = "\n\n" + oldTimeStamp + "\n\n" + noteTextView.text
             noteTextView.becomeFirstResponder()
 
             noteTextView.selectedRange = NSMakeRange(0, 0)
@@ -186,10 +183,12 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
             noteModDateTime = dayTimePeriodFormatter.dateFromString(datetimeDisplay.text!)!
             noteText = noteTextView.text!  ?? ""
 
+            /*
             noteRecord.noteModifiedDateDay = sortableDateOnlyFormatter.stringFromDate(noteModDateTime!)
             noteRecord.noteModifiedDateTime = displayTimeOnlyFormatter.stringFromDate(noteModDateTime!)
             noteRecord.noteModifiedDateTS = noteModDateTime
             noteRecord.noteText = noteText
+             */
 
         
         } else
@@ -239,6 +238,21 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
 
         
         super.decodeRestorableStateWithCoder(coder)
+    }
+    
+    func formatAttributedStringWithHighlights(text: String) -> NSAttributedString {
+        
+        let mutableString = NSMutableAttributedString(string: text)
+        
+        let nsText = text as NSString         // convert to NSString be we need NSRange
+        let nsTextRange = NSMakeRange(0, nsText.length)
+        
+            if nsTextRange.length > 0 {       // check for not found
+                mutableString.addAttribute(NSBackgroundColorAttributeName, value: UIColor.blueColor(), range: nsTextRange)
+            }
+        
+        
+        return mutableString
     }
 
 }

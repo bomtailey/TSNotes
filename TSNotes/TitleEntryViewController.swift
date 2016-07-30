@@ -42,10 +42,6 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
 
         // Do any additional setup after loading the view.
         
-        noteCreateDate = (noteBaseRecord.valueForKey("createDateTS") as? NSDate)!
-        noteTitleField = (noteBaseRecord.valueForKey("noteName") as! String)
-
-        
         
         //        dayTimePeriodFormatter.dateFormat = "EEEE, MMMM d, yyyy h:mm a"
 //        noteTitleFieldText.text = dayTimePeriodFormatter.stringFromDate(NSDate())
@@ -54,16 +50,18 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
         noteTitleFieldText.delegate = self
         
         noteTitleFieldText.becomeFirstResponder()
-        self.title = "New Note Title"
+        
         // If not a new note title, this is an update
         if newTitleRequest {
-            
+            self.title = "New Note Title"
+           
             createDateTimeLabel.text = ""
+
         } else {
-            noteTitleFieldText.text = noteTitleField
+            noteTitleFieldText.text = noteBaseRecord.noteName
             dayTimePeriodFormatter.dateFormat =  "EEEE MM/d/yy h:mm a"
             createDateTimeLabel.text = "Date Created: " +
-                dayTimePeriodFormatter.stringFromDate(noteCreateDate!)
+                dayTimePeriodFormatter.stringFromDate(noteBaseRecord.createDateTS!)
 
             self.title = "Modify Note Title"
        }
@@ -144,32 +142,36 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
             let nowTime = NSDate()
 
             if newTitleRequest {
-                let entity =  NSEntityDescription.entityForName("NoteBase", inManagedObjectContext: managedObjectContext)
+/*                let entity =  NSEntityDescription.entityForName("NoteBase", inManagedObjectContext: managedObjectContext)
                  segueListNoteInstance = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedObjectContext) as! NoteBase
                 
+
                 segueListNoteInstance.setValue(nowTime, forKey: "createDateTS")
                 segueListNoteInstance.setValue(nowTime, forKey: "modifyDateTS")
                 segueListNoteInstance.setValue(noteTitleFieldText.text!, forKey: "noteName")
                 segueListNoteInstance.setValue(0, forKey:"noteCount")
+ */
 
-            } else {
-                
-           let     noteCreateDate1 = (noteBaseRecord.valueForKey("createDateTS") as? NSDate)!
-            let    noteTitleField1 = (noteBaseRecord.valueForKey("noteName") as! String)
+                noteBaseRecord.setValue(nowTime, forKey: "createDateTS")
+//                noteBaseRecord.setValue(nowTime, forKey: "modifyDateTS")
+//                noteBaseRecord.setValue(noteTitleFieldText.text!, forKey: "noteName")
+                noteBaseRecord.setValue(0, forKey:"noteCount")
 
- 
-                noteBaseRecord.setValue(nowTime, forKey: "modifyDateTS")
-                noteBaseRecord.setValue(noteTitleFieldText.text!, forKey: "noteName")
             }
+                
+ 
+            noteBaseRecord.setValue(nowTime, forKey: "modifyDateTS")
+            noteBaseRecord.setValue(noteTitleFieldText.text!, forKey: "noteName")
+            
             
 
             // Try save managed context
             do {
                 try managedObjectContext.save()
                 //5
-                if newTitleRequest {
-                    savedNoteBase.append(segueListNoteInstance)
-                }
+ //               if newTitleRequest {
+ //                   savedNoteBase.append(segueListNoteInstance)
+//                }
             } catch let error as NSError  {
                 print("Could not save \(error), \(error.userInfo)")
             }

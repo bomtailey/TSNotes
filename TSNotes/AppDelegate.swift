@@ -10,14 +10,26 @@ import UIKit
 import CoreData
 import IQKeyboardManagerSwift
 
-//var noteBaseRecord = NoteBase(entityName: "NoteBase", MOC: )
-
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        // Override point for customization after application launch.
+        
+        // Set up handling move entry fields above keyboard
+        IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.sharedManager().canAdjustTextView = true
+        
+        return true
+    }
+    
+    
+
+    
     
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -27,6 +39,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+       
+        
+        
         self.saveContext()
     }
 
@@ -115,28 +130,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Core Data Saving support
     
     func saveContext () {
+
         if let moc = self.managedObjectContext {
-            
-           /*
-            let error: NSError? = nil
-            if moc.hasChanges {  //&& !moc.save() {
-                // Replace this implementation with code to handle the error appropriately.
-                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                NSLog("Unresolved error \(error), \(error!.userInfo)")
-                abort()
-            
-            do {
-                try moc.save()
-            } catch {
-                fatalError("Failure to save context: \(error)")
+
+ //           if let noteRecord =
+            if moc.hasChanges {
+                do {
+                    try moc.save()
+                } catch {
+                    fatalError("Failure to save context: \(error)")
                 }
-            }
-            */
-            
-            do {
-                try moc.save()
-            } catch {
-                fatalError("Failure to save context: \(error)")
             }
             
         }
