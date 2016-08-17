@@ -373,6 +373,16 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
                 // Delete Record
                 self.managedObjectContext.deleteObject(record)
                 
+                // Update noteBaseReord
+//                var count = noteBaseRecord.valueForKey("noteCount") as! Int
+                var count = self.noteBaseRecord.noteCount as! Int
+                count -= 1
+                self.noteBaseRecord.noteCount = count
+//                self.noteBaseRecord.setValue(count, forKey:"noteCount")
+                
+                // Update modification date
+                self.noteBaseRecord.modifyDateTS = NSDate()
+                
                 do {
                     try self.managedObjectContext.save()
                     //5
@@ -400,15 +410,16 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         
         deleteChoice.backgroundColor = UIColor.redColor()
 
-        
-
-        
+    
         return [ deleteChoice]
 
     }
     
     
+
+    // ******* ==> DON'T THINK THIS CODE IS EVER EXECUTED.  REPLACED BY editActionsForRowAtIndexPath
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
         if (editingStyle == .Delete) {
             // Fetch Record
             let record = fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject
