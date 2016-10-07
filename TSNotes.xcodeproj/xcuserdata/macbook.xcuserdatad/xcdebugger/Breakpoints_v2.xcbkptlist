@@ -348,7 +348,7 @@
             startingLineNumber = "123"
             endingLineNumber = "123"
             landmarkName = "managedObjectContext"
-            landmarkType = "19">
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1014,7 +1014,7 @@
             startingLineNumber = "111"
             endingLineNumber = "111"
             landmarkName = "persistentStoreCoordinator"
-            landmarkType = "19">
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1030,7 +1030,7 @@
             startingLineNumber = "88"
             endingLineNumber = "88"
             landmarkName = "applicationDocumentsDirectory"
-            landmarkType = "19">
+            landmarkType = "24">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -1233,7 +1233,7 @@
             startingLineNumber = "94"
             endingLineNumber = "94"
             landmarkName = "managedObjectModel"
-            landmarkType = "19">
+            landmarkType = "24">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -1326,7 +1326,7 @@
             startingLineNumber = "116"
             endingLineNumber = "116"
             landmarkName = "persistentStoreCoordinator"
-            landmarkType = "19">
+            landmarkType = "24">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -1435,8 +1435,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "40"
             endingLineNumber = "40"
-            landmarkName = "applicationDidEnterBackground(_:)"
-            landmarkType = "5">
+            landmarkName = "applicationDidEnterBackground(application:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2808,7 +2808,7 @@
             startingLineNumber = "103"
             endingLineNumber = "103"
             landmarkName = "persistentStoreCoordinator"
-            landmarkType = "19">
+            landmarkType = "24">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -2901,7 +2901,7 @@
             startingLineNumber = "105"
             endingLineNumber = "105"
             landmarkName = "persistentStoreCoordinator"
-            landmarkType = "19">
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3173,7 +3173,7 @@
             startingLineNumber = "128"
             endingLineNumber = "128"
             landmarkName = "managedObjectContext"
-            landmarkType = "19">
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3236,8 +3236,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "60"
             endingLineNumber = "60"
-            landmarkName = "applicationWillTerminate(_:)"
-            landmarkType = "5">
+            landmarkName = "applicationWillTerminate(application:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
