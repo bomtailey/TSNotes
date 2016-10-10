@@ -25,18 +25,18 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
     var bNewNote = true
     var noteName: String?
     var noteText:  String?
-    var noteModDateTime: NSDate?
+    var noteModDateTime: Date?
 
     
     var bIsRestore = Bool(true)
     
 //    var selectedNote = TSNote()
     
-    let dayTimePeriodFormatter = NSDateFormatter()
-    let originalModTSFormatter = NSDateFormatter()
-    let sortableDateOnlyFormatter = NSDateFormatter()
-    let displayDateOnlyFormatter = NSDateFormatter()
-    let displayTimeOnlyFormatter = NSDateFormatter()
+    let dayTimePeriodFormatter = DateFormatter()
+    let originalModTSFormatter = DateFormatter()
+    let sortableDateOnlyFormatter = DateFormatter()
+    let displayDateOnlyFormatter = DateFormatter()
+    let displayTimeOnlyFormatter = DateFormatter()
 
     var dateString = String()
     
@@ -54,7 +54,7 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
             
             // new note entry
             noteTextView.becomeFirstResponder()
-            noteModDateTime = NSDate()
+            noteModDateTime = Date()
 //            noteRecord.noteText = ""
             
         } else {
@@ -74,14 +74,14 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
 //        noteTextView.scrollEnabled = false
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
         
-        dateString = dayTimePeriodFormatter.stringFromDate(noteModDateTime!)
+        dateString = dayTimePeriodFormatter.string(from: noteModDateTime!)
         datetimeDisplay.text = dateString
         
-        noteTextView.scrollEnabled = true
+        noteTextView.isScrollEnabled = true
         noteTextView.text = noteText
 
 
@@ -96,39 +96,39 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
  
     // textview function overrides
     
-    func textViewShouldBeginEditing(aTextView: UITextView) -> Bool
+    func textViewShouldBeginEditing(_ aTextView: UITextView) -> Bool
     {
        // moveCursorToStart(noteTextView)
         return true
     }
 
-     func textViewDidChange( textView: UITextView) {
+     func textViewDidChange( _ textView: UITextView) {
         let textLen = textView.text.characters.count
         if textLen > 0 {
-            saveButton.enabled = true
+            saveButton.isEnabled = true
         } else {
-            saveButton.enabled = false
+            saveButton.isEnabled = false
             
         }
         
     }
     
-        func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
             
         let textLen = textView.text.characters.count
  //       let textLen2 =  text.characters.count
         
         if textLen > 0 {
-            saveButton.enabled = true
+            saveButton.isEnabled = true
         } else {
-            saveButton.enabled = false
+            saveButton.isEnabled = false
             
             }
         
         return true
     }
     
-    func textViewShouldEndEditing(textView: UITextView) -> Bool {
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         
         noteText = noteTextView.text
         
@@ -143,15 +143,15 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
     
     
     // Cancel
-    @IBAction func cancelEntry(sender: AnyObject) {
+    @IBAction func cancelEntry(_ sender: AnyObject) {
         
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     
-    @IBAction func timeDisplayLongPress(sender: UILongPressGestureRecognizer) {
+    @IBAction func timeDisplayLongPress(_ sender: UILongPressGestureRecognizer) {
         
-        if (sender.state == UIGestureRecognizerState.Began) {
+        if (sender.state == UIGestureRecognizerState.began) {
         
 //            let oldTimeStamp = formatAttributedStringWithHighlights(datetimeDisplay.text!)
            let oldTimeStamp = datetimeDisplay.text!
@@ -162,10 +162,10 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
 
             noteTextView.selectedRange = NSMakeRange(0, 0)
 
-            dateString = dayTimePeriodFormatter.stringFromDate(NSDate())
+            dateString = dayTimePeriodFormatter.string(from: Date())
             datetimeDisplay.text = dateString
             
-            saveButton.enabled = true
+            saveButton.isEnabled = true
             
         }
         return
@@ -174,13 +174,13 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
     // Save note
 //    @IBAction func returnToNoteEntriesView(segue: UIStoryboardSegue, sender: AnyObject?)
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         let segID = segue.identifier
         
         if saveButton === sender {  // save the note
             
-            noteModDateTime = dayTimePeriodFormatter.dateFromString(datetimeDisplay.text!)!
+            noteModDateTime = dayTimePeriodFormatter.date(from: datetimeDisplay.text!)!
             noteText = noteTextView.text!  ?? ""
 
             /*
@@ -194,7 +194,7 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
         } else
             if segID == "segueToDatePicker" {   // go off to date adjustment view
                 
-                let destinationNavController = segue.destinationViewController as! UINavigationController
+                let destinationNavController = segue.destination as! UINavigationController
                 let destinationVC = destinationNavController.topViewController as? handleDatePickerTableViewController
               //  if let destinationVC = segue.destinationViewController as? handleDatePickerTableViewController{
                     destinationVC!.existingDate = noteModDateTime
@@ -205,42 +205,42 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
     }
     
     // This is unwind from date picker
-    @IBAction func unwindFromNoteEntry(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.sourceViewController as? handleDatePickerTableViewController {
+    @IBAction func unwindFromNoteEntry(_ sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? handleDatePickerTableViewController {
  
-            noteModDateTime = sourceViewController.existingDate!
-            datetimeDisplay.text = dayTimePeriodFormatter.stringFromDate(noteModDateTime!)
-            saveButton.enabled = true
+            noteModDateTime = sourceViewController.existingDate! as Date
+            datetimeDisplay.text = dayTimePeriodFormatter.string(from: noteModDateTime!)
+            saveButton.isEnabled = true
         }
     
     }
     
 
     // Preserve/restore state data if interrupted
-    override func encodeRestorableStateWithCoder(coder: NSCoder) {
+    override func encodeRestorableState(with coder: NSCoder) {
         //1
         if let noteName = noteName {
-            coder.encodeObject(noteName, forKey: "noteName")
-            coder.encodeObject(noteTextView.text, forKey: "noteText")
-            coder.encodeObject(noteModDateTime, forKey: "noteModDateTime")
-            coder.encodeBool(bNewNote, forKey: "bNewNote")
+            coder.encode(noteName, forKey: "noteName")
+            coder.encode(noteTextView.text, forKey: "noteText")
+            coder.encode(noteModDateTime, forKey: "noteModDateTime")
+            coder.encode(bNewNote, forKey: "bNewNote")
         }
         
         //2
-        super.encodeRestorableStateWithCoder(coder)
+        super.encodeRestorableState(with: coder)
     }
     
-    override func decodeRestorableStateWithCoder(coder: NSCoder) {
-        noteName = coder.decodeObjectForKey("noteName")! as? String
-        noteTextView.text = coder.decodeObjectForKey("noteText")! as? String
-        noteModDateTime = (coder.decodeObjectForKey("noteModDateTime")! as? NSDate)!
-        bNewNote = (coder.decodeObjectForKey("bNewNote")! as? Bool)!
+    override func decodeRestorableState(with coder: NSCoder) {
+        noteName = coder.decodeObject(forKey: "noteName")! as? String
+        noteTextView.text = coder.decodeObject(forKey: "noteText")! as? String
+        noteModDateTime = (coder.decodeObject(forKey: "noteModDateTime")! as? Date)!
+        bNewNote = (coder.decodeObject(forKey: "bNewNote")! as? Bool)!
 
         
-        super.decodeRestorableStateWithCoder(coder)
+        super.decodeRestorableState(with: coder)
     }
     
-    func formatAttributedStringWithHighlights(text: String) -> NSAttributedString {
+    func formatAttributedStringWithHighlights(_ text: String) -> NSAttributedString {
         
         let mutableString = NSMutableAttributedString(string: text)
         
@@ -248,7 +248,7 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
         let nsTextRange = NSMakeRange(0, nsText.length)
         
             if nsTextRange.length > 0 {       // check for not found
-                mutableString.addAttribute(NSBackgroundColorAttributeName, value: UIColor.blueColor(), range: nsTextRange)
+                mutableString.addAttribute(NSBackgroundColorAttributeName, value: UIColor.blue, range: nsTextRange)
             }
         
         

@@ -21,7 +21,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
 
     
     var noteName = String()
-    var noteCreateDate = NSDate()
+    var noteCreateDate = Date()
 
     var bNewNote = true
     var noteRecord: Note!
@@ -33,24 +33,24 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     var currentCell: TSNoteEntriesTableCell!
     
     
-    let calendar = NSCalendar.currentCalendar()
+    let calendar = Calendar.current
     
-    let displayDateFormatter = NSDateFormatter()
-    let sortableDateOnlyFormatter = NSDateFormatter()
-    let displayDateOnlyFormatter = NSDateFormatter()
-    let displayTimeOnlyFormatter = NSDateFormatter()
+    let displayDateFormatter = DateFormatter()
+    let sortableDateOnlyFormatter = DateFormatter()
+    let displayDateOnlyFormatter = DateFormatter()
+    let displayTimeOnlyFormatter = DateFormatter()
     
     // Temporary debug vars
     var sectionName = String()
     var noteText = String()
-    var noteModDateTime = NSDate()
+    var noteModDateTime = Date()
 
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        noteCreateDate = noteBaseRecord.createDateTS!
+        noteCreateDate = noteBaseRecord.createDateTS! as Date
 
         displayDateFormatter.dateFormat = "h:mm a  EEEE, MMMM d, yyyy"
         sortableDateOnlyFormatter.dateFormat = "yyyy.MM.dd"
@@ -71,7 +71,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     
     
     // Initialize fetchedResultsController
-    lazy var fetchedResultsController: NSFetchedResultsController = {
+    lazy var fetchedResultsController: NSFetchedResultsController = { () -> <<error type>> in 
         
         let notesFetchRequest = NSFetchRequest(entityName: "Note")
         
@@ -100,7 +100,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         tableView.estimatedRowHeight = 120.0
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
       //  super.viewWillAppear(animated)
         
         noteName = noteBaseRecord.noteName!
@@ -135,17 +135,17 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     
     // MARK: -
     // MARK: Fetched Results Controller Delegate Methods
-    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
     }
 
     
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
     }
 
     
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch (type) {
             
         case NSFetchedResultsChangeType(rawValue: 0)!:
@@ -153,33 +153,33 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             break;
 
             
-        case .Insert:
+        case .insert:
             if let indexPath = newIndexPath {
-                tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                tableView.insertRows(at: [indexPath], with: .fade)
             }
             break;
             
-        case .Delete:
+        case .delete:
             if let indexPath = indexPath {
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                tableView.deleteRows(at: [indexPath], with: .fade)
             }
             break;
             
             
-        case .Update:
+        case .update:
             if let indexPath = indexPath {
-                let cell = tableView.cellForRowAtIndexPath(indexPath) as! TSNoteEntriesTableCell
+                let cell = tableView.cellForRow(at: indexPath) as! TSNoteEntriesTableCell
                 configureCell(cell, atIndexPath: indexPath)
             }
             break;
 
-        case .Move:
+        case .move:
             if let indexPath = indexPath {
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                tableView.deleteRows(at: [indexPath], with: .fade)
             }
             
             if let newIndexPath = newIndexPath {
-                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
+                tableView.insertRows(at: [newIndexPath], with: .fade)
             }
             
             // Mark - TEB: for some reason, adds are getting marked as moves (because they're child objects?) and the
@@ -192,12 +192,12 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         }
     }
     
-    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         switch type {
-        case .Insert:
-            tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
-        case .Delete:
-            tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+        case .insert:
+            tableView.insertSections(IndexSet(integer: sectionIndex), with: .fade)
+        case .delete:
+            tableView.deleteSections(IndexSet(integer: sectionIndex), with: .fade)
         default:
             return
         }
@@ -206,12 +206,12 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         
 
     // Configure table cell
-    func configureCell(cell: TSNoteEntriesTableCell, atIndexPath indexPath: NSIndexPath) {
+    func configureCell(_ cell: TSNoteEntriesTableCell, atIndexPath indexPath: IndexPath) {
         
         currentCell = cell
         
         // Fetch Record
-        let record = fetchedResultsController.objectAtIndexPath(indexPath) as! Note
+        let record = fetchedResultsController.object(at: indexPath) as! Note
         
         // Update Cell
         if let noteModifiedTime = record.noteModifiedDateTime {
@@ -219,14 +219,14 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
            let textLen = 100
             var textString = record.noteText!
             if textString.characters.count > textLen {
-                let indx = textString.startIndex.advancedBy(textLen)
-                textString = textString.substringToIndex(indx)
+                let indx = textString.characters.index(textString.startIndex, offsetBy: textLen)
+                textString = textString.substring(to: indx)
             }
             
              cell.noteTextView.text =  textString      // record.noteText
 
          //   cell.noteTextView.scrollRangeToVisible(NSMakeRange(0, 0))
-            cell.noteTextView.setContentOffset(CGPointZero, animated: false)
+            cell.noteTextView.setContentOffset(CGPoint.zero, animated: false)
 
             let timeDate = "\(noteModifiedTime)" 
             cell.noteEntryDateLabel.text = timeDate  
@@ -252,7 +252,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
  
         if let sections = fetchedResultsController.sections {
  //           NSLog("number of Sections: \(sections.count)")
@@ -262,7 +262,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         return 0
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if let sections = fetchedResultsController.sections {
             let sectionInfo = sections[section]
@@ -275,9 +275,9 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("TSNoteEntriesTableCell", forIndexPath: indexPath) as! TSNoteEntriesTableCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TSNoteEntriesTableCell", for: indexPath) as! TSNoteEntriesTableCell
 
         // Configure Table View Cell
         configureCell(cell, atIndexPath: indexPath)
@@ -285,7 +285,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         return cell
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     {
         // Set name of section header
         if let sections = fetchedResultsController.sections {
@@ -293,8 +293,8 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             sectionName = sectionInfo.name
             
             // reformat the sectionName info
-            let doDate = sortableDateOnlyFormatter.dateFromString(sectionName)
-            let sectionNameReformatted = displayDateOnlyFormatter.stringFromDate(doDate!)
+            let doDate = sortableDateOnlyFormatter.date(from: sectionName)
+            let sectionNameReformatted = displayDateOnlyFormatter.string(from: doDate!)
             return sectionNameReformatted
         }
         
@@ -302,30 +302,30 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
   }
     
     // Set section header font/size
-    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         
         let header = view as! UITableViewHeaderFooterView
         //make the background color light blue
         header.contentView.backgroundColor = UIColor(colorLiteralRed: 0.84, green: 0.93, blue: 0.93, alpha: 1.0)
         //UIColor(colorWithRed:0.62, colorWithGreen:0.80, colorWithBlue:0.81, alpha:1.0)
         header.textLabel?.font = UIFont(name: "Times New Roman", size: 15)
-        header.textLabel?.textAlignment = NSTextAlignment.Center
+        header.textLabel?.textAlignment = NSTextAlignment.center
 
-        header.textLabel?.font = UIFont.boldSystemFontOfSize(16)
+        header.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         
         
     }
     
    
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
       
         // This is to restore the color scheme to the cell after selection
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     
-    func applicationWillTerminate(application: UIApplication) {
+    func applicationWillTerminate(_ application: UIApplication) {
         
         do {
             try self.managedObjectContext.save()
@@ -343,45 +343,45 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     
     
     // Enable row deletes
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
     
-    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         
-        let alertController = UIAlertController(title: "TS Notes", message: "Do you really want to delete?", preferredStyle: UIAlertControllerStyle.Alert)
+        let alertController = UIAlertController(title: "TS Notes", message: "Do you really want to delete?", preferredStyle: UIAlertControllerStyle.alert)
         
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: {(alert :UIAlertAction!) in
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {(alert :UIAlertAction!) in
             print("Cancel button tapped")
-            tableView.reloadRowsAtIndexPaths ([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+            tableView.reloadRows (at: [indexPath], with: UITableViewRowAnimation.automatic)
         })
         
         alertController.addAction(cancelAction)
         
-        let deleteChoice = UITableViewRowAction(style: .Normal, title: "Delete") { action, index in
+        let deleteChoice = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
             print("delete button tapped")
             
-            let deleteAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.Destructive, handler: {(alert :UIAlertAction!) in
+            let deleteAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.destructive, handler: {(alert :UIAlertAction!) in
                 print("Delete button tapped")
                 
                 // Fetch Record
-                let record = self.fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject
+                let record = self.fetchedResultsController.object(at: indexPath) as! NSManagedObject
                 
                 // Delete Record
-                self.managedObjectContext.deleteObject(record)
+                self.managedObjectContext.delete(record)
                 
                 // Update noteBaseReord
 //                var count = noteBaseRecord.valueForKey("noteCount") as! Int
                 var count = self.noteBaseRecord.noteCount as! Int
                 count -= 1
-                self.noteBaseRecord.noteCount = count
+                self.noteBaseRecord.noteCount = count as NSNumber?
 //                self.noteBaseRecord.setValue(count, forKey:"noteCount")
                 
                 // Update modification date
-                self.noteBaseRecord.modifyDateTS = NSDate()
+                self.noteBaseRecord.modifyDateTS = Date()
                 
                 do {
                     try self.managedObjectContext.save()
@@ -395,7 +395,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             alertController.addAction(deleteAction)
             
             
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
 
         
         /*
@@ -408,7 +408,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         }
         
         
-        deleteChoice.backgroundColor = UIColor.redColor()
+        deleteChoice.backgroundColor = UIColor.red
 
     
         return [ deleteChoice]
@@ -418,17 +418,17 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     
 
     // ******* ==> DON'T THINK THIS CODE IS EVER EXECUTED.  REPLACED BY editActionsForRowAtIndexPath
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
-        if (editingStyle == .Delete) {
+        if (editingStyle == .delete) {
             // Fetch Record
-            let record = fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject
+            let record = fetchedResultsController.object(at: indexPath) as! NSManagedObject
             
             // Delete Record
-            managedObjectContext.deleteObject(record)
+            managedObjectContext.delete(record)
             
             // Update noteBaseReord
-            var count = noteBaseRecord.valueForKey("noteCount") as! Int
+            var count = noteBaseRecord.value(forKey: "noteCount") as! Int
             count -= 1
             noteBaseRecord.setValue(count, forKey:"noteCount")
             
@@ -444,7 +444,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
 
 
     
-    func applicationDidEnterBackground(application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
         do {
             try self.managedObjectContext.save()
         } catch {
@@ -455,42 +455,42 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
 
     
     // Preserve/restore state data if interrupted
-    override func encodeRestorableStateWithCoder(coder: NSCoder) {
+    override func encodeRestorableState(with coder: NSCoder) {
         //1
-        coder.encodeObject(noteName, forKey: "noteName")
-        coder.encodeObject(noteText, forKey: "noteText")
-        coder.encodeObject(noteModDateTime, forKey: "noteModDateTime")
-        coder.encodeBool(bNewNote, forKey: "bNewNote")
+        coder.encode(noteName, forKey: "noteName")
+        coder.encode(noteText, forKey: "noteText")
+        coder.encode(noteModDateTime, forKey: "noteModDateTime")
+        coder.encode(bNewNote, forKey: "bNewNote")
         
         //2
-        super.encodeRestorableStateWithCoder(coder)
+        super.encodeRestorableState(with: coder)
     }
     
-    override func decodeRestorableStateWithCoder(coder: NSCoder) {
-        noteName = (coder.decodeObjectForKey("noteName")! as? String)!
-        noteText = (coder.decodeObjectForKey("noteText")! as? String)!
-        noteModDateTime = (coder.decodeObjectForKey("noteModDateTime")! as? NSDate)!
-        bNewNote = (coder.decodeObjectForKey("bNewNote")! as? Bool)!
+    override func decodeRestorableState(with coder: NSCoder) {
+        noteName = (coder.decodeObject(forKey: "noteName")! as? String)!
+        noteText = (coder.decodeObject(forKey: "noteText")! as? String)!
+        noteModDateTime = (coder.decodeObject(forKey: "noteModDateTime")! as? Date)!
+        bNewNote = (coder.decodeObject(forKey: "bNewNote")! as? Bool)!
         
         
-        super.decodeRestorableStateWithCoder(coder)
+        super.decodeRestorableState(with: coder)
     }
     
 
     
     // Navigation
-    @IBAction func cancelAction(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func cancelAction(_ sender: AnyObject) {
+        dismiss(animated: true, completion: nil)
  //       tableView.reloadData()
     }
     
     //let segueIndentifier = "presentNoteEntryEdit"
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         let segID = segue.identifier
         
-        let navVC = segue.destinationViewController as! UINavigationController
+        let navVC = segue.destination as! UINavigationController
         let destinationVC = navVC.viewControllers.first as! noteEntryViewController
 
         bNewNote = segID == "newNoteEntry"
@@ -508,7 +508,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             if let indexPath = tableView.indexPathForSelectedRow {
             
             // Fetch note record
-            noteRecord = fetchedResultsController.objectAtIndexPath(indexPath) as! Note
+            noteRecord = fetchedResultsController.object(at: indexPath) as! Note
                 
             destinationVC.noteText = noteRecord.noteText!
             destinationVC.noteModDateTime = noteRecord.noteModifiedDateTS!
@@ -525,33 +525,33 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     
     
     
-    @IBAction func unwindFromNoteEntry(sender: UIStoryboardSegue) {
+    @IBAction func unwindFromNoteEntry(_ sender: UIStoryboardSegue) {
    
-        if let sVC = sender.sourceViewController as? noteEntryViewController {
+        if let sVC = sender.source as? noteEntryViewController {
         
             if bNewNote {
                
                 // Update noteBaseReord
-                var noteCount = noteBaseRecord.valueForKey("noteCount") as! Int
+                var noteCount = noteBaseRecord.value(forKey: "noteCount") as! Int
                 noteCount += 1
                 noteBaseRecord.setValue(noteCount, forKey:"noteCount")
                 
                 // Add a note record object
-                let entityNote = NSEntityDescription.entityForName("Note", inManagedObjectContext: managedObjectContext)
-                noteRecord = NSManagedObject(entity: entityNote!, insertIntoManagedObjectContext: managedObjectContext) as! Note
+                let entityNote = NSEntityDescription.entity(forEntityName: "Note", in: managedObjectContext)
+                noteRecord = NSManagedObject(entity: entityNote!, insertInto: managedObjectContext) as! Note
                 
                 // Create Relationship
                 
-                let notes = noteBaseRecord.mutableSetValueForKey("notes")
-                notes.addObject(noteRecord)
+                let notes = noteBaseRecord.mutableSetValue(forKey: "notes")
+                notes.add(noteRecord)
 
             }
             
-            noteBaseRecord.modifyDateTS = NSDate()
+            noteBaseRecord.modifyDateTS = Date()
             
             noteRecord.noteText = sVC.noteText
-            noteRecord.noteModifiedDateDay = sortableDateOnlyFormatter.stringFromDate(sVC.noteModDateTime!)
-            noteRecord.noteModifiedDateTime = displayTimeOnlyFormatter.stringFromDate(sVC.noteModDateTime!)
+            noteRecord.noteModifiedDateDay = sortableDateOnlyFormatter.string(from: sVC.noteModDateTime! as Date)
+            noteRecord.noteModifiedDateTime = displayTimeOnlyFormatter.string(from: sVC.noteModDateTime! as Date)
             noteRecord.noteModifiedDateTS  = sVC.noteModDateTime!
 
         // Create/update note entity

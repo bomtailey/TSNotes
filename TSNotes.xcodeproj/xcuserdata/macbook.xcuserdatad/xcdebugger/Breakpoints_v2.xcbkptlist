@@ -341,22 +341,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "490599144.592487"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "managedObjectContext"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "TSNotes/notesListTableController.swift"
             timestampString = "475529852.565799"
             startingColumnNumber = "9223372036854775807"
@@ -1007,100 +991,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "490599144.592487"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
-            landmarkName = "persistentStoreCoordinator"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "490599144.592487"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "applicationDocumentsDirectory"
-            landmarkType = "24">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TSNotes.AppDelegate.managedObjectModel.getter : __ObjC.NSManagedObjectModel"
-                  moduleName = "TSNotes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
-                  timestampString = "474687892.098123"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "12">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TSNotes.AppDelegate.managedObjectModel.getter : __ObjC.NSManagedObjectModel"
-                  moduleName = "TSNotes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
-                  timestampString = "474687892.098486"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "63"
-                  endingLineNumber = "63"
-                  offsetFromSymbolStart = "204">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TSNotes.AppDelegate.managedObjectModel.setter : __ObjC.NSManagedObjectModel"
-                  moduleName = "TSNotes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
-                  timestampString = "474687892.098857"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "16">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TSNotes.AppDelegate.init (TSNotes.AppDelegate.Type)() -&gt; TSNotes.AppDelegate"
-                  moduleName = "TSNotes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
-                  timestampString = "474687892.099187"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "63"
-                  endingLineNumber = "63"
-                  offsetFromSymbolStart = "70">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "TSNotes/notesListTableController.swift"
             timestampString = "475529852.565799"
             startingColumnNumber = "9223372036854775807"
@@ -1137,270 +1027,6 @@
             timestampString = "490599144.592487"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "AppDelegate"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TSNotes.AppDelegate.applicationDocumentsDirectory.getter : __ObjC.NSURL"
-                  moduleName = "TSNotes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
-                  timestampString = "474687892.103046"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "12">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TSNotes.AppDelegate.applicationDocumentsDirectory.getter : __ObjC.NSURL"
-                  moduleName = "TSNotes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
-                  timestampString = "474687892.103266"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "57"
-                  endingLineNumber = "57"
-                  offsetFromSymbolStart = "204">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TSNotes.AppDelegate.applicationDocumentsDirectory.setter : __ObjC.NSURL"
-                  moduleName = "TSNotes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
-                  timestampString = "474687892.103468"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "16">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TSNotes.AppDelegate.init (TSNotes.AppDelegate.Type)() -&gt; TSNotes.AppDelegate"
-                  moduleName = "TSNotes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
-                  timestampString = "474687892.103666"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "57"
-                  endingLineNumber = "57"
-                  offsetFromSymbolStart = "47">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TSNotes.AppDelegate.(applicationDocumentsDirectory.getter : __ObjC.NSURL).(closure #1)"
-                  moduleName = "TSNotes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
-                  timestampString = "474687892.10386"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "59"
-                  endingLineNumber = "59"
-                  offsetFromSymbolStart = "4">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "490599144.592487"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
-            landmarkName = "managedObjectModel"
-            landmarkType = "24">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TSNotes.AppDelegate.persistentStoreCoordinator.getter : Swift.Optional&lt;__ObjC.NSPersistentStoreCoordinator&gt;"
-                  moduleName = "TSNotes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
-                  timestampString = "474687892.106386"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "12">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TSNotes.AppDelegate.persistentStoreCoordinator.getter : Swift.Optional&lt;__ObjC.NSPersistentStoreCoordinator&gt;"
-                  moduleName = "TSNotes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
-                  timestampString = "474687892.1067"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "69"
-                  endingLineNumber = "69"
-                  offsetFromSymbolStart = "274">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TSNotes.AppDelegate.persistentStoreCoordinator.setter : Swift.Optional&lt;__ObjC.NSPersistentStoreCoordinator&gt;"
-                  moduleName = "TSNotes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
-                  timestampString = "474687892.106926"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "16">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TSNotes.AppDelegate.init (TSNotes.AppDelegate.Type)() -&gt; TSNotes.AppDelegate"
-                  moduleName = "TSNotes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
-                  timestampString = "474687892.107138"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "69"
-                  endingLineNumber = "69"
-                  offsetFromSymbolStart = "93">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TSNotes.AppDelegate.(persistentStoreCoordinator.getter : Swift.Optional&lt;__ObjC.NSPersistentStoreCoordinator&gt;).(closure #1)"
-                  moduleName = "TSNotes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
-                  timestampString = "474687892.107538"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "72"
-                  endingLineNumber = "72"
-                  offsetFromSymbolStart = "15">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "490599144.592487"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
-            landmarkName = "persistentStoreCoordinator"
-            landmarkType = "24">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TSNotes.AppDelegate.managedObjectContext.getter : Swift.Optional&lt;__ObjC.NSManagedObjectContext&gt;"
-                  moduleName = "TSNotes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
-                  timestampString = "474848585.700994"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "12">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TSNotes.AppDelegate.managedObjectContext.getter : Swift.Optional&lt;__ObjC.NSManagedObjectContext&gt;"
-                  moduleName = "TSNotes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
-                  timestampString = "474848585.701755"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "103"
-                  endingLineNumber = "103"
-                  offsetFromSymbolStart = "274">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TSNotes.AppDelegate.managedObjectContext.setter : Swift.Optional&lt;__ObjC.NSManagedObjectContext&gt;"
-                  moduleName = "TSNotes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
-                  timestampString = "474848585.702294"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "16">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TSNotes.AppDelegate.(managedObjectContext.getter : Swift.Optional&lt;__ObjC.NSManagedObjectContext&gt;).(closure #1)"
-                  moduleName = "TSNotes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
-                  timestampString = "474848585.703626"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "105"
-                  endingLineNumber = "105"
-                  offsetFromSymbolStart = "22">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "490599144.592487"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
             startingLineNumber = "130"
             endingLineNumber = "130"
             landmarkName = "AppDelegate"
@@ -1421,22 +1047,6 @@
             endingLineNumber = "46"
             landmarkName = "init(_:modifyDate:createDate:noteCount:)"
             landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "489438818.051484"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "applicationDidEnterBackground(application:)"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1897,8 +1507,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "209"
             endingLineNumber = "209"
-            landmarkName = "numberOfSectionsInTableView(_:)"
-            landmarkType = "5">
+            landmarkName = "NoteBaseTableController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1913,8 +1523,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "165"
             endingLineNumber = "165"
-            landmarkName = "controller(_:didChangeObject:atIndexPath:forChangeType:newIndexPath:)"
-            landmarkType = "5">
+            landmarkName = "controller(_:didChange:at:for:newIndexPath:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1930,7 +1540,7 @@
             startingLineNumber = "284"
             endingLineNumber = "284"
             landmarkName = "cancelButton(_:)"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2025,8 +1635,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "216"
             endingLineNumber = "216"
-            landmarkName = "numberOfSectionsInTableView(_:)"
-            landmarkType = "5">
+            landmarkName = "numberOfSections(in:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2648,7 +2258,7 @@
             startingLineNumber = "204"
             endingLineNumber = "204"
             landmarkName = "didReceiveMemoryWarning()"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2663,8 +2273,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "194"
             endingLineNumber = "194"
-            landmarkName = "NoteBaseTableController"
-            landmarkType = "3">
+            landmarkName = "configureCell(_:atIndexPath:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2801,115 +2411,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "490599144.592487"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
-            landmarkName = "persistentStoreCoordinator"
-            landmarkType = "24">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TSNotes.AppDelegate.managedObjectContext.getter : Swift.Optional&lt;__ObjC.NSManagedObjectContext&gt;"
-                  moduleName = "TSNotes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
-                  timestampString = "478037167.660076"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "21">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TSNotes.AppDelegate.managedObjectContext.getter : Swift.Optional&lt;__ObjC.NSManagedObjectContext&gt;"
-                  moduleName = "TSNotes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
-                  timestampString = "478037167.660266"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "104"
-                  endingLineNumber = "104"
-                  offsetFromSymbolStart = "316">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TSNotes.AppDelegate.managedObjectContext.setter : Swift.Optional&lt;__ObjC.NSManagedObjectContext&gt;"
-                  moduleName = "TSNotes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
-                  timestampString = "478037167.660548"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "26">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TSNotes.AppDelegate.init (TSNotes.AppDelegate.Type)() -&gt; TSNotes.AppDelegate"
-                  moduleName = "TSNotes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
-                  timestampString = "478037167.660845"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "104"
-                  endingLineNumber = "104"
-                  offsetFromSymbolStart = "105">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TSNotes.AppDelegate.(managedObjectContext.getter : Swift.Optional&lt;__ObjC.NSManagedObjectContext&gt;).(closure #1)"
-                  moduleName = "TSNotes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
-                  timestampString = "478037167.66115"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "106"
-                  endingLineNumber = "106"
-                  offsetFromSymbolStart = "20">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "490599144.592487"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
-            landmarkName = "persistentStoreCoordinator"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
             timestampString = "491953609.940784"
             startingColumnNumber = "9223372036854775807"
@@ -2964,8 +2465,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "400"
             endingLineNumber = "400"
-            landmarkName = "prepareForSegue(_:sender:)"
-            landmarkType = "5">
+            landmarkName = "prepare(for:sender:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3222,38 +2723,6 @@
             endingLineNumber = "507"
             landmarkName = "prepareForSegue(_:sender:)"
             landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "490599144.592487"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "applicationWillTerminate(application:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "490599144.592487"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
-            landmarkName = "AppDelegate"
-            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

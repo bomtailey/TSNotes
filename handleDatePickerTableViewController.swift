@@ -8,12 +8,12 @@
 
 import UIKit
 
-var selectedDateNumeric = NSDate()
+var selectedDateNumeric = Date()
 
-let dayTimePeriodFormatter = NSDateFormatter()
-let userCalendar = NSCalendar.currentCalendar()
-let dateComponents = userCalendar.components([.Year,.Month,.Day,.Hour,.Minute],fromDate: selectedDateNumeric)
-let components = NSDateComponents()
+let dayTimePeriodFormatter = DateFormatter()
+let userCalendar = Calendar.current
+let dateComponents = (userCalendar as NSCalendar).components([.year,.month,.day,.hour,.minute],from: selectedDateNumeric)
+let components = DateComponents()
 
 
 
@@ -26,7 +26,7 @@ class handleDatePickerTableViewController: UITableViewController {
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
-    var existingDate: NSDate?
+    var existingDate: Date?
 
     
     
@@ -124,7 +124,7 @@ class handleDatePickerTableViewController: UITableViewController {
     // MARK: - Navigation
 
     // This returns to noteEntryViewController with possibly changed date
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
         if saveButton === sender {
             existingDate = selectedDateNumeric        
@@ -134,46 +134,46 @@ class handleDatePickerTableViewController: UITableViewController {
     
     // MARK - actions
     
-    @IBAction func datePickerChanged(sender: AnyObject) {
+    @IBAction func datePickerChanged(_ sender: AnyObject) {
         
         selectedDateNumeric = datePickerDisplay.date
-        labelDateDisplay.text = dayTimePeriodFormatter.stringFromDate(selectedDateNumeric)
+        labelDateDisplay.text = dayTimePeriodFormatter.string(from: selectedDateNumeric)
     }
     
     // Subtract a year
-    @IBAction func subtractOneYear(sender: AnyObject) {
-        selectedDateNumeric = userCalendar.dateByAddingUnit([.Year], value: -1, toDate: selectedDateNumeric, options: [])!
+    @IBAction func subtractOneYear(_ sender: AnyObject) {
+        selectedDateNumeric = (userCalendar as NSCalendar).date(byAdding: [.year], value: -1, to: selectedDateNumeric, options: [])!
         setDateDisplay()
     }
   
     // Add a year
-    @IBAction func addOneYear(sender: AnyObject) {
-        selectedDateNumeric = userCalendar.dateByAddingUnit([.Year], value: 1, toDate: selectedDateNumeric, options: [])!
+    @IBAction func addOneYear(_ sender: AnyObject) {
+        selectedDateNumeric = (userCalendar as NSCalendar).date(byAdding: [.year], value: 1, to: selectedDateNumeric, options: [])!
         setDateDisplay()
     }
     
     // Subtract a month
-    @IBAction func subractOneMonth(sender: AnyObject) {
-        selectedDateNumeric = userCalendar.dateByAddingUnit([.Month], value: -1, toDate: selectedDateNumeric, options: [])!
+    @IBAction func subractOneMonth(_ sender: AnyObject) {
+        selectedDateNumeric = (userCalendar as NSCalendar).date(byAdding: [.month], value: -1, to: selectedDateNumeric, options: [])!
         setDateDisplay()
     }
     
     // Add a month
-    @IBAction func addOneMonth(sender: AnyObject) {
-        selectedDateNumeric = userCalendar.dateByAddingUnit([.Month], value: 1, toDate: selectedDateNumeric, options: [])!
+    @IBAction func addOneMonth(_ sender: AnyObject) {
+        selectedDateNumeric = (userCalendar as NSCalendar).date(byAdding: [.month], value: 1, to: selectedDateNumeric, options: [])!
         setDateDisplay()
     }
     
     // Subtract a day
 
-    @IBAction func subtractOneDay(sender: AnyObject) {
-        selectedDateNumeric = userCalendar.dateByAddingUnit([.Day], value: -1, toDate: selectedDateNumeric, options: [])!
+    @IBAction func subtractOneDay(_ sender: AnyObject) {
+        selectedDateNumeric = (userCalendar as NSCalendar).date(byAdding: [.day], value: -1, to: selectedDateNumeric, options: [])!
         setDateDisplay()
     }
 
     // Add a day
-    @IBAction func addOneDay(sender: AnyObject) {
-        selectedDateNumeric = userCalendar.dateByAddingUnit([.Day], value: 1, toDate: selectedDateNumeric, options: [])!
+    @IBAction func addOneDay(_ sender: AnyObject) {
+        selectedDateNumeric = (userCalendar as NSCalendar).date(byAdding: [.day], value: 1, to: selectedDateNumeric, options: [])!
         setDateDisplay()
     }
     
@@ -182,24 +182,24 @@ class handleDatePickerTableViewController: UITableViewController {
     // Set date display label and date picker value
     
     func setDateDisplay (){
-        labelDateDisplay.text = dayTimePeriodFormatter.stringFromDate(selectedDateNumeric)
+        labelDateDisplay.text = dayTimePeriodFormatter.string(from: selectedDateNumeric)
         datePickerDisplay.setDate(selectedDateNumeric, animated: false)
     }
     
-    @IBAction func nowButton(sender: UIButton) {
-        selectedDateNumeric = NSDate()
+    @IBAction func nowButton(_ sender: UIButton) {
+        selectedDateNumeric = Date()
         setDateDisplay()
   }
     
     
     // Navigation
     
-    @IBAction func cancelButton(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func cancelButton(_ sender: AnyObject) {
+        dismiss(animated: true, completion: nil)
     }
 
     
-    @IBAction func cancelView(sender: AnyObject) {
+    @IBAction func cancelView(_ sender: AnyObject) {
     }
     
 

@@ -19,7 +19,7 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
     
     // segue variables
     var noteTitleField: String?
-    var noteCreateDate: NSDate?
+    var noteCreateDate: Date?
     var noteBaseRecord: NoteBase!
     var managedObjectContext: NSManagedObjectContext!
 
@@ -35,7 +35,7 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
     */
 
     
-    let dayTimePeriodFormatter = NSDateFormatter()
+    let dayTimePeriodFormatter = DateFormatter()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +61,7 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
             noteTitleFieldText.text = noteBaseRecord.noteName
             dayTimePeriodFormatter.dateFormat =  "EEEE MM/d/yy h:mm a"
             createDateTimeLabel.text = "Date Created: " +
-                dayTimePeriodFormatter.stringFromDate(noteBaseRecord.createDateTS!)
+                dayTimePeriodFormatter.string(from: noteBaseRecord.createDateTS! as Date)
 
             self.title = "Modify Note Title"
        }
@@ -90,9 +90,9 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
     
     */
     
-    func textFieldShouldClear (textField: UITextField) -> Bool {
+    func textFieldShouldClear (_ textField: UITextField) -> Bool {
 
-        saveButton.enabled = false
+        saveButton.isEnabled = false
         return true
     }
 
@@ -112,9 +112,9 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
 */
     
     // Disable save button if title field is empty
-    @IBAction func textFieldEditingDidChange(sender: UITextField) {
+    @IBAction func textFieldEditingDidChange(_ sender: UITextField) {
         let text = noteTitleFieldText.text ?? ""
-        saveButton.enabled = !text.isEmpty
+        saveButton.isEnabled = !text.isEmpty
     }
     
     /*
@@ -135,11 +135,11 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
     
     
     // Pass the data back to the NoteBaseTableController.
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
        
         if saveButton === sender {
            // noteTitleField = noteTitleFieldText.text
-            let nowTime = NSDate()
+            let nowTime = Date()
 
             if newTitleRequest {
 /*                let entity =  NSEntityDescription.entityForName("NoteBase", inManagedObjectContext: managedObjectContext)
@@ -181,8 +181,8 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    @IBAction func cancelView(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func cancelView(_ sender: AnyObject) {
+        dismiss(animated: true, completion: nil)
     }
  
 

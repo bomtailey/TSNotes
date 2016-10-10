@@ -14,8 +14,8 @@ import CoreData
 
 extension NoteBase {
 
-    @NSManaged var createDateTS: NSDate?
-    @NSManaged var modifyDateTS: NSDate?
+    @NSManaged var createDateTS: Date?
+    @NSManaged var modifyDateTS: Date?
     @NSManaged var noteCount: NSNumber?
     @NSManaged var noteName: String?
     @NSManaged var notes: NSSet?

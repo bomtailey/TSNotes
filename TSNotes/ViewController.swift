@@ -19,10 +19,10 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         // Fill current date time
-        let dayTimePeriodFormatter = NSDateFormatter()
+        let dayTimePeriodFormatter = DateFormatter()
         dayTimePeriodFormatter.dateFormat = "EEEE, d MMMM yyyy h:m a"
         
-        dateLabelDisplay.text = dayTimePeriodFormatter.stringFromDate(NSDate())
+        dateLabelDisplay.text = dayTimePeriodFormatter.string(from: Date())
 
     }
 
@@ -33,7 +33,7 @@ class ViewController: UIViewController {
 
     
     // MARK: Actions
-    @IBAction func selectDateTimeValue(sender: UITapGestureRecognizer) {
+    @IBAction func selectDateTimeValue(_ sender: UITapGestureRecognizer) {
         print ("date picker clicked")
     }
 

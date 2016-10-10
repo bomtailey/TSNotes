@@ -16,7 +16,7 @@ extension Note {
 
     @NSManaged var noteModifiedDateDay: String?
     @NSManaged var noteModifiedDateTime: String?
-    @NSManaged var noteModifiedDateTS: NSDate?
+    @NSManaged var noteModifiedDateTS: Date?
     @NSManaged var noteText: String?
     @NSManaged var notesList: NoteBase?
 
