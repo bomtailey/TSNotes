@@ -71,8 +71,12 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     
     
     // Initialize fetchedResultsController
-    lazy var fetchedResultsController: NSFetchedResultsController = { () -> <<error type>> in 
+    var fetchedResultsController: NSFetchedResultsController<Event> {
+            if _fetchedResultsController != nil {
+                return _fetchedResultsController!
+            }
         
+    
         let notesFetchRequest = NSFetchRequest(entityName: "Note")
         
         let notesNoteBasePred = NSPredicate(format: "notesList.createDateTS == %@", self.noteCreateDate)

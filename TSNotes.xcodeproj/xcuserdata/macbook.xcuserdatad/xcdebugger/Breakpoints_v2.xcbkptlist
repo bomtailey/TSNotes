@@ -635,8 +635,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "280"
             endingLineNumber = "280"
-            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
-            landmarkType = "5">
+            landmarkName = "noteEntriesTableViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -651,8 +651,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "284"
             endingLineNumber = "284"
-            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
-            landmarkType = "5">
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -667,8 +667,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "285"
             endingLineNumber = "285"
-            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
-            landmarkType = "5">
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -683,8 +683,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "277"
             endingLineNumber = "277"
-            landmarkName = "noteEntriesTableViewController"
-            landmarkType = "3">
+            landmarkName = "tableView(_:numberOfRowsInSection:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -747,8 +747,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "254"
             endingLineNumber = "254"
-            landmarkName = "noteEntriesTableViewController"
-            landmarkType = "3">
+            landmarkName = "didReceiveMemoryWarning()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1029,8 +1029,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "130"
             endingLineNumber = "130"
-            landmarkName = "AppDelegate"
-            landmarkType = "3">
+            landmarkName = "managedObjectContext"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1556,7 +1556,7 @@
             startingLineNumber = "234"
             endingLineNumber = "234"
             landmarkName = "configureCell(_:atIndexPath:)"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1571,8 +1571,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "288"
             endingLineNumber = "288"
-            landmarkName = "tableView(_:titleForHeaderInSection:)"
-            landmarkType = "5">
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1603,8 +1603,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "258"
             endingLineNumber = "258"
-            landmarkName = "numberOfSectionsInTableView(_:)"
-            landmarkType = "5">
+            landmarkName = "noteEntriesTableViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1619,8 +1619,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "268"
             endingLineNumber = "268"
-            landmarkName = "tableView(_:numberOfRowsInSection:)"
-            landmarkType = "5">
+            landmarkName = "noteEntriesTableViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1651,8 +1651,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "504"
             endingLineNumber = "504"
-            landmarkName = "prepareForSegue(_:sender:)"
-            landmarkType = "5">
+            landmarkName = "prepare(for:sender:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1668,7 +1668,7 @@
             startingLineNumber = "229"
             endingLineNumber = "229"
             landmarkName = "configureCell(_:atIndexPath:)"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1812,7 +1812,7 @@
             startingLineNumber = "231"
             endingLineNumber = "231"
             landmarkName = "configureCell(_:atIndexPath:)"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1828,7 +1828,7 @@
             startingLineNumber = "233"
             endingLineNumber = "233"
             landmarkName = "configureCell(_:atIndexPath:)"
-            landmarkType = "5">
+            landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -1922,7 +1922,7 @@
             startingLineNumber = "271"
             endingLineNumber = "271"
             landmarkName = "tableView(_:numberOfRowsInSection:)"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1937,8 +1937,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "501"
             endingLineNumber = "501"
-            landmarkName = "prepareForSegue(_:sender:)"
-            landmarkType = "5">
+            landmarkName = "prepare(for:sender:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2226,7 +2226,7 @@
             startingLineNumber = "294"
             endingLineNumber = "294"
             landmarkName = "tableView(_:titleForHeaderInSection:)"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2289,8 +2289,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "149"
             endingLineNumber = "149"
-            landmarkName = "controller(_:didChangeObject:atIndexPath:forChangeType:newIndexPath:)"
-            landmarkType = "5">
+            landmarkName = "controllerDidChangeContent(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2305,8 +2305,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "255"
             endingLineNumber = "255"
-            landmarkName = "numberOfSectionsInTableView(_:)"
-            landmarkType = "5">
+            landmarkName = "noteEntriesTableViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2321,8 +2321,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "259"
             endingLineNumber = "259"
-            landmarkName = "numberOfSectionsInTableView(_:)"
-            landmarkType = "5">
+            landmarkName = "numberOfSections(in:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2337,8 +2337,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "143"
             endingLineNumber = "143"
-            landmarkName = "controllerDidChangeContent(_:)"
-            landmarkType = "5">
+            landmarkName = "controllerWillChangeContent(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2369,8 +2369,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "138"
             endingLineNumber = "138"
-            landmarkName = "controllerWillChangeContent(_:)"
-            landmarkType = "5">
+            landmarkName = "noteEntriesTableViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2386,7 +2386,7 @@
             startingLineNumber = "548"
             endingLineNumber = "548"
             landmarkName = "unwindFromNoteEntry(_:)"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2401,8 +2401,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "195"
             endingLineNumber = "195"
-            landmarkName = "controller(_:didChangeSection:atIndex:forChangeType:)"
-            landmarkType = "5">
+            landmarkName = "controller(_:didChange:at:for:newIndexPath:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2417,8 +2417,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "485"
             endingLineNumber = "485"
-            landmarkName = "cancelAction(_:)"
-            landmarkType = "5">
+            landmarkName = "noteEntriesTableViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2545,8 +2545,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "282"
             endingLineNumber = "282"
-            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
-            landmarkType = "5">
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2561,8 +2561,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "283"
             endingLineNumber = "283"
-            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
-            landmarkType = "5">
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2578,7 +2578,7 @@
             startingLineNumber = "309"
             endingLineNumber = "309"
             landmarkName = "tableView(_:willDisplayHeaderView:forSection:)"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2705,8 +2705,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "516"
             endingLineNumber = "516"
-            landmarkName = "prepareForSegue(_:sender:)"
-            landmarkType = "5">
+            landmarkName = "prepare(for:sender:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2721,8 +2721,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "507"
             endingLineNumber = "507"
-            landmarkName = "prepareForSegue(_:sender:)"
-            landmarkType = "5">
+            landmarkName = "prepare(for:sender:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

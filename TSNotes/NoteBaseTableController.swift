@@ -98,7 +98,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
         
         // try fetchcontroller fetch
         do {
-            try self.fetchedResultsController.performFetch()
+            try self.fetchedResultsController.  //.performFetch()
         } catch {
             let fetchError = error as NSError
             print("\(fetchError), \(fetchError.userInfo)")

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E74122D820A1059C26CCAC53 /* Pods_TSNotes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9123F3E34B50A6C923682658 /* Pods_TSNotes.framework */; };
+		FA25E1AB1DB201300087F527 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25E1AA1DB2012F0087F527 /* CoreDataStack.swift */; };
 		FA3F5B491BF0857600A7804C /* TSNoteEntriesTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F5B481BF0857600A7804C /* TSNoteEntriesTableCell.swift */; };
 		FA6D27FF1BEDA80100768930 /* NoteBaseTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6D27FE1BEDA80100768930 /* NoteBaseTableController.swift */; };
 		FA73889C1BF5703B00758E68 /* noteEntriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA73889B1BF5703B00758E68 /* noteEntriesTableViewController.swift */; };
@@ -26,7 +28,6 @@
 		FAED29B61D24A8720009C873 /* TSNotesDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAED29B41D24A8720009C873 /* TSNotesDataModel.xcdatamodeld */; };
 		FAED29BA1D24F30A0009C873 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED29B81D24F30A0009C873 /* Note.swift */; };
 		FAED29BC1D24F6480009C873 /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED29BB1D24F6480009C873 /* Note+CoreDataProperties.swift */; };
-		FDEEC28CA8C7D773F0A7B605 /* Pods_TSNotes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9123F3E34B50A6C923682658 /* Pods_TSNotes.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,7 @@
 		39FA2B7C46CD825EC3BEB9FC /* Pods-TSNotes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TSNotes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TSNotes/Pods-TSNotes.debug.xcconfig"; sourceTree = "<group>"; };
 		4E01FE62BAF79E246CA9F471 /* Pods-TSNotes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TSNotes.release.xcconfig"; path = "Pods/Target Support Files/Pods-TSNotes/Pods-TSNotes.release.xcconfig"; sourceTree = "<group>"; };
 		9123F3E34B50A6C923682658 /* Pods_TSNotes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TSNotes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA25E1AA1DB2012F0087F527 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		FA3F5B481BF0857600A7804C /* TSNoteEntriesTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSNoteEntriesTableCell.swift; sourceTree = "<group>"; };
 		FA6D27FE1BEDA80100768930 /* NoteBaseTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteBaseTableController.swift; sourceTree = "<group>"; };
 		FA73889B1BF5703B00758E68 /* noteEntriesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = noteEntriesTableViewController.swift; path = ../noteEntriesTableViewController.swift; sourceTree = "<group>"; };
@@ -73,7 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FDEEC28CA8C7D773F0A7B605 /* Pods_TSNotes.framework in Frameworks */,
+				E74122D820A1059C26CCAC53 /* Pods_TSNotes.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,6 +129,7 @@
 		FAA701321BDB171E0013EFF7 /* TSNotes */ = {
 			isa = PBXGroup;
 			children = (
+				FA25E1AA1DB2012F0087F527 /* CoreDataStack.swift */,
 				FAE72BC41BE043B20053F50E /* handleDatePickerTableViewController.swift */,
 				FAA701331BDB171E0013EFF7 /* AppDelegate.swift */,
 				FAA701351BDB171E0013EFF7 /* ViewController.swift */,
@@ -206,7 +209,7 @@
 		FAA701281BDB171E0013EFF7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = LCI;
 				TargetAttributes = {
 					FAA7012F1BDB171E0013EFF7 = {
@@ -320,6 +323,7 @@
 				FAD2061E1C3D25ED00A045E5 /* noteEntryViewController.swift in Sources */,
 				FA3F5B491BF0857600A7804C /* TSNoteEntriesTableCell.swift in Sources */,
 				FAED29B21D2459F10009C873 /* NoteBase+CoreDataProperties.swift in Sources */,
+				FA25E1AB1DB201300087F527 /* CoreDataStack.swift in Sources */,
 				FAE9FDA31D2CB5AE00288221 /* PopoverViewController.swift in Sources */,
 				FAED29B31D2459F10009C873 /* NoteBase.swift in Sources */,
 				FA73889C1BF5703B00758E68 /* noteEntriesTableViewController.swift in Sources */,
@@ -382,8 +386,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -427,8 +433,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -447,6 +455,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -456,6 +465,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 39FA2B7C46CD825EC3BEB9FC /* Pods-TSNotes.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -472,6 +482,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4E01FE62BAF79E246CA9F471 /* Pods-TSNotes.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
