@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 
-class CoreDataStack {
+public class CoreDataStack {
 
     
     // Applications default directory address

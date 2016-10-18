@@ -94,7 +94,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         fetchedResultsController.delegate = self
         
         return fetchedResultsController
-    }()
+    }
     
     
     

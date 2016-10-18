@@ -98,7 +98,8 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
         
         // try fetchcontroller fetch
         do {
-            try self.fetchedResultsController.  //.performFetch()
+            let request: NSFetchRequest<NoteBase> = NoteBase.fetchRequest() as! NSFetchRequest<NoteBase>
+        //    try self.fetchedResultsController.  //.performFetch()
         } catch {
             let fetchError = error as NSError
             print("\(fetchError), \(fetchError.userInfo)")
@@ -109,8 +110,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
     
     // Initialize fetchedResultsController
 //    lazy var fetchedResultsController: NSFetchedResultsController = { () -> <<error type>> in
-    lazy var fetchedResultsController: NSFetchedResultsController = { () -> <<error type>>
-        
+     lazy var fetchedResultsController: NSFetchedResultsController<NoteBase>?
         
         // Initialize Fetch Request
         let fetchRequest = NSFetchRequest(entityName: "NoteBase")
@@ -126,7 +126,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
         fetchedResultsController.delegate = self
         
         return fetchedResultsController
-    }()
+    }
     
     // MARK: -
     // MARK: Fetched Results Controller Delegate Methods
