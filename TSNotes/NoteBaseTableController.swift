@@ -98,8 +98,10 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
         
         // try fetchcontroller fetch
         do {
-            let request: NSFetchRequest<NoteBase> = NoteBase.fetchRequest() as! NSFetchRequest<NoteBase>
+//            let request: NSFetchRequest<NoteBase> = NoteBase.fetchRequest() as! NSFetchRequest<NoteBase>
         //    try self.fetchedResultsController.  //.performFetch()
+        try self.fetchedResultsController.performFetch()
+
         } catch {
             let fetchError = error as NSError
             print("\(fetchError), \(fetchError.userInfo)")
@@ -109,11 +111,13 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
     }
     
     // Initialize fetchedResultsController
-//    lazy var fetchedResultsController: NSFetchedResultsController = { () -> <<error type>> in
-     lazy var fetchedResultsController: NSFetchedResultsController<NoteBase>?
+    
+    lazy var fetchedResultsController: NSFetchedResultsController<NoteBase> = {
+        
         
         // Initialize Fetch Request
-        let fetchRequest = NSFetchRequest(entityName: "NoteBase")
+      //  let fetchRequest = NSFetchRequest(entityName: "NoteBase")
+        let fetchRequest: NSFetchRequest<NoteBase> = NoteBase.fetchRequest() as! NSFetchRequest<NoteBase>
         
         // Add Sort Descriptors
         let sortDescriptor = NSSortDescriptor(key: "modifyDateTS", ascending: false)
@@ -126,7 +130,8 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
         fetchedResultsController.delegate = self
         
         return fetchedResultsController
-    }
+    }()
+
     
     // MARK: -
     // MARK: Fetched Results Controller Delegate Methods
@@ -179,7 +184,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
     
     func configureCell(_ cell: noteListTableViewCell, atIndexPath indexPath: IndexPath) {
         
-        noteBaseRecord = fetchedResultsController.object(at: indexPath)  as! NoteBase
+        noteBaseRecord = fetchedResultsController.object(at: indexPath)  
         
             
         // Update Cell
@@ -315,7 +320,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
                 print("Delete button tapped")
                 
                 // Fetch Record
-                let record = self.fetchedResultsController.object(at: indexPath) as! NSManagedObject
+                let record = self.fetchedResultsController.object(at: indexPath) as NSManagedObject
                 
                 // Delete Record
                 self.managedObjectContext.delete(record)
@@ -396,7 +401,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
             let indexPath = tableView.indexPathForSelectedRow
             let usableIndexPath = (indexPath ?? currentIndexPath)
             
-            noteBaseRecord = fetchedResultsController.object(at: usableIndexPath!) as! NoteBase
+            noteBaseRecord = fetchedResultsController.object(at: usableIndexPath!) 
             
             
             if segue.identifier == "showNoteEntriesSegue" {

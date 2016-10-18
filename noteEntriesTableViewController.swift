@@ -71,15 +71,18 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     
     
     // Initialize fetchedResultsController
-    var fetchedResultsController: NSFetchedResultsController<Event> {
-            if _fetchedResultsController != nil {
-                return _fetchedResultsController!
-            }
+ //   var fetchedResultsController: NSFetchedResultsController<Event> {
+        lazy var fetchedResultsController: NSFetchedResultsController<Note> = {
+
+            //            if _fetchedResultsController != nil {
+//                return _fetchedResultsController!
+//            }
         
+            let notesFetchRequest: NSFetchRequest<Note> = Note.fetchRequest() as! NSFetchRequest<Note>
     
-        let notesFetchRequest = NSFetchRequest(entityName: "Note")
+//            let notesFetchRequest = NSFetchRequest(entityName: "Note")
         
-        let notesNoteBasePred = NSPredicate(format: "notesList.createDateTS == %@", self.noteCreateDate)
+        let notesNoteBasePred = NSPredicate(format: "notesList.createDateTS == %@", self.noteCreateDate as CVarArg)
         notesFetchRequest.predicate = notesNoteBasePred
         
         // Add Sort Descriptor
@@ -94,7 +97,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         fetchedResultsController.delegate = self
         
         return fetchedResultsController
-    }
+    }()
     
     
     
@@ -215,7 +218,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         currentCell = cell
         
         // Fetch Record
-        let record = fetchedResultsController.object(at: indexPath) as! Note
+        let record = fetchedResultsController.object(at: indexPath) 
         
         // Update Cell
         if let noteModifiedTime = record.noteModifiedDateTime {
@@ -372,7 +375,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
                 print("Delete button tapped")
                 
                 // Fetch Record
-                let record = self.fetchedResultsController.object(at: indexPath) as! NSManagedObject
+                let record = self.fetchedResultsController.object(at: indexPath) as NSManagedObject
                 
                 // Delete Record
                 self.managedObjectContext.delete(record)
@@ -426,7 +429,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         
         if (editingStyle == .delete) {
             // Fetch Record
-            let record = fetchedResultsController.object(at: indexPath) as! NSManagedObject
+            let record = fetchedResultsController.object(at: indexPath) as NSManagedObject
             
             // Delete Record
             managedObjectContext.delete(record)
@@ -512,7 +515,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             if let indexPath = tableView.indexPathForSelectedRow {
             
             // Fetch note record
-            noteRecord = fetchedResultsController.object(at: indexPath) as! Note
+            noteRecord = fetchedResultsController.object(at: indexPath) 
                 
             destinationVC.noteText = noteRecord.noteText!
             destinationVC.noteModDateTime = noteRecord.noteModifiedDateTS!
