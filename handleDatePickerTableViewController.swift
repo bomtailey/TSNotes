@@ -126,7 +126,7 @@ class handleDatePickerTableViewController: UITableViewController {
     // This returns to noteEntryViewController with possibly changed date
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
-        if saveButton === sender {
+        if let sender = sender as? UIBarButtonItem,  saveButton === sender {
             existingDate = selectedDateNumeric        
         }
     }

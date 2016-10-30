@@ -178,10 +178,10 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
         
         let segID = segue.identifier
         
-        if saveButton === sender {  // save the note
+        if let sender = sender as? UIBarButtonItem,  saveButton === sender {  // save the note
             
             noteModDateTime = dayTimePeriodFormatter.date(from: datetimeDisplay.text!)!
-            noteText = noteTextView.text!  ?? ""
+            noteText = noteTextView.text!  
 
             /*
             noteRecord.noteModifiedDateDay = sortableDateOnlyFormatter.stringFromDate(noteModDateTime!)

@@ -137,7 +137,7 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
     // Pass the data back to the NoteBaseTableController.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
        
-        if saveButton === sender {
+        if let sender = sender as? UIBarButtonItem, saveButton === sender {
            // noteTitleField = noteTitleFieldText.text
             let nowTime = Date()
 

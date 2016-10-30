@@ -22,11 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Override point for customization after application launch.
         
-        lazy var coreDataStack = CoreDataStack()
+   //     lazy var coreDataStack = CoreDataStack()
         
         // Set up handling move entry fields above keyboard
         IQKeyboardManager.sharedManager().enable = true
-        IQKeyboardManager.sharedManager().canAdjustTextView = true
+ //       IQKeyboardManager.sharedManager().canAdjustTextView = true
         
         return true
     }
@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         
-        coreDataStack.saveContext()
+   //     coreDataStack.saveContext()
         self.saveContext()
     }
     
