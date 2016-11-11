@@ -192,11 +192,16 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             // Mark - TEB: for some reason, adds are getting marked as moves (because they're child objects?) and the
             // tableview doesn't get updated so we're going to do it explicity which I think, in princple, we shouldn't have to
             
+            /*
             if bNewNote {
                 tableView.reloadData()
             }
+            */
             break;
         }
+        
+        tableView.reloadData()
+
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
