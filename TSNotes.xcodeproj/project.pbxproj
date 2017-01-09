@@ -209,12 +209,12 @@
 		FAA701281BDB171E0013EFF7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = LCI;
 				TargetAttributes = {
 					FAA7012F1BDB171E0013EFF7 = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = UC79WJ2DDA;
+						DevelopmentTeam = 38WD2H4793;
 						LastSwiftMigration = 0800;
 					};
 					FAA701431BDB171E0013EFF7 = {
@@ -469,13 +469,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = UC79WJ2DDA;
+				DEVELOPMENT_TEAM = 38WD2H4793;
 				INFOPLIST_FILE = TSNotes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.LCI.TSNotes;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LCI.TSNotes.New;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -487,13 +488,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = UC79WJ2DDA;
+				DEVELOPMENT_TEAM = 38WD2H4793;
 				INFOPLIST_FILE = TSNotes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.LCI.TSNotes;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LCI.TSNotes.New;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

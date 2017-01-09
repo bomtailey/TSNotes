@@ -67,6 +67,11 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
        }
 
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated);
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -142,36 +147,20 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
             let nowTime = Date()
 
             if newTitleRequest {
-/*                let entity =  NSEntityDescription.entityForName("NoteBase", inManagedObjectContext: managedObjectContext)
-                 segueListNoteInstance = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedObjectContext) as! NoteBase
                 
-
-                segueListNoteInstance.setValue(nowTime, forKey: "createDateTS")
-                segueListNoteInstance.setValue(nowTime, forKey: "modifyDateTS")
-                segueListNoteInstance.setValue(noteTitleFieldText.text!, forKey: "noteName")
-                segueListNoteInstance.setValue(0, forKey:"noteCount")
- */
+                let entity =  NSEntityDescription.entity(forEntityName: "NoteBase", in:managedObjectContext)
+                noteBaseRecord = NSManagedObject(entity: entity!, insertInto: managedObjectContext) as! NoteBase
 
                 noteBaseRecord.setValue(nowTime, forKey: "createDateTS")
-//                noteBaseRecord.setValue(nowTime, forKey: "modifyDateTS")
-//                noteBaseRecord.setValue(noteTitleFieldText.text!, forKey: "noteName")
                 noteBaseRecord.setValue(0, forKey:"noteCount")
-
             }
-                
  
             noteBaseRecord.setValue(nowTime, forKey: "modifyDateTS")
             noteBaseRecord.setValue(noteTitleFieldText.text!, forKey: "noteName")
-            
-            
 
             // Try save managed context
             do {
                 try managedObjectContext.save()
-                //5
- //               if newTitleRequest {
- //                   savedNoteBase.append(segueListNoteInstance)
-//                }
             } catch let error as NSError  {
                 print("Could not save \(error), \(error.userInfo)")
             }

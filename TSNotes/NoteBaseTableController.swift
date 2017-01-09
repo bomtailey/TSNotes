@@ -57,6 +57,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
         // Use the edit button item provided by the table view controller.
         navigationItem.leftBarButtonItem = editButtonItem
         
+        tableView.contentOffset = CGPoint(x:0, y:searchBar.frame.size.height)
         
         // Show location of database
         let dirPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
@@ -74,22 +75,21 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
             }
         }
         
-         // try fetchcontroller fetch
+        // try fetchcontroller fetch
          do {
          try self.fetchedResultsController.performFetch()
          } catch {
          let fetchError = error as NSError
          print("\(fetchError), \(fetchError.userInfo)")
          }
- 
-        self.tableView.contentOffset = CGPoint(x:0, y:self.searchBar.frame.size.height);
         
+        let searchBarFrameSize = searchBar.frame.size.height
+        print("\n\nSearchbar height: \(searchBarFrameSize)\n\n")
         
         super.viewWillAppear(animated);
         
-
-        
     }
+
     
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [AnyHashable: Any]?) -> Bool {
         // Override point for customization before application launch.
@@ -315,7 +315,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {(alert :UIAlertAction!) in
             print("Cancel button tapped")
             tableView.reloadRows (at: [indexPath], with: UITableViewRowAnimation.automatic)
-            self.tableView.contentOffset = CGPoint(x:0, y:self.searchBar.frame.size.height);
+           // self.tableView.contentOffset = CGPoint(x:0, y:self.searchBar.frame.size.height);
         })
         
         alertController.addAction(cancelAction)
@@ -358,7 +358,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
             self.currentIndexPath = indexPath
             self.performSegue(withIdentifier: "modifyNoteTitle", sender: self)
             tableView.reloadRows (at: [indexPath], with: UITableViewRowAnimation.automatic)
-            self.tableView.contentOffset = CGPoint(x:0, y:self.searchBar.frame.size.height);
+            //self.tableView.contentOffset = CGPoint(x:0, y:self.searchBar.frame.size.height);
 
         }
         
@@ -414,7 +414,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
             searchActive = true;
         }
         self.tableView.reloadData()
-        self.tableView.contentOffset = CGPoint(x:0, y:self.searchBar.frame.size.height);
+        //self.tableView.contentOffset = CGPoint(x:0, y:self.searchBar.frame.size.height);
     }
     
     // MARK: - Navigation
@@ -431,12 +431,12 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
             let destinationNavController = segue.destination as! UINavigationController
             let destinationVC = destinationNavController.topViewController as? TitleEntryViewController
             
-            let entity =  NSEntityDescription.entity(forEntityName: "NoteBase", in:managedObjectContext)
-            noteBaseRecord = NSManagedObject(entity: entity!, insertInto: managedObjectContext) as! NoteBase
+   //         let entity =  NSEntityDescription.entity(forEntityName: "NoteBase", in:managedObjectContext)
+   //         noteBaseRecord = NSManagedObject(entity: entity!, insertInto: managedObjectContext) as! NoteBase
             
             destinationVC!.newTitleRequest = true
             destinationVC!.managedObjectContext = managedObjectContext
-            destinationVC!.noteBaseRecord = noteBaseRecord
+   //         destinationVC!.noteBaseRecord = noteBaseRecord
             
     } else {
 
@@ -472,8 +472,7 @@ class NoteBaseTableController: UITableViewController, NSFetchedResultsController
     //  All data update functions moved to TitleEntryViewController
     @IBAction func unwindFromTitleEntry(_ sender: UIStoryboardSegue) {
         
-        self.tableView.contentOffset = CGPoint(x:0, y:self.searchBar.frame.size.height);
-        tableView.reloadData()
+       tableView.reloadData()
     }
     
     
