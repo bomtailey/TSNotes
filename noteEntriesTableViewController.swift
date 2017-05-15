@@ -2,6 +2,8 @@
 //  noteEntriesTableViewController.swift - This is the table giving the entries for a particular note
 //  TSNotes
 //
+//  ==> 1/30/17 Add search notes capability
+//
 //  Created by Jeanne's MacBook on 11/12/15.
 //  Copyright © 2015 LCI. All rights reserved.
 //
@@ -9,15 +11,26 @@
 import UIKit
 import CoreData
 
-class noteEntriesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class noteEntriesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, UISearchResultsUpdating {
     
     // Properties
     // named views so we can pass touch through to tablecll
+    
+    // Properties for search function
+    var filteredNotes = [String]()
+    var resultSearchController = UISearchController()
+    var fetchPredicate: NSPredicate?
+
+    // Properties for core data functions
+    var fetchedResultsController: NSFetchedResultsController<Note> = NSFetchedResultsController()
+    var notesFetchRequest: NSFetchRequest<Note> = Note.fetchRequest() as! NSFetchRequest<Note>
+    var sortDescriptor = NSSortDescriptor(key: "noteModifiedDateTS", ascending: false)
     
     
     // Properties fron NoteBaseTableController
     var managedObjectContext: NSManagedObjectContext!
     var noteBaseRecord: NoteBase!
+    var bSearchEntries = Bool(false)
 
     
     var noteName = String()
@@ -50,28 +63,66 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         
         super.viewDidLoad()
         
-        noteCreateDate = noteBaseRecord.createDateTS! as Date
+       // MARK - 2/15/17 right off the bat we need to decide if we've been called to search or
+        //   provide a normal display.  Perhaps we should separate the search function in its own
+        //   controller and display
+        
+        if bSearchEntries {
+            self.navigationController!.popViewController(animated: true)
+        } else {
+ 
+            noteCreateDate = noteBaseRecord.createDateTS! as Date
 
-        displayDateFormatter.dateFormat = "h:mm a  EEEE, MMMM d, yyyy"
-        sortableDateOnlyFormatter.dateFormat = "yyyy.MM.dd"
-        displayDateOnlyFormatter.dateFormat = "EEEE MMMM,d yyyy"  // "EEEE, d MMMM yyyy"
-        displayTimeOnlyFormatter.dateFormat = "h:mm a"
+            displayDateFormatter.dateFormat = "h:mm a  EEEE, MMMM d, yyyy"
+            sortableDateOnlyFormatter.dateFormat = "yyyy.MM.dd"
+            displayDateOnlyFormatter.dateFormat = "EEEE MMMM,d yyyy"  // "EEEE, d MMMM yyyy"
+            displayTimeOnlyFormatter.dateFormat = "h:mm a"
+            
+            fetchedResultsController = getFRC() as! NSFetchedResultsController<Note>
+            fetchRecords ()
+        }
         
         // Mark: to implement dynamic row height
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 150
 
-        /*  *****  Don't think this is needed 7/11/16
-        let large = UIView(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
-        let small = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
-        let point = CGPoint(x: 200, y: 200)
-        large.convertPoint(point, toView: small)
-        */
+        // Initialize searchController
+        self.resultSearchController = UISearchController(searchResultsController: nil)
+        self.resultSearchController.searchResultsUpdater = self
+        self.resultSearchController.dimsBackgroundDuringPresentation = false
+        self.resultSearchController.searchBar.sizeToFit()
+        self.tableView.tableHeaderView = resultSearchController.searchBar
+        //
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        noteName = noteBaseRecord.noteName!
+        navigationItem.title = noteName
+       
+        fetchRecords ()
+        
+    }
+    
+    func fetchRecords () {
+        
+    
+        do {
+            try self.fetchedResultsController.performFetch()
+        } catch {
+            let fetchError = error as NSError
+            print("\(fetchError), \(fetchError.userInfo)")
+        }
+        
+    }
+
     
     
     // Initialize fetchedResultsController
- //   var fetchedResultsController: NSFetchedResultsController<Event> {
+ //   var fetchedResultsController: NSFetchedResultsController<Event>  {
+    
+/*
         lazy var fetchedResultsController: NSFetchedResultsController<Note> = {
 
             //            if _fetchedResultsController != nil {
@@ -82,7 +133,13 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     
 //            let notesFetchRequest = NSFetchRequest(entityName: "Note")
         
-        let notesNoteBasePred = NSPredicate(format: "notesList.createDateTS == %@", self.noteCreateDate as CVarArg)
+
+            let predicateSpecified = predicateString ! EMPTY
+            if predicateString ! EMPTY {
+            }
+            
+            
+            let notesNoteBasePred = NSPredicate(format: "notesList.createDateTS == %@", self.noteCreateDate as CVarArg)
         notesFetchRequest.predicate = notesNoteBasePred
         
         // Add Sort Descriptor
@@ -97,7 +154,46 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         fetchedResultsController.delegate = self
         
         return fetchedResultsController
-    }()
+        }
+ 
+        */
+    
+    func fetchRequest() -> NSFetchRequest<NSFetchRequestResult> {
+        
+        let notesFetchRequest: NSFetchRequest<Note> = Note.fetchRequest() as! NSFetchRequest<Note>
+
+        // Add Sort Descriptor
+        let sortDescriptor = NSSortDescriptor(key: "noteModifiedDateTS", ascending: false)
+        notesFetchRequest.sortDescriptors = [sortDescriptor]
+
+        
+        // Add predicate
+        //let
+//        sortDescriptor = NSSortDescriptor(key: "noteModifiedDateTS", ascending: false)
+        notesFetchRequest.sortDescriptors = [sortDescriptor]
+ 
+        return notesFetchRequest as! NSFetchRequest<NSFetchRequestResult>  //fetchRequest()
+    }
+    
+    
+//    func getFRC() -> NSFetchedResultsController<NSFetchRequestResult> {
+        func getFRC() -> NSFetchedResultsController<NSFetchRequestResult>
+        {
+            
+            let notesFetchRequest: NSFetchRequest<Note> = Note.fetchRequest() as! NSFetchRequest<Note>
+
+            // Add Sort Descriptor
+            let sortDescriptor = NSSortDescriptor(key: "noteModifiedDateTS", ascending: false)
+            notesFetchRequest.sortDescriptors = [sortDescriptor]
+            
+            // Initialize Fetched Results Controller
+            let fetchedResultsController = NSFetchedResultsController(fetchRequest: notesFetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: "noteModifiedDateDay", cacheName: nil)
+            
+            // Configure Fetched Results Controller
+            fetchedResultsController.delegate = self
+            
+            return fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>
+        }
     
     
     
@@ -107,23 +203,6 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         tableView.estimatedRowHeight = 120.0
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-      //  super.viewWillAppear(animated)
-        
-        noteName = noteBaseRecord.noteName!
-        navigationItem.title = noteName
-
-        // try fetchcontroller fetch
-        do {
-            try self.fetchedResultsController.performFetch()
-        } catch {
-            let fetchError = error as NSError
-            print("\(fetchError), \(fetchError.userInfo)")
-        }
-        
-
-        
-    }
     
     
     
@@ -278,8 +357,8 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
 
         if let sections = fetchedResultsController.sections {
             let sectionInfo = sections[section]
-//            NSLog("number Of Rows In Section: \(sectionInfo.numberOfObjects)")
-
+            //            NSLog("number Of Rows In Section: \(sectionInfo.numberOfObjects)")
+            
             return sectionInfo.numberOfObjects
         }
         
@@ -291,6 +370,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "TSNoteEntriesTableCell", for: indexPath) as! TSNoteEntriesTableCell
 
+        
         // Configure Table View Cell
         configureCell(cell, atIndexPath: indexPath)
         
@@ -351,7 +431,6 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     
     
     //Set up row edit actions
-    
     
     
     // Enable row deletes
@@ -510,11 +589,6 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         if bNewNote { // set up new note
             destinationVC.noteText = ""
             
-            // Add a note record object       
-//            let entityNote = NSEntityDescription.entityForName("Note", inManagedObjectContext: managedObjectContext)
-//            noteRecord = NSManagedObject(entity: entityNote!, insertIntoManagedObjectContext: managedObjectContext) as! Note
-            
-            
         } else { // set up note modification
             
             if let indexPath = tableView.indexPathForSelectedRow {
@@ -522,8 +596,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             // Fetch note record
             noteRecord = fetchedResultsController.object(at: indexPath) 
                 
-            destinationVC.noteText = noteRecord.noteText!
-            destinationVC.noteModDateTime = noteRecord.noteModifiedDateTS!
+          destinationVC.noteModDateTime = noteRecord.noteModifiedDateTS!
                 
             }
 
@@ -581,18 +654,35 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     }
     
         
-        /*
+    
+    // updates the table view with the search results as user is typing...
+    func updateSearchResults(for searchController: UISearchController) {
         
-        func application(application: UIApplication, viewControllerWithRestorationIdentifierPath identifierComponents: [AnyObject], coder: NSCoder) -> UIViewController? {
-           
-            return myViewController
+        // process the search string, remove leading and trailing spaces
+        let searchText = searchController.searchBar.text!
+        let trimmedSearchString = searchText.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        
+        // if search string is not blank
+        if !trimmedSearchString.isEmpty {
+            
+            // form the search format
+            let fetchPredicate = NSPredicate(format: "(name contains [cd] %@)", trimmedSearchString)
+            
+            // add the search filter
+            notesFetchRequest.predicate = fetchPredicate
         }
- 
-        */
+        else {
+            
+            // reset to all records if search string is blank
+            notesFetchRequest.predicate = nil
+        }
         
-
-
+        // refresh the table view
+        self.tableView.reloadData()
     }
+
+
+}  // ==> End of noteEntriesTableViewController class definition
     
     
 

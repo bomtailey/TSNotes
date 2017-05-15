@@ -174,7 +174,7 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
     // Save note
 //    @IBAction func returnToNoteEntriesView(segue: UIStoryboardSegue, sender: AnyObject?)
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         
         let segID = segue.identifier
         
