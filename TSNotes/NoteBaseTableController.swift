@@ -1,4 +1,3 @@
-
 //
 //  NoteBaseTableController.swift - this is the table listing all the notes
 //  TSNotes
@@ -10,17 +9,22 @@
 import UIKit
 import CoreData
 
-    // 2/12/17 temporarily removing UISearchResultsUpdating, , UISearchBarDelegate until I better understand searching
-class NoteBaseTableController: UITableViewController, UISearchResultsUpdating,UISearchBarDelegate, NSFetchedResultsControllerDelegate   {
+    // 2/12/17 temporarily removing UISearchResultsUpdating, , UISearchBarDelegate
+    //   UISearchResultsUpdating,UISearchBarDelegate,       until I better understand searching
+
+class NoteBaseTableController: UITableViewController,  NSFetchedResultsControllerDelegate, UISearchBarDelegate   {
     
-    // MARK: Properties
+    // MARK: UI connections
+    
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableHeader: UIView!
     @IBOutlet weak var edtButton: UIBarButtonItem!
     
+    // MARK: Local variables
+    
     // Properties for search function
-    var searchController = UISearchController()
-    var filteredNotes = [String]()
+   // var searchController = UISearchController()
+    var searchString = String()
     
     // Properties for core data functions
     var managedObjectContext: NSManagedObjectContext!
@@ -43,7 +47,10 @@ class NoteBaseTableController: UITableViewController, UISearchResultsUpdating,UI
     
     let dayTimePeriodFormatter = DateFormatter()
     var bSearchFieldShowing = Bool(false)
-       
+    
+    var tapGestureRecognizer : UITapGestureRecognizer!
+
+    
     
     // dayTimePeriodFormatter.dateFormat = "EEEE, d MMMM yyyy h:m a"
 
@@ -67,22 +74,31 @@ class NoteBaseTableController: UITableViewController, UISearchResultsUpdating,UI
 
         dayTimePeriodFormatter.dateFormat =  "EEEE MM/d/yy    h:mm a"
         
-            //return
-                
-                
-        self.tableView.tableHeaderView = self.searchController.searchBar
-        self.definesPresentationContext = true
+        tableView.tableHeaderView = searchBar
+        self.searchBar.delegate = self
+
+/*        var contentOffset: CGPoint = self.tableView.contentOffset
+        contentOffset.y += (self.tableView.tableHeaderView?.frame)!.height
+        self.tableView.contentOffset = contentOffset
+*/
+        tableView.contentOffset = CGPoint(x:0, y:searchBar.frame.height);
+
         
-        searchController.searchBar.sizeToFit()
         
-/*        DispatchQueue.main.async {
-            let offset = CGPoint.init(x: 0, y: self.searchBar.bounds.height)
-            self.tableView.setContentOffset(offset, animated: false)
-        }
-*/ 
-        //toggleHeader()
-//        tableView.tableHeaderView = nil   // table header doesn't show
-//        bSearchFieldShowing = false
+        // This implements tap/double tap on the navigation bar to scroll the list to the top or bottom
+        let singleTap = UITapGestureRecognizer(target: self, action:#selector(self.singleTapAction(_:)))
+        singleTap.numberOfTapsRequired = 1
+        self.navigationController?.navigationBar.addGestureRecognizer(singleTap)
+        
+        let doubleTap = UITapGestureRecognizer(target: self, action:#selector(self.doubleTapAction(_:)))
+        doubleTap.numberOfTapsRequired = 2
+        self.navigationController?.navigationBar.addGestureRecognizer(doubleTap)
+        
+        // This effects discrimination of single/double tap
+        singleTap.require(toFail: doubleTap)
+        
+
+
         
         // Initialize core data elements
         if managedObjectContext == nil {
@@ -95,61 +111,17 @@ class NoteBaseTableController: UITableViewController, UISearchResultsUpdating,UI
             initializeFetchRequest()
         }
         
-        // Someone's idea about how to implement pull down search function
-        
-
-
-        // Initialize the refresh control
-        searchController.searchResultsUpdater = self as UISearchResultsUpdating
-        searchController.hidesNavigationBarDuringPresentation = false
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.sizeToFit()
-        self.tableView.tableHeaderView = searchController.searchBar
-        self.tableView.contentOffset = CGPoint(x:0, y:searchController.searchBar.frame.height);
-
-        
-
-        // Someone;s idea of how to handle pull down search field
-       // tableView.scrollToRow(at: NSIndexPath(row: 0, section: 0) as IndexPath, at: <#T##UITableViewScrollPosition#>, animated: false)
-        //tableView.tableHeaderView = searchController.searchBar
-        
-        /*
-         // Set up fetchedResultsController and default fetchRequest
-        initializeFetchRequest()
-        
-        // Use the edit button item provided by the table view controller.
-        navigationItem.leftBarButtonItem = editButtonItem
-        tableView.contentOffset = CGPoint(x:0, y:searchBar.frame.size.height)
-*/
     }
     
     override func viewWillAppear(_ animated: Bool)  {
         
-        let searchBarFrameSize = searchBar.frame.size.height
-        print("\n\nSearchbar height: \(searchBarFrameSize)\n\n")
-        
-        /*
-        // initialize search controller after the core data
-        self.resultSearchController.searchResultsUpdater = self
-        self.resultSearchController.dimsBackgroundDuringPresentation = false
-        self.resultSearchController.searchBar.sizeToFit()
-        
-        
-        // places the built-in searchbar into the header of the table
-        self.tableView.tableHeaderView = self.resultSearchController.searchBar
-        
-        // makes the searchbar stay in the current screen and not spill into the next screen
-        definesPresentationContext = true
-         
-         */
-        
         
         super.viewWillAppear(animated);
-        
-        
+ 
         
         // try fetchcontroller fetch
         fetchRecords()
+        
 
     }
 
@@ -163,56 +135,6 @@ class NoteBaseTableController: UITableViewController, UISearchResultsUpdating,UI
          }
  
         
-    /*
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [AnyHashable: Any]?) -> Bool {
-        
-        // try fetchcontroller fetch
-        do {
-//            let request: NSFetchRequest<NoteBase> = NoteBase.fetchRequest() as! NSFetchRequest<NoteBase>
-        //    try self.fetchedResultsController.  //.performFetch()
-        fetch()
-            
-        /*
-        try self.fetchedResultsController.performFetch()
-
-        } catch {
-            let fetchError = error as NSError
-            print("\(fetchError), \(fetchError.userInfo)")
-        }
-        */
-
-        return true
-            
-        }
-    }
-    */
-    
-
-    /*
-    // Initialize fetchedResultsController
-    
- //   lazy var fetchedResultsController: NSFetchedResultsController<NoteBase> = {
-        
-        
-        // Initialize Fetch Request
-      //  let fetchRequest = NSFetchRequest(entityName: "NoteBase")
-        //let fetchRequest: NSFetchRequest<NoteBase> = NoteBase.fetchRequest() as! NSFetchRequest<NoteBase>
-        
-        // Add Sort Descriptors
-        let sortDescriptor = NSSortDescriptor(key: "modifyDateTS", ascending: false)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
-        // Initialize Fetched Results Controller
-        //let
- //       fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
-        
-        // Configure Fetched Results Controller
-        fetchedResultsController.delegate = self
-        
-        return fetchedResultsController
- //   }()
- 
-        */
 
     
     // MARK: - core data actions
@@ -236,23 +158,13 @@ class NoteBaseTableController: UITableViewController, UISearchResultsUpdating,UI
         
         // Initialize Fetched Results Controller
         
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest as! NSFetchRequest<Note> as! NSFetchRequest<NoteBase>, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         
         // Configure Fetched Results Controller
-        fetchedResultsController.delegate = self as? NSFetchedResultsControllerDelegate
+        fetchedResultsController.delegate = self as NSFetchedResultsControllerDelegate
         
     }
     
-    
-    // MARK: Fetched Results Controller Delegate Methods
-    
-    /*
-    static func viewControllerWithRestorationIdentifierPath(_: [,"NoteBaseTableController"], coder: NSCoder) -> UIViewController? {
-        
-        return self.managedObjectContext
-    }
-    */
-
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
@@ -295,11 +207,10 @@ class NoteBaseTableController: UITableViewController, UISearchResultsUpdating,UI
     func configureCell(_ cell: noteListTableViewCell, atIndexPath indexPath: IndexPath) {
         
         noteBaseRecord = fetchedResultsController.object(at: indexPath)  
-        
-            
+                    
         // Update Cell
         if let modifyDateTS = noteBaseRecord.value(forKey: "modifyDateTS") as? Date {
-            cell.noteTitleField.text = noteBaseRecord.value(forKey: "noteName") as? String
+           cell.noteTitleField.text = noteBaseRecord.value(forKey: "noteName") as? String
             cell.noteModifyDate.text = dayTimePeriodFormatter.string(from: modifyDateTS)
         }
         
@@ -474,33 +385,12 @@ class NoteBaseTableController: UITableViewController, UISearchResultsUpdating,UI
     
     
     
-    /*
-    override func tableView(tableView: UITableView,editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]?  {
-     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+         searchString = searchBar.text!
+         performSegue(withIdentifier: "searchNotesSegue", sender: self)
     }
 
-    */
-    
-    
-    // MARK: - Implement pull down search
-    
 
-
-
-/*
-    override func tableView(_ tableView: UITableView,
-                   heightForHeaderInSection section: Int) -> CGFloat{
-        return 50
-    }
-*/
-    
-/*
-    override func scrollViewDidScroll(_ scrollView: UIScrollView){
-        if(scrollView.contentOffset.y < 0) {
-            toggleHeader()
-        }
-    }
-*/
     
     func refresh(sender:AnyObject)
     {
@@ -516,53 +406,8 @@ class NoteBaseTableController: UITableViewController, UISearchResultsUpdating,UI
         NSLog("edit button was clicked", 4)
     }
     
-   
-
-
-    // Mark: - implement search controller functions
-    public func updateSearchResults(for searchController: UISearchController) {
-        
-        // process the search string, remove leading and trailing spaces
-        let searchText = searchController.searchBar.text! as NSString
-        let trimmedSearchString = searchText.trimmingCharacters(in: NSCharacterSet.whitespaces)
-        
-        // if search string is not blank
-        if !trimmedSearchString.isEmpty {
-            
-            // form the search format
-            let predicate = NSPredicate(format: "(noteName contains [cd] %@)", trimmedSearchString)
-            
-            // add the search filter
-            fetchedResultsController.fetchRequest.predicate = predicate
-        }
-/*
-        else {
-            
-            // reset to all patients if search string is blank
-            //fetchedResultsController ()           // frc = getFRC()
-        }
-        
-        // reload the frc
-        fetch()
-        
-        // refresh the table view
-        self.tableView.reloadData()
-*/
-        
-        }
     
  
-   
-   
-/*
-    func setFetchRequest(searchString : String ) -> NSFetchRequest<NSFetchRequestResult> {
-        
-         fetchRequest = NSFetchRequest(NoteBase) = NoteBase.fetchRequest() as! NSFetchRequest<NoteBase>
-        //fetchRequest = NSFetchRequest(entityName: "Patient")
-        return fetchRequest as! NSFetchRequest<NSFetchRequestResult>
-    }
-    
-*/
     
     // update the contents of the fetch results controller
     func fetchRecords() {
@@ -576,40 +421,39 @@ class NoteBaseTableController: UITableViewController, UISearchResultsUpdating,UI
         }
     }
     
-
-/*
-    // updates the table view with the search results as user is typing...
-    func updateSearchResults(for searchController: UISearchController) {
+    
+    // MARK: - handle navigation bar taps to scroll list:
+    
+    //  1 tap to top, 2 to bottom.  These functions set up with addGestureRecognizer in ViewWillAppear
+    
+    // Handle navigation bar single tap - scroll to the top
+    func singleTapAction (_ theObject: AnyObject) {
         
-        // process the search string, remove leading and trailing spaces
-        let searchText = searchController.searchBar.text!
-        let trimmedSearchString = searchText.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        
-        // if search string is not blank
-        if !trimmedSearchString.isEmpty {
-            
-            // form the search format
-            fetchPredicate = NSPredicate(format: "(name contains [cd] %@)", trimmedSearchString)
+        if theObject.state == .ended {
+            let indexPath = NSIndexPath(row: 0, section: 0)
+            self.tableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
         }
-        else {
-            
-            // reset to all notes if search string is blank
-            fetchPredicate = nil
-       }
         
-        
-        // add the search filter
-        fetchRequest.predicate = fetchPredicate
-        
-        // reload the frc
-        fetchRecords()
-        
-        // refresh the table view
-        self.tableView.reloadData()
-    }
- 
-*/
+        // let sbHeight = searchBar.frame.height
+        tableView.contentOffset = CGPoint(x:0, y:searchBar.frame.height);
 
+    }
+    
+    // Handle navigation bar double tap - scroll to the bottom
+    func doubleTapAction (_ theObject: AnyObject) {
+        
+        if theObject.state == .ended {
+            let numRows = tableView( tableView, numberOfRowsInSection: 0) - 1
+            let indexPath = NSIndexPath(row: numRows, section: 0)
+            self.tableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
+        }
+        
+        // let sbHeight = searchBar.frame.height
+        tableView.contentOffset = CGPoint(x:0, y:searchBar.frame.height);
+
+    }
+
+    
 
     
     // MARK: - Navigation
@@ -667,10 +511,14 @@ class NoteBaseTableController: UITableViewController, UISearchResultsUpdating,UI
                     destinationVC!.noteBaseRecord = noteBaseRecord as NoteBase
                     destinationVC!.bSearchEntries = false
                     
-                } else {
+                } else { if segue.identifier == "searchNotesSegue" {
+                    
                     
                     // indicate search
                     destinationVC!.bSearchEntries = true
+                    destinationVC!.searchString = searchString
+                   }
+
                 }
                 
             }
@@ -687,50 +535,6 @@ class NoteBaseTableController: UITableViewController, UISearchResultsUpdating,UI
     }
     
 
-
-    // Collections of code not used at present
-/*
-        // This is code to support a search bar but I want to use a pulldonw
- 
-     // Implement search function
-     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-     searchActive = true;
-     }
-     
-     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-     searchActive = false;
-     }
-     
-     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-     searchActive = false;
-     }
-     
-     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-     searchActive = false;
-     }
-     
-     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-     
-     
-     filtered = data.filter({ (text) -> Bool in
-     let tmp: NSString = text as NSString
-     let range = tmp.range(of: searchText, options:NSString.CompareOptions.caseInsensitive)
-     return range.location != NSNotFound
-     })
-     
-     
-     
-     if(filtered.count == 0){
-     searchActive = false;
-     } else {
-     searchActive = true;
-     }
-     self.tableView.reloadData()
-     //self.tableView.contentOffset = CGPoint(x:0, y:self.searchBar.frame.size.height);
-     }
-     
-     
-*/
     
     
 /*

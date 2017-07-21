@@ -183,13 +183,6 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
             noteModDateTime = dayTimePeriodFormatter.date(from: datetimeDisplay.text!)!
             noteText = noteTextView.text!  
 
-            /*
-            noteRecord.noteModifiedDateDay = sortableDateOnlyFormatter.stringFromDate(noteModDateTime!)
-            noteRecord.noteModifiedDateTime = displayTimeOnlyFormatter.stringFromDate(noteModDateTime!)
-            noteRecord.noteModifiedDateTS = noteModDateTime
-            noteRecord.noteText = noteText
-             */
-
         
         } else
             if segID == "segueToDatePicker" {   // go off to date adjustment view

@@ -11,9 +11,17 @@ import UIKit
 class noteListTableViewCell: UITableViewCell {
     
     // Properties
+    
+    // from new tableview controller
     @IBOutlet weak var noteTitleField: UILabel!
     @IBOutlet weak var noteModifyDate: UILabel!
     @IBOutlet weak var noteCount: UILabel!
+    
+    
+    // from old tableview controller
+//    @IBOutlet weak var noteTitleField: UILabel!
+//    @IBOutlet weak var noteModifyDate: UILabel!
+//    @IBOutlet weak var noteCount: UILabel!
 //    @IBOutlet weak var contentView: UIView!
    
     

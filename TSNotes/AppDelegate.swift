@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Set up handling move entry fields above keyboard
         IQKeyboardManager.sharedManager().enable = true
- //       IQKeyboardManager.sharedManager().canAdjustTextView = true
+ //       IQKeyboardManager.sharedManager().canAdjustTextView = true    Unable to parse the format string "noteModifiedDateTS! == %@"
         
         return true
     }

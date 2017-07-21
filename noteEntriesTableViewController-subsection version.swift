@@ -15,10 +15,7 @@
 import UIKit
 import CoreData
 
-class noteEntriesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, UISearchBarDelegate {
-    
-    // searchbar from storyboard
-    @IBOutlet weak var searchBar: UISearchBar!
+class noteEntriesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
     // Properties
     // named views so we can pass touch through to tablecll
@@ -77,7 +74,6 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     var datedNotesPredicate = NSPredicate()
     var tableEntriescount = Int(0)
     var matchCount = Int(0)
-    var recordCount = Int(0)
     var matchLocations: [String.Index] = []
     //var matchArray = [[tempRange]()]
     var matchArray = [[NSRange]()]
@@ -85,6 +81,10 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     var xferVar = NSMutableAttributedString()
     var sectionNameArray = [String]()
     var currentBaseRecord: NoteBase!
+    var expandedRecordCount = Int (0)
+    var currentNoteModifiedDateDay = String("")
+    var sectionExtraRowCounts = [Int]()
+    var sectionERCIndex = Int(0)
 
     // MARK: - Code section
     
@@ -96,23 +96,29 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         //   provide a normal display.  Perhaps we should separate the search function in its own
         //   controller and display
         
-       
+
+        if bSearchEntries {
+            buildPredicate ( searchString: searchString! )
+        }
+/*
+        else {
+            noteCreateDate = noteBaseRecord.createDateTS! as Date
+            fetchPredicate = NSPredicate (format:"(noteCreateDate == %@", noteRecord.noteModifiedDateTS! as NSDate)
+         }
+ */
+        
         displayDateFormatter.dateFormat = "h:mm a  EEEE, MMMM d, yyyy"
         sortableDateOnlyFormatter.dateFormat = "yyyy.MM.dd"
         displayDateOnlyFormatter.dateFormat = "EEEE MMMM,d yyyy"  // "EEEE, d MMMM yyyy"
         displayTimeOnlyFormatter.dateFormat = "h:mm a"
         
        
-//        fetchedResultsController = getFRC() as! NSFetchedResultsController<Note>
+        fetchedResultsController = getFRC() as! NSFetchedResultsController<Note>
         
         // Mark: to implement dynamic row height
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 150
-        
-        // Searchbar 
-        tableView.tableHeaderView = searchBar
-        self.searchBar.delegate = self
-        tableView.contentOffset = CGPoint(x:0, y:searchBar.frame.height);
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -120,20 +126,11 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         
         tableEntriescount = 0
         
-        if bSearchEntries {
-            searchBar.text = searchString
-        } else {
+        if !bSearchEntries {
             noteName = noteBaseRecord.noteName!
             navigationItem.title = noteName
-            tableView.contentOffset = CGPoint(x:0, y:searchBar.frame.height);
         }
        
-        
-        if bSearchEntries {
-            buildPredicate ( searchString: searchString! )
-        }
-
-        fetchedResultsController = getFRC() as! NSFetchedResultsController<Note>
         fetchRecords ()
         
     }
@@ -183,47 +180,81 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             print("\(fetchError), \(fetchError.userInfo)")
         }
         
-       
-        if let numHits = fetchedResultsController.fetchedObjects?.count {
-            
-            recordCount = 0
-            matchCount = 0
-            currentBaseRecord = nil
-            
-            for object in fetchedResultsController.fetchedObjects! {
-
-                // This seems like a hack but to actually get a copy (not just a reference) of
-                // myMutableString, you have to instantiate a new object so we do that with xferVar
-                
-                xferVar = NSMutableAttributedString(string: object.noteText! )
-                
-             //   NSLog("\n\nIn  fetchRecords, text of record# \(expandedRecordCount + 1) is: \(String(describing: object.noteText!))")
-                
-                // If we're doing a search, let's count and hightlight the hits.  We'll save them in
-                // mutableRecordsArray
-                
-                if bSearchEntries {
-                    
-                        // Highlight (and count) matches
-                       matchCount += countAndHighlightMatches( stringToFind: searchString!,
-                                                                entireString: xferVar)
-                }
-                
-                mutableRecordsArray.insert(xferVar, at: recordCount)
-                
-                if recordCount == 0 {
-                    
-                    // Take an opportunity to populate noteBaseRecord pointer
-                    noteBaseRecord = object.notesList
-                }
-                
-                recordCount += 1
-
-            }
-
-            tableView.reloadData()
-     }
+        // If we're doing a search, let's count and hightlight the hits.  We'll save them in 
+        // mutableRecordsArray
         
+       
+            if let numHits = fetchedResultsController.fetchedObjects?.count {
+                
+                expandedRecordCount = 0         // count data records plus extra records for subsection headers
+                currentNoteModifiedDateDay = "" // this tracks subsection changes - i.e. a new date
+                matchCount = 0
+                sectionERCIndex = -1  // Section counter
+                sectionExtraRowCounts.append(0)
+                currentBaseRecord = nil
+                
+                for object in fetchedResultsController.fetchedObjects! {
+                    
+                 //   let sectionNum = object.
+
+                    // This seems like a hack but to actually get a copy (not just a reference) of
+                    // myMutableString, you have to instantiate a new object so we do that with xferVar
+                    
+                    xferVar = NSMutableAttributedString(string: object.noteText! )
+                    
+                    NSLog("\n\nIn  fetchRecords, text of record# \(expandedRecordCount + 1) is: \(String(describing: object.noteText!))")
+                    
+                    // If we're searching, we want to have a subsection heading for dates.  So the table
+                    // display will go:
+                    //      Note name
+                    //          Note date
+                    //              note entries
+                    //  We need to add extra rows to the table for the subsection (date) headings so we're going
+                    //  to count them here.  Every time the base record changes we have a new section (note title).
+                    //  When the date changes we have a new subsection and we have to add a row to the table to
+                    //  display the date heading. We're keeping track of these in sectionExtraRowCounts indexed by
+                    //  sectionERCIndex.
+                    
+                    if bSearchEntries {
+                        
+                        // If date of note(s) changes, add a record to display subsection header (note date)
+                        // =======> USE MODIFIEDDATADAY!!!!  Create a count/ by section of added records (for dates)
+                        
+                        if currentBaseRecord != object.notesList {
+                            currentBaseRecord = object.notesList
+                            sectionERCIndex += 1
+                            sectionExtraRowCounts.append(1)
+                            
+                        }
+                        if currentNoteModifiedDateDay != object.noteModifiedDateDay {
+                            currentNoteModifiedDateDay = object.noteModifiedDateDay!
+                            xferVar.mutableString.setString( displayDateOnlyFormatter.string(from: object.noteModifiedDateTS!))
+                            sectionExtraRowCounts [sectionERCIndex] += 1
+                        }
+                        else {
+                            // Highlight (and count) matches
+                           matchCount += countAndHighlightMatches( stringToFind: searchString!,
+                                                                    entireString: xferVar)
+                        }
+
+                        
+                    }
+                    
+                    mutableRecordsArray.insert(xferVar, at: expandedRecordCount)
+                    
+                    if expandedRecordCount == 0 {
+                        
+                        // Take an opportunity to populate noteBaseRecord pointer
+                        noteBaseRecord = object.notesList
+                    }
+                    
+                    expandedRecordCount += 1
+
+                }
+         }
+       
+        
+       // bNewFetch = true
         
     }
 
@@ -452,21 +483,42 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
 
         if let sections = fetchedResultsController.sections {
             let sectionInfo = sections[section]
+
+            NSLog("number Of Rows In Section: \(sectionInfo.numberOfObjects)")
             
-            NSLog("number Of Rows In Section \(section): \(sectionInfo.numberOfObjects)")
+            var totalSectionRows = sectionInfo.numberOfObjects
+            if bSearchEntries {
+        
+                totalSectionRows += sectionExtraRowCounts [section]
+            }
+            tableEntriescount += totalSectionRows
+
             
             // set table title
 //            setStatusText(queryString: searchString!, count: tableEntriescount, allReq: bListAll!)
 //            navigationItem.title = statusText
 
             
-            return sectionInfo.numberOfObjects
+            return totalSectionRows
         }
         
         return 0
     }
     
+    
+    override func tableView(_ tableView: UITableView, indentationLevelForRowAt indexPath: IndexPath) -> Int {
         
+        /*  We;re going to use this for searches to indent the row infor (and maybe the color) of a row. There are 3
+            possibilities:
+                1) Note title - main heading
+                2) note date -
+ 
+ 
+        */
+        
+        return 0
+    }
+    
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -476,19 +528,36 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "TSNoteEntriesTableCell", for: indexPath) as! TSNoteEntriesTableCell
         
-     
-        let sectionName = noteRecord.noteModifiedDateTime
         
-        NSLog( "\n\nIn cellForRowAt noteRecord: \(String(describing: self.noteRecord.noteText))\n\n")
+        
+        // Configure Table View Cell - one of two types. If we're searching and it's the first entry for
+        //  a particular note, we'll put the note day in a label (ID = TSNoteEntriesDateLabel) otherwise we'll put the
+        //  cell info in the cell with ID TSNoteEntriesTableCell.
+        
+        if bSearchEntries && currentBaseRecord != noteRecord.notesList {
+               currentBaseRecord = noteRecord.notesList
+                
+             let altCell = tableView.dequeueReusableCell(withIdentifier: "TSNoteEntriesDateLabelCell", for: indexPath) as! TSNoteEntriesDateLabelCell
+            
+                let sectionNameReformatted = displayDateOnlyFormatter.string(from: noteRecord.noteModifiedDateTS!)
+                altCell.noteDateLabel.text = sectionNameReformatted
+
+            return altCell
+        }
+        
+        let sectionName = noteRecord.noteModifiedDateTime
+    
+//            NSLog( "\n\nIn cellForRowAt noteRecord: \(String(describing: self.noteRecord.noteText))\n\n")
 
         if bSearchEntries {
             let rowIndex = indexPath.row
+            let sectionNum = indexPath.section
             
             // reformat the sectionName info
           //  let doDate = sortableDateOnlyFormatter.date(from: sectionName)
             let sectionNameReformatted = displayDateOnlyFormatter.string(from: noteRecord.noteModifiedDateTS!)
 
-            cell.noteEntryDateLabel.text = sectionNameReformatted + ":    " + sectionName!
+            cell.noteEntryDateLabel.text = sectionNameReformatted + ": " + sectionName!
             cell.noteTextView.attributedText = mutableRecordsArray [rowIndex]
         
         }
@@ -503,6 +572,28 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     }
     
     
+    
+/*
+    func computeItemAndSubsectionIndexForIndexPath(_ indexPath: NSIndexPath) -> NSIndexPath {
+        var sectionItems: NSMutableArray = fetchedResultsController.sections[UInt(indexPath.section)]
+        var itemIndex: Int = indexPath.row
+        var subsectionIndex: UInt = 0
+        for var i: UInt = 0 ; i < sectionItems.count ; ++i {
+            // First row for each section item is header
+            --itemIndex
+            // Check if the item index is within this subsection's items
+            var subsectionItems: [AnyObject] = sectionItems[i]
+            if itemIndex < Int(subsectionItems.count) {
+                subsectionIndex = i
+                break
+            } else {
+                itemIndex -= subsectionItems.count
+                
+            }
+        }
+        return NSIndexPath(row: itemIndex, section: subsectionIndex)
+    }
+*/
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     {
@@ -678,17 +769,6 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     }
 
 
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchString = searchBar.text!
-        bSearchEntries = true
-        
-        predicateArray.removeAll()
-        mutableRecordsArray.removeAll()
-        
-        viewWillAppear(false)
-    }
-
-    
     
 /*
     // Preserve/restore state data if interrupted
