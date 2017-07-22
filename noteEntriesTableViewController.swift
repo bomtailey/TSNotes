@@ -204,6 +204,12 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
                 
                 if bSearchEntries {
                     
+                    // Save note names for section titles
+                    if currentBaseRecord != object.notesList {
+                        currentBaseRecord = object.notesList
+                        sectionNameArray.append(currentBaseRecord.noteName!)
+                    }
+                    
                         // Highlight (and count) matches
                        matchCount += countAndHighlightMatches( stringToFind: searchString!,
                                                                 entireString: xferVar)
@@ -508,7 +514,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     {
         if bSearchEntries {
             // Set name of section header
-            sectionName = noteBaseRecord.noteName!
+            sectionName = sectionNameArray[section]
         }
         else {
             
@@ -684,6 +690,8 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         
         predicateArray.removeAll()
         mutableRecordsArray.removeAll()
+        
+        searchBar.endEditing(true)
         
         viewWillAppear(false)
     }

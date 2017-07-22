@@ -130,7 +130,7 @@
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mQe-KP-BvM" userLabel="noteTitleField">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="23"/>
-                                            <color key="backgroundColor" red="1" green="0.95525152729999996" blue="0.51307913360000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.72475368910000004" green="1" blue="0.92657049319999996" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="23" id="hdH-PQ-PXW"/>
                                             </constraints>
@@ -140,19 +140,19 @@
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sr5-gh-ywD" userLabel="noteModifyDate">
                                             <rect key="frame" x="0.0" y="23" width="285" height="29"/>
-                                            <color key="backgroundColor" red="0.65296590470000004" green="1" blue="0.28080067939999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.76847728380000002" green="1" blue="0.77900667290000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I2Z-4j-mH4" userLabel="noteCount">
                                             <rect key="frame" x="285" y="23" width="35" height="29"/>
-                                            <color key="backgroundColor" red="0.32782223510000003" green="0.93916570519999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.72475368910000004" green="1" blue="0.92657049319999996" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="35" id="Ehz-oo-Bmf"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="16"/>
-                                            <nil key="textColor"/>
+                                            <color key="textColor" red="1" green="0.40530971329999999" blue="0.36133385800000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -350,7 +350,7 @@
                                     <subviews>
                                         <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="this is a date 9/23/40" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q1e-ce-43j" userLabel="noteEntryDateLabel">
                                             <rect key="frame" x="8" y="8" width="304" height="25"/>
-                                            <color key="backgroundColor" red="0.76847728380000002" green="1" blue="0.77900667290000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" red="0.85395697339999999" green="1" blue="0.96597126749999995" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="25" id="iZC-G0-Wyl"/>
                                             </constraints>
@@ -360,7 +360,7 @@
                                         </label>
                                         <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1it-Pj-NS2" userLabel="noteTextView">
                                             <rect key="frame" x="8" y="38" width="304" height="103.5"/>
-                                            <color key="backgroundColor" red="0.85395697339999999" green="1" blue="0.96597126749999995" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.76847728380000002" green="1" blue="0.77900667290000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <gestureRecognizers/>
                                             <attributedString key="attributedText">
                                                 <fragment content="This is some text">
@@ -387,6 +387,7 @@
                                 <connections>
                                     <outlet property="noteEntryDateLabel" destination="Q1e-ce-43j" id="qeq-iF-9Up"/>
                                     <outlet property="noteTextView" destination="1it-Pj-NS2" id="yzT-L7-bJe"/>
+                                    <segue destination="uUF-cQ-L4o" kind="presentation" id="9je-Fn-AqX"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -402,11 +403,7 @@
                                 <action selector="cancelAction:" destination="CVd-B1-h52" id="gpu-ub-ADa"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="NaO-kt-xnt">
-                            <connections>
-                                <segue destination="uUF-cQ-L4o" kind="presentation" identifier="newNoteEntry" id="nc5-cB-Nnc"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="NaO-kt-xnt"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
