@@ -24,7 +24,7 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
     // properties from noteEntriesTableViewController
     var bNewNote = true
     var noteName: String?
-    var noteText:  String?
+    var noteText =  NSMutableAttributedString()
     var noteModDateTime: Date?
 
     
@@ -82,7 +82,7 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
         datetimeDisplay.text = dateString
         
         noteTextView.isScrollEnabled = true
-        noteTextView.text = noteText
+        noteTextView.attributedText = noteText
 
 
     }
@@ -130,7 +130,7 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
     
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         
-        noteText = noteTextView.text
+        noteText.mutableString.setString(noteTextView.text) 
         
         return true
 
@@ -181,8 +181,8 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
         if let sender = sender as? UIBarButtonItem,  saveButton === sender {  // save the note
             
             noteModDateTime = dayTimePeriodFormatter.date(from: datetimeDisplay.text!)!
-            noteText = noteTextView.text!  
-
+            
+            noteText.mutableString.setString(noteTextView.text!) 
         
         } else
             if segID == "segueToDatePicker" {   // go off to date adjustment view

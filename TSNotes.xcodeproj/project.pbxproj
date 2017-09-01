@@ -10,6 +10,7 @@
 		05C6FEE8F88664DC018242FE /* Pods_TSNotesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 866CAF122530A1247B07882C /* Pods_TSNotesTests.framework */; };
 		E74122D820A1059C26CCAC53 /* Pods_TSNotes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9123F3E34B50A6C923682658 /* Pods_TSNotes.framework */; };
 		FA25E1AB1DB201300087F527 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25E1AA1DB2012F0087F527 /* CoreDataStack.swift */; };
+		FA3785C81F43BA8B00A3FDC3 /* TSNotesHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3785C71F43BA8B00A3FDC3 /* TSNotesHelpers.swift */; };
 		FA3F5B491BF0857600A7804C /* TSNoteEntriesTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F5B481BF0857600A7804C /* TSNoteEntriesTableCell.swift */; };
 		FA6D27FF1BEDA80100768930 /* NoteBaseTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6D27FE1BEDA80100768930 /* NoteBaseTableController.swift */; };
 		FA73889C1BF5703B00758E68 /* noteEntriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA73889B1BF5703B00758E68 /* noteEntriesTableViewController.swift */; };
@@ -48,7 +49,9 @@
 		9123F3E34B50A6C923682658 /* Pods_TSNotes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TSNotes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3558DE201C5F7DF6FD83DD9 /* Pods-TSNotesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TSNotesTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TSNotesTests/Pods-TSNotesTests.release.xcconfig"; sourceTree = "<group>"; };
 		EE849A74E1F3D88CDE25E53D /* Pods-TSNotes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TSNotes.release.xcconfig"; path = "Pods/Target Support Files/Pods-TSNotes/Pods-TSNotes.release.xcconfig"; sourceTree = "<group>"; };
+		FA1405741F23119800FDBE75 /* TSNotes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TSNotes.entitlements; sourceTree = "<group>"; };
 		FA25E1AA1DB2012F0087F527 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		FA3785C71F43BA8B00A3FDC3 /* TSNotesHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSNotesHelpers.swift; sourceTree = "<group>"; };
 		FA3F5B481BF0857600A7804C /* TSNoteEntriesTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSNoteEntriesTableCell.swift; sourceTree = "<group>"; };
 		FA6D27FE1BEDA80100768930 /* NoteBaseTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteBaseTableController.swift; sourceTree = "<group>"; };
 		FA73889B1BF5703B00758E68 /* noteEntriesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = noteEntriesTableViewController.swift; path = ../noteEntriesTableViewController.swift; sourceTree = "<group>"; };
@@ -137,11 +140,13 @@
 		FAA701321BDB171E0013EFF7 /* TSNotes */ = {
 			isa = PBXGroup;
 			children = (
+				FA1405741F23119800FDBE75 /* TSNotes.entitlements */,
 				FAA701331BDB171E0013EFF7 /* AppDelegate.swift */,
 				FA6D27FE1BEDA80100768930 /* NoteBaseTableController.swift */,
 				FAE9229C1BF34315001E37FD /* noteListTableViewCell.swift */,
 				FA7CE5D51BF2C971008FD365 /* TitleEntryViewController.swift */,
 				FA73889B1BF5703B00758E68 /* noteEntriesTableViewController.swift */,
+				FA3785C71F43BA8B00A3FDC3 /* TSNotesHelpers.swift */,
 				FA3F5B481BF0857600A7804C /* TSNoteEntriesTableCell.swift */,
 				FAD2061D1C3D25ED00A045E5 /* noteEntryViewController.swift */,
 				FAE72BC41BE043B20053F50E /* handleDatePickerTableViewController.swift */,
@@ -227,6 +232,14 @@
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = 38WD2H4793;
 						LastSwiftMigration = 0800;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 0;
+							};
+						};
 					};
 					FAA701431BDB171E0013EFF7 = {
 						CreatedOnToolsVersion = 7.0;
@@ -380,6 +393,7 @@
 				FA3F5B491BF0857600A7804C /* TSNoteEntriesTableCell.swift in Sources */,
 				FAED29B21D2459F10009C873 /* NoteBase+CoreDataProperties.swift in Sources */,
 				FA25E1AB1DB201300087F527 /* CoreDataStack.swift in Sources */,
+				FA3785C81F43BA8B00A3FDC3 /* TSNotesHelpers.swift in Sources */,
 				FAE9FDA31D2CB5AE00288221 /* PopoverViewController.swift in Sources */,
 				FAED29B31D2459F10009C873 /* NoteBase.swift in Sources */,
 				FA73889C1BF5703B00758E68 /* noteEntriesTableViewController.swift in Sources */,
@@ -523,6 +537,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TSNotes/TSNotes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 38WD2H4793;
@@ -543,6 +558,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TSNotes/TSNotes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 38WD2H4793;

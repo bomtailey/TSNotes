@@ -12,7 +12,7 @@ import CoreData
     // 2/12/17 temporarily removing UISearchResultsUpdating, , UISearchBarDelegate
     //   UISearchResultsUpdating,UISearchBarDelegate,       until I better understand searching
 
-class NoteBaseTableController: UITableViewController,  NSFetchedResultsControllerDelegate, UISearchBarDelegate   {
+class NoteBaseTableController: UITableViewController,  NSFetchedResultsControllerDelegate, UISearchBarDelegate,  UIGestureRecognizerDelegate  {
     
     // MARK: UI connections
     
@@ -32,6 +32,7 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
     var fetchRequest: NSFetchRequest<NoteBase> = NoteBase.fetchRequest() as! NSFetchRequest<NoteBase>
     var fetchPredicate: NSPredicate?
     
+    var numRecords = Int(0)
     
     var noteCreateDate = Date()
     var noteTitle = String()
@@ -42,6 +43,10 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
     
     var titleString = ""
     var segueListNoteInstance : NoteBase!
+    
+    let myBoldAttribute: [String: Any] = [ NSFontAttributeName: UIFont(name: "Optima-BoldItalic", size: 16.0)! ]
+    var tempAttributedString = NSMutableAttributedString()
+
     
     var selectedCreateDate = Date()
     
@@ -77,22 +82,22 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
         tableView.tableHeaderView = searchBar
         self.searchBar.delegate = self
 
-/*        var contentOffset: CGPoint = self.tableView.contentOffset
+       
+        var contentOffset: CGPoint = self.tableView.contentOffset
         contentOffset.y += (self.tableView.tableHeaderView?.frame)!.height
         self.tableView.contentOffset = contentOffset
-*/
-        tableView.contentOffset = CGPoint(x:0, y:searchBar.frame.height);
+ 
 
-        
-        
         // This implements tap/double tap on the navigation bar to scroll the list to the top or bottom
         let singleTap = UITapGestureRecognizer(target: self, action:#selector(self.singleTapAction(_:)))
+        singleTap.delegate = self
         singleTap.numberOfTapsRequired = 1
         self.navigationController?.navigationBar.addGestureRecognizer(singleTap)
         
         let doubleTap = UITapGestureRecognizer(target: self, action:#selector(self.doubleTapAction(_:)))
+        doubleTap.delegate = self
         doubleTap.numberOfTapsRequired = 2
-        self.navigationController?.navigationBar.addGestureRecognizer(doubleTap)
+       self.navigationController?.navigationBar.addGestureRecognizer(doubleTap)
         
         // This effects discrimination of single/double tap
         singleTap.require(toFail: doubleTap)
@@ -122,7 +127,6 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
         // try fetchcontroller fetch
         fetchRecords()
         
-
     }
 
     
@@ -210,13 +214,31 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
                     
         // Update Cell
         if let modifyDateTS = noteBaseRecord.value(forKey: "modifyDateTS") as? Date {
-           cell.noteTitleField.text = noteBaseRecord.value(forKey: "noteName") as? String
+            
+            tempAttributedString.mutableString.setString(noteBaseRecord.value(forKey: "noteName") as! String )
+            tempAttributedString.addAttributes(myBoldAttribute, range:NSRange(location: 0,length: (tempAttributedString.length)))
+
+ //          cell.noteTitleField.text = noteBaseRecord.value(forKey: "noteName") as? String
+            cell.noteTitleField.attributedText = tempAttributedString
+            
             cell.noteModifyDate.text = dayTimePeriodFormatter.string(from: modifyDateTS)
         }
         
         if let count = noteBaseRecord.value(forKey: "noteCount") as? Int {
-            cell.noteCount.text = String(count)            
+            
+            tempAttributedString.mutableString.setString(String(count) )
+            tempAttributedString.addAttributes(myBoldAttribute, range:NSRange(location: 0,length: (tempAttributedString.length)))
+
+   //         cell.noteCount.text = String(count)
+            cell.noteCount.attributedText = tempAttributedString
         }
+        
+        /*
+        cell.layer.masksToBounds = true
+        cell.layer.borderColor = UIColor( red: 0/255, green: 150/255, blue:115/255, alpha: 1.0 ).cgColor
+        cell.layer.borderWidth = 0.5
+        */
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -406,9 +428,7 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
         NSLog("edit button was clicked", 4)
     }
     
-    
- 
-    
+   
     // update the contents of the fetch results controller
     func fetchRecords() {
         
@@ -419,37 +439,60 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
             let fetchError = error as NSError
             print("\(fetchError), \(fetchError.userInfo)")
         }
+        
+        numRecords = fetchedResultsController.fetchedObjects!.count
     }
     
     
     // MARK: - handle navigation bar taps to scroll list:
     
-    //  1 tap to top, 2 to bottom.  These functions set up with addGestureRecognizer in ViewWillAppear
+    //  1 tap to top, 2 to bottom.  These functions set up with addGestureRecognizer in ViewWDidLoad
     
+
+    // This insulates button taps from header taps
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+
+        if touch.view!.isKind(of: UIControl.self) {
+            return false
+        }
+        return true
+    }
+
     // Handle navigation bar single tap - scroll to the top
     func singleTapAction (_ theObject: AnyObject) {
         
+        guard numRecords > 0 else { return }
+        
         if theObject.state == .ended {
             let indexPath = NSIndexPath(row: 0, section: 0)
-            self.tableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
+            self.tableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: false)
         }
         
         // let sbHeight = searchBar.frame.height
-        tableView.contentOffset = CGPoint(x:0, y:searchBar.frame.height);
+        //tableView.contentOffset = CGPoint(x:0, y:searchBar.frame.height);
 
     }
     
     // Handle navigation bar double tap - scroll to the bottom
     func doubleTapAction (_ theObject: AnyObject) {
         
-        if theObject.state == .ended {
-            let numRows = tableView( tableView, numberOfRowsInSection: 0) - 1
-            let indexPath = NSIndexPath(row: numRows, section: 0)
-            self.tableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
+    guard numRecords > 0 else { return }
+        
+    if theObject.state == .ended {
+        
+            // I'm changing the logic here.  It works pretty well as is but doesn't make sense to me
+        
+            let sections = fetchedResultsController.sections
+            let numSections = (sections?.count)! - 1
+            let sectionInfo = sections![numSections]
+            let numRows = sectionInfo.numberOfObjects - 1
+           // let numRows = tableView( tableView, numberOfRowsInSection: numSections[ - 1
+            let indexPath = NSIndexPath(row: numRows, section: numSections)
+            self.tableView.scrollToRow(at: indexPath as IndexPath, at: .bottom, animated: false)
         }
         
         // let sbHeight = searchBar.frame.height
-        tableView.contentOffset = CGPoint(x:0, y:searchBar.frame.height);
+    //    tableView.contentOffset = CGPoint(x:0, y:searchBar.frame.height);
 
     }
 

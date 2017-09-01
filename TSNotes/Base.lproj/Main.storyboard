@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="RMT-kB-hXk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="RMT-kB-hXk">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -12,6 +12,12 @@
     <customFonts key="customFonts">
         <array key="Papyrus.ttc">
             <string>Papyrus</string>
+        </array>
+        <array key="TimesNewRoman.ttf">
+            <string>TimesNewRomanPSMT</string>
+        </array>
+        <array key="TimesNewRomanBold.ttf">
+            <string>TimesNewRomanPS-BoldMT</string>
         </array>
     </customFonts>
     <scenes>
@@ -104,7 +110,7 @@
         <scene sceneID="RFG-WQ-Lyx">
             <objects>
                 <tableViewController extendedLayoutIncludesOpaqueBars="YES" id="8XW-Rj-H5x" userLabel="New List of Notes TVC" customClass="NoteBaseTableController" customModule="TSNotes" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="djV-NP-2rL">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="djV-NP-2rL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -121,56 +127,75 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="noteListTableViewCell" rowHeight="52" id="LW0-Uo-owe" userLabel="noteListTableViewCell" customClass="noteListTableViewCell" customModule="TSNotes" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="320" height="52"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="noteListTableViewCell" id="LW0-Uo-owe" userLabel="noteListTableViewCell" customClass="noteListTableViewCell" customModule="TSNotes" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LW0-Uo-owe" id="wee-tW-y0C">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mQe-KP-BvM" userLabel="noteTitleField">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="23"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="alD-z1-DWZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <color key="backgroundColor" red="0.32782223510000003" green="0.93916570519999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mQe-KP-BvM" userLabel="noteTitleField">
+                                            <rect key="frame" x="3" y="-2" width="314" height="22"/>
                                             <color key="backgroundColor" red="0.72475368910000004" green="1" blue="0.92657049319999996" alpha="1" colorSpace="calibratedRGB"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="23" id="hdH-PQ-PXW"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" name="Symbol" family="Symbol" pointSize="16"/>
-                                            <nil key="textColor"/>
+                                            <attributedString key="attributedText">
+                                                <fragment content="Title">
+                                                    <attributes>
+                                                        <font key="NSFont" size="16" name="Papyrus"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sr5-gh-ywD" userLabel="noteModifyDate">
-                                            <rect key="frame" x="0.0" y="23" width="285" height="29"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Modify Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sr5-gh-ywD" userLabel="noteModifyDate">
+                                            <rect key="frame" x="3" y="20" width="279" height="21.5"/>
                                             <color key="backgroundColor" red="0.76847728380000002" green="1" blue="0.77900667290000003" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="16"/>
+                                            <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="15"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I2Z-4j-mH4" userLabel="noteCount">
-                                            <rect key="frame" x="285" y="23" width="35" height="29"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I2Z-4j-mH4" userLabel="noteCount">
+                                            <rect key="frame" x="282" y="20" width="35" height="21.5"/>
                                             <color key="backgroundColor" red="0.72475368910000004" green="1" blue="0.92657049319999996" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="35" id="Ehz-oo-Bmf"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="16"/>
-                                            <color key="textColor" red="1" green="0.40530971329999999" blue="0.36133385800000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <attributedString key="attributedText">
+                                                <fragment content="Label">
+                                                    <attributes>
+                                                        <color key="NSColor" red="1" green="0.40530971329999999" blue="0.36133385800000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <font key="NSFont" size="16" name="Papyrus"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <color key="backgroundColor" red="0.72475368910000004" green="1" blue="0.92657049319999996" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="alD-z1-DWZ" secondAttribute="bottom" id="0KE-Id-hmV"/>
+                                        <constraint firstItem="Sr5-gh-ywD" firstAttribute="height" secondItem="mQe-KP-BvM" secondAttribute="height" id="Ae8-8R-g2T"/>
+                                        <constraint firstItem="mQe-KP-BvM" firstAttribute="trailing" secondItem="alD-z1-DWZ" secondAttribute="trailing" constant="-3" id="Dfj-bD-p4q"/>
                                         <constraint firstItem="Sr5-gh-ywD" firstAttribute="trailing" secondItem="I2Z-4j-mH4" secondAttribute="leading" id="NDs-Al-tXE"/>
+                                        <constraint firstItem="mQe-KP-BvM" firstAttribute="top" secondItem="alD-z1-DWZ" secondAttribute="top" constant="-2" id="O9s-lb-D4Q"/>
+                                        <constraint firstItem="I2Z-4j-mH4" firstAttribute="bottom" secondItem="Sr5-gh-ywD" secondAttribute="bottom" id="RFU-2E-Ohp"/>
+                                        <constraint firstItem="alD-z1-DWZ" firstAttribute="top" secondItem="wee-tW-y0C" secondAttribute="top" id="SbC-K0-O7B"/>
+                                        <constraint firstItem="alD-z1-DWZ" firstAttribute="leading" secondItem="wee-tW-y0C" secondAttribute="leading" id="VJY-SC-urV"/>
+                                        <constraint firstAttribute="trailing" secondItem="alD-z1-DWZ" secondAttribute="trailing" id="ccz-G1-Ruz"/>
+                                        <constraint firstItem="Sr5-gh-ywD" firstAttribute="leading" secondItem="mQe-KP-BvM" secondAttribute="leading" id="dIk-fC-jp6"/>
                                         <constraint firstItem="I2Z-4j-mH4" firstAttribute="height" secondItem="Sr5-gh-ywD" secondAttribute="height" id="esa-Ys-T0o"/>
+                                        <constraint firstAttribute="bottom" secondItem="Sr5-gh-ywD" secondAttribute="bottom" constant="2" id="hJ3-i1-Xn5"/>
+                                        <constraint firstItem="mQe-KP-BvM" firstAttribute="leading" secondItem="alD-z1-DWZ" secondAttribute="leading" constant="3" id="mOW-sf-xEg"/>
                                         <constraint firstItem="Sr5-gh-ywD" firstAttribute="top" secondItem="mQe-KP-BvM" secondAttribute="bottom" id="n1b-mH-cGE"/>
+                                        <constraint firstItem="I2Z-4j-mH4" firstAttribute="trailing" secondItem="mQe-KP-BvM" secondAttribute="trailing" id="syY-o2-zIa"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <constraints>
-                                    <constraint firstItem="mQe-KP-BvM" firstAttribute="top" secondItem="LW0-Uo-owe" secondAttribute="top" id="Dcy-3j-Hrd"/>
-                                    <constraint firstAttribute="trailing" secondItem="mQe-KP-BvM" secondAttribute="trailing" id="GcL-HB-Frn"/>
-                                    <constraint firstAttribute="bottom" secondItem="Sr5-gh-ywD" secondAttribute="bottom" id="HiF-Ya-HlE"/>
-                                    <constraint firstAttribute="bottom" secondItem="I2Z-4j-mH4" secondAttribute="bottom" id="VFC-iY-rj2"/>
-                                    <constraint firstItem="Sr5-gh-ywD" firstAttribute="leading" secondItem="LW0-Uo-owe" secondAttribute="leading" id="bId-Hx-PBj"/>
-                                    <constraint firstItem="mQe-KP-BvM" firstAttribute="leading" secondItem="LW0-Uo-owe" secondAttribute="leading" id="oRK-ll-hbb"/>
-                                    <constraint firstAttribute="trailing" secondItem="I2Z-4j-mH4" secondAttribute="trailing" id="xOr-0p-K3T"/>
-                                </constraints>
                                 <connections>
                                     <outlet property="noteCount" destination="I2Z-4j-mH4" id="Rh8-ql-bbz"/>
                                     <outlet property="noteModifyDate" destination="Sr5-gh-ywD" id="yWr-IL-9OI"/>
@@ -251,8 +276,8 @@
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="35" id="sPZ-Lw-rJL"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="15"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="15"/>
+                                            <color key="textColor" red="1" green="0.40530971329999999" blue="0.36133385800000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -324,7 +349,7 @@
         <scene sceneID="6n8-ho-hI9">
             <objects>
                 <tableViewController storyboardIdentifier="specificNoteEntriesTableView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CVd-B1-h52" userLabel="Note Entries Table View Controller" customClass="noteEntriesTableViewController" customModule="TSNotes" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="81" sectionHeaderHeight="28" sectionFooterHeight="28" id="Cvm-nV-1rx" userLabel="noteEntriesTable View">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="61" sectionHeaderHeight="28" sectionFooterHeight="28" id="Cvm-nV-1rx" userLabel="noteEntriesTable View">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -341,25 +366,32 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="90" restorationIdentifier="TSNoteEntriesTableCell" selectionStyle="blue" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="TSNoteEntriesTableCell" rowHeight="150" id="bjc-Fe-6zq" customClass="TSNoteEntriesTableCell" customModule="TSNotes" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="320" height="150"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="90" restorationIdentifier="TSNoteEntriesTableCell" selectionStyle="blue" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="TSNoteEntriesTableCell" id="bjc-Fe-6zq" customClass="TSNoteEntriesTableCell" customModule="TSNotes" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="320" height="61"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="89" tableViewCell="bjc-Fe-6zq" id="Uuc-kx-KTi" userLabel="tableCellContent View">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="60.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="this is a date 9/23/40" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q1e-ce-43j" userLabel="noteEntryDateLabel">
-                                            <rect key="frame" x="8" y="8" width="304" height="25"/>
-                                            <color key="backgroundColor" red="0.85395697339999999" green="1" blue="0.96597126749999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YdT-nn-So1" userLabel="BackgroundLabel">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="60.5"/>
+                                            <color key="backgroundColor" red="0.32782223510000003" green="0.93916570519999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q1e-ce-43j" userLabel="noteEntryDateLabel">
+                                            <rect key="frame" x="3" y="2" width="314" height="20"/>
+                                            <color key="backgroundColor" red="0.72475368910000004" green="1" blue="0.92657049319999996" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="25" id="iZC-G0-Wyl"/>
+                                                <constraint firstAttribute="height" constant="20" id="zvd-v3-6a7"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="16"/>
+                                            <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1it-Pj-NS2" userLabel="noteTextView">
-                                            <rect key="frame" x="8" y="38" width="304" height="103.5"/>
+                                        <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="750" verticalCompressionResistancePriority="749" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1it-Pj-NS2" userLabel="noteTextView">
+                                            <rect key="frame" x="3" y="22" width="314" height="36.5"/>
                                             <color key="backgroundColor" red="0.76847728380000002" green="1" blue="0.77900667290000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <gestureRecognizers/>
                                             <attributedString key="attributedText">
@@ -373,17 +405,20 @@
                                         </textView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="1it-Pj-NS2" firstAttribute="bottom" secondItem="Uuc-kx-KTi" secondAttribute="bottomMargin" id="0oF-pZ-8kn"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="Q1e-ce-43j" secondAttribute="trailing" id="1jD-Sd-25P"/>
-                                        <constraint firstItem="Q1e-ce-43j" firstAttribute="leading" secondItem="Uuc-kx-KTi" secondAttribute="leadingMargin" id="9pX-fn-Fox"/>
-                                        <constraint firstItem="Q1e-ce-43j" firstAttribute="top" secondItem="Uuc-kx-KTi" secondAttribute="topMargin" id="C3M-FC-bDq"/>
-                                        <constraint firstItem="1it-Pj-NS2" firstAttribute="top" secondItem="Q1e-ce-43j" secondAttribute="bottom" constant="5" id="MCd-ff-fwP"/>
-                                        <constraint firstItem="Q1e-ce-43j" firstAttribute="top" secondItem="Uuc-kx-KTi" secondAttribute="topMargin" id="Oi7-xy-dgg"/>
-                                        <constraint firstItem="1it-Pj-NS2" firstAttribute="leading" secondItem="Uuc-kx-KTi" secondAttribute="leadingMargin" id="Wsy-go-feC"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="1it-Pj-NS2" secondAttribute="trailing" id="aar-9l-Nu7"/>
-                                        <constraint firstItem="Q1e-ce-43j" firstAttribute="trailing" secondItem="Uuc-kx-KTi" secondAttribute="trailingMargin" id="cV2-yR-lig"/>
+                                        <constraint firstItem="Q1e-ce-43j" firstAttribute="trailing" secondItem="YdT-nn-So1" secondAttribute="trailing" constant="-3" id="0Xv-n0-7N9"/>
+                                        <constraint firstAttribute="trailing" secondItem="YdT-nn-So1" secondAttribute="trailing" id="4IG-ol-7Ei"/>
+                                        <constraint firstItem="Q1e-ce-43j" firstAttribute="leading" secondItem="YdT-nn-So1" secondAttribute="leading" constant="3" id="Et8-G4-r3S"/>
+                                        <constraint firstItem="1it-Pj-NS2" firstAttribute="top" secondItem="Q1e-ce-43j" secondAttribute="bottom" id="KyC-1J-RlK"/>
+                                        <constraint firstItem="Q1e-ce-43j" firstAttribute="leading" secondItem="1it-Pj-NS2" secondAttribute="leading" id="Qvl-7P-PdA"/>
+                                        <constraint firstItem="YdT-nn-So1" firstAttribute="top" secondItem="Uuc-kx-KTi" secondAttribute="top" id="SQc-1W-tIk"/>
+                                        <constraint firstItem="Q1e-ce-43j" firstAttribute="top" secondItem="YdT-nn-So1" secondAttribute="top" constant="2" id="VaP-n5-SHu"/>
+                                        <constraint firstAttribute="bottom" secondItem="YdT-nn-So1" secondAttribute="bottom" id="bay-KS-OsN"/>
+                                        <constraint firstItem="1it-Pj-NS2" firstAttribute="bottom" secondItem="YdT-nn-So1" secondAttribute="bottom" constant="-2" id="g1h-4k-EJr"/>
+                                        <constraint firstItem="Q1e-ce-43j" firstAttribute="trailing" secondItem="1it-Pj-NS2" secondAttribute="trailing" id="srG-j6-IVj"/>
+                                        <constraint firstItem="YdT-nn-So1" firstAttribute="leading" secondItem="Uuc-kx-KTi" secondAttribute="leading" id="uus-EX-57P"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="1" green="0.40530971329999999" blue="0.36133385800000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="noteEntryDateLabel" destination="Q1e-ce-43j" id="qeq-iF-9Up"/>
                                     <outlet property="noteTextView" destination="1it-Pj-NS2" id="yzT-L7-bJe"/>
@@ -403,7 +438,11 @@
                                 <action selector="cancelAction:" destination="CVd-B1-h52" id="gpu-ub-ADa"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="NaO-kt-xnt"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="NaO-kt-xnt">
+                            <connections>
+                                <segue destination="uUF-cQ-L4o" kind="presentation" identifier="newNoteEntry" id="hmh-Q4-jj6"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
@@ -412,7 +451,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zsr-ti-Mde" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2998" y="-235"/>
+            <point key="canvasLocation" x="2996.25" y="-235.56338028169014"/>
         </scene>
         <!--Note Entry View Controller-->
         <scene sceneID="L1q-Ce-MgS">
@@ -441,17 +480,24 @@
                                     <outletCollection property="gestureRecognizers" destination="uN6-YO-iIL" appends="YES" id="6Xg-98-3Ot"/>
                                 </connections>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" restorationIdentifier="noteTextView" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gr7-6W-GRt" userLabel="noteTextView">
-                                <rect key="frame" x="16" y="109" width="288" height="434"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="18"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" restorationIdentifier="noteTextView" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gr7-6W-GRt" userLabel="noteTextView">
+                                <rect key="frame" x="16" y="104" width="288" height="439"/>
+                                <color key="backgroundColor" red="0.76847728380000002" green="1" blue="0.77900667290000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <attributedString key="attributedText">
+                                    <fragment>
+                                        <string key="content">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <attributes>
+                                            <font key="NSFont" size="18" name="Papyrus"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.72475368910000004" green="1" blue="0.92657049319999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="sIH-Fr-cbP" secondAttribute="trailing" id="3dk-8l-yFS"/>
-                            <constraint firstItem="gr7-6W-GRt" firstAttribute="top" secondItem="sIH-Fr-cbP" secondAttribute="bottom" constant="5" id="9W3-vD-gSo"/>
+                            <constraint firstItem="gr7-6W-GRt" firstAttribute="top" secondItem="sIH-Fr-cbP" secondAttribute="bottom" id="9W3-vD-gSo"/>
                             <constraint firstItem="yU6-fM-Grx" firstAttribute="top" secondItem="gr7-6W-GRt" secondAttribute="bottom" constant="25" id="FJt-MX-nsS"/>
                             <constraint firstItem="sIH-Fr-cbP" firstAttribute="leading" secondItem="aIe-5p-VHK" secondAttribute="leadingMargin" id="bHy-46-vl2"/>
                             <constraint firstItem="gr7-6W-GRt" firstAttribute="trailing" secondItem="aIe-5p-VHK" secondAttribute="trailingMargin" id="how-KI-MMO"/>
@@ -765,7 +811,7 @@
                 <navigationController storyboardIdentifier="StoryboardIDRootNavigationController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7wD-XE-Jmh" userLabel="List of Notes Table Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="d0T-fE-wdw">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -783,7 +829,7 @@
                 <navigationController storyboardIdentifier="TitleViewNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ez8-ye-WFN" userLabel="Add Title View Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rX5-jf-VM7">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -801,7 +847,7 @@
                 <navigationController storyboardIdentifier="NoteEntryNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="uUF-cQ-L4o" userLabel="Enter Note View Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="iHm-bm-7RA">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -819,7 +865,7 @@
                 <navigationController storyboardIdentifier="NoteEntriesNav Controller" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cAe-38-Exb" userLabel="NoteEntriesNavigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ypd-kg-b7S">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -837,7 +883,7 @@
                 <navigationController storyboardIdentifier="datetimeAdjustNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="a41-io-fV6" userLabel="DateAdjustNavigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="NVA-FZ-eQS">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -855,7 +901,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RMT-kB-hXk" userLabel="New List of Notes Table Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Bhd-N4-B1j">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -874,6 +920,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Cb7-2j-ZNL"/>
-        <segue reference="kgy-7v-gvo"/>
+        <segue reference="9je-Fn-AqX"/>
+        <segue reference="mer-5b-BVY"/>
     </inferredMetricsTieBreakers>
 </document>
