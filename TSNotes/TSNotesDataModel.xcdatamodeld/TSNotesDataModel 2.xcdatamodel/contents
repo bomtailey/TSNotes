@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17F77" minimumToolsVersion="Xcode 7.0" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="Note" representedClassName=".Note" syncable="YES">
+        <attribute name="noteModifiedDateDay" attributeType="String" syncable="YES"/>
+        <attribute name="noteModifiedDateTime" attributeType="String" syncable="YES"/>
+        <attribute name="noteModifiedDateTS" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="noteText" attributeType="String" syncable="YES"/>
+        <relationship name="notesList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NoteBase" inverseName="notes" inverseEntity="NoteBase" syncable="YES"/>
+    </entity>
+    <entity name="NoteBase" representedClassName=".NoteBase" syncable="YES">
+        <attribute name="createDateTS" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="latestNoteDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="modifyDateTS" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="noteCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="noteName" attributeType="String" syncable="YES"/>
+        <relationship name="notes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Note" inverseName="notesList" inverseEntity="Note" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Note" positionX="187" positionY="18" width="128" height="120"/>
+        <element name="NoteBase" positionX="-63" positionY="-18" width="128" height="135"/>
+    </elements>
+</model>

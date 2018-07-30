@@ -14,6 +14,7 @@ class TSNoteEntriesTableCell: UITableViewCell {
     @IBOutlet weak var noteEntryDateLabel: UILabel!
     @IBOutlet weak var noteTextView: UITextView!
     
+    @IBOutlet weak var elapsedTimeLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

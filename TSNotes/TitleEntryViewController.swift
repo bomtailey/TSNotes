@@ -51,6 +51,9 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
         
         noteTitleFieldText.becomeFirstResponder()
         
+        // Don't konw why this should be needed because it's specified in storyboard and it used to work
+        //noteTitleFieldText.autocapitalizationType = .words
+        
         // If not a new note title, this is an update
         if newTitleRequest {
             self.title = "New Note Title"

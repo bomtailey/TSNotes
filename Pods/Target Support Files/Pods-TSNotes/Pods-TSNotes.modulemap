@@ -1,0 +1,6 @@
+framework module Pods_TSNotes {
+  umbrella header "Pods-TSNotes-umbrella.h"
+
+  export *
+  module * { export * }
+}

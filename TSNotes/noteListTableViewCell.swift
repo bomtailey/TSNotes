@@ -16,7 +16,7 @@ class noteListTableViewCell: UITableViewCell {
     @IBOutlet weak var noteTitleField: UILabel!
     @IBOutlet weak var noteModifyDate: UILabel!
     @IBOutlet weak var noteCount: UILabel!
-    
+    @IBOutlet weak var elapsedTime: UILabel!
     
     // from old tableview controller
 //    @IBOutlet weak var noteTitleField: UILabel!

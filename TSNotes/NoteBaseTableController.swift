@@ -1,3 +1,4 @@
+
 //
 //  NoteBaseTableController.swift - this is the table listing all the notes
 //  TSNotes
@@ -9,8 +10,10 @@
 import UIKit
 import CoreData
 
-    // 2/12/17 temporarily removing UISearchResultsUpdating, , UISearchBarDelegate
-    //   UISearchResultsUpdating,UISearchBarDelegate,       until I better understand searching
+    /*
+        7/20/18 - changing date used for elapsed time since last entry
+            will use latest note entry date for comparison with current date
+    */
 
 class NoteBaseTableController: UITableViewController,  NSFetchedResultsControllerDelegate, UISearchBarDelegate,  UIGestureRecognizerDelegate  {
     
@@ -35,7 +38,10 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
     var numRecords = Int(0)
     
     var noteCreateDate = Date()
+    var noteLatestDate = Date()
     var noteTitle = String()
+    var currentDateTime = Date()
+    var elapsedTime = Int()
 
     var noteBaseRecord: NoteBase!
 
@@ -51,6 +57,7 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
     var selectedCreateDate = Date()
     
     let dayTimePeriodFormatter = DateFormatter()
+    
     var bSearchFieldShowing = Bool(false)
     
     var tapGestureRecognizer : UITapGestureRecognizer!
@@ -59,9 +66,8 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
     
     // dayTimePeriodFormatter.dateFormat = "EEEE, d MMMM yyyy h:m a"
 
-    // MARK: - code segments
-
-    override func viewDidLoad() {
+    // MARK: - viewDidLoad
+    override func t {
         
         super.viewDidLoad()
         
@@ -77,8 +83,8 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
 
-        dayTimePeriodFormatter.dateFormat =  "EEEE MM/d/yy    h:mm a"
-        
+        dayTimePeriodFormatter.dateFormat =  "E MM/d/yy  h:mm a"
+
         tableView.tableHeaderView = searchBar
         self.searchBar.delegate = self
 
@@ -102,7 +108,9 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
         // This effects discrimination of single/double tap
         singleTap.require(toFail: doubleTap)
         
-
+        // Set up to be notified when app comes to foreground
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(appWillMoveToForeground), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
 
         
         // Initialize core data elements
@@ -122,13 +130,18 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
         
         
         super.viewWillAppear(animated);
- 
         
         // try fetchcontroller fetch
         fetchRecords()
         
     }
-
+    
+   // Called when notified that app will move to foreground
+    func appWillMoveToForeground(_ application: UIApplication) {
+        
+    // try fetchcontroller fetch
+        tableView.reloadData()
+    }
     
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [AnyHashable: Any]?) -> Bool {
         // Override point for customization before application launch.
@@ -155,7 +168,7 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
         
         // Initialize fetch request
         fetchRequest = NSFetchRequest(entityName: "NoteBase")
-        
+ 
         // Add Sort Descriptors
         let sortDescriptor = NSSortDescriptor(key: "modifyDateTS", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
@@ -206,6 +219,9 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
             }
             break;
         }
+
+        tableView.reloadData()
+
     }
     
     func configureCell(_ cell: noteListTableViewCell, atIndexPath indexPath: IndexPath) {
@@ -222,7 +238,17 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
             cell.noteTitleField.attributedText = tempAttributedString
             
             cell.noteModifyDate.text = dayTimePeriodFormatter.string(from: modifyDateTS)
+            
+            // #ed     Add 7/17/18 calculate time elapsed since last mod
+            if noteBaseRecord.value(forKey: "latestNoteDate") == nil {
+                noteLatestDate = modifyDateTS
+            } else {                
+                noteLatestDate = (noteBaseRecord.value(forKey: "latestNoteDate") as? Date)!
+            }
+
         }
+
+        cell.elapsedTime.text = Utils.dateDifference(laterDate: currentDateTime, earlierDate: noteLatestDate)
         
         if let count = noteBaseRecord.value(forKey: "noteCount") as? Int {
             
@@ -256,7 +282,10 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-    
+     
+        // set current timestamp 
+        currentDateTime = Date()
+
         if let sections = fetchedResultsController.sections {
             return sections.count
         }
@@ -371,11 +400,11 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
                 
                 do {
                     try self.managedObjectContext.save()
+                    tableView.reloadRows (at: [indexPath], with: UITableViewRowAnimation.automatic)
                     //5
                 } catch let error as NSError  {
                     print("Could not save \(error), \(error.userInfo)")
                 }
-
             })
             
             alertController.addAction(deleteAction)
@@ -571,12 +600,20 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
     }
     
     
-    //  All data update functions moved to TitleEntryViewController
-    @IBAction func unwindFromTitleEntry(_ sender: UIStoryboardSegue) {
-        
+    //  All data update functions moved to NoteEntriesController
+    @IBAction func unwindFromNoteEntries(_ sender: UIStoryboardSegue) {
+ 
+        // Add temporary logic to add latest elapsed date to notebase if it's empty
+
        tableView.reloadData()
     }
     
+    
+    //  All data update functions moved to TitleEntryViewController
+    @IBAction func unwindFromTitleEntry(_ sender: UIStoryboardSegue) {
+
+        tableView.reloadData()
+    }
 
     
     

@@ -1,6 +1,9 @@
- //
+//
 //  noteEntriesTableViewController.swift - This is the table giving the entries for a particular note
 /*
+ 
+ ==> 7/19/18 Changing modified date to date set in note entry. It may have been edited and the possibly
+        new date is more reflective of the note history.  Might want to add the mod date at some point.
  
   ==> 8/16/17 For search display, we need to redo search if edit or add of entries produces new hits.  
         Also need to implement search on note entries display
@@ -19,10 +22,16 @@
 import UIKit
 import CoreData
 
-class noteEntriesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, UISearchBarDelegate {
+class noteEntriesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate, UICollectionViewDelegate {
+    
+    // MARK: - Outlets
     
     // searchbar from storyboard
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var addButton: UIBarButtonItem!
+    
+    @IBOutlet weak var NoteEntriesTitle: UINavigationItem!
+    
     
     // Properties
     // named views so we can pass touch through to tablecll
@@ -42,11 +51,20 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     var baseFetchRequest: NSFetchRequest<NoteBase> = NoteBase.fetchRequest() as! NSFetchRequest<NoteBase>
     var bNewFetch = Bool(false)
     
+    var numRecords = Int(0)
+    var sectionNum = Int(0)
+    var numHits = Int(0)
+    
+    var latestNoteDate = Date()
+    
     // MARK: - variables from NoteBaseTableController
     var managedObjectContext: NSManagedObjectContext!
     var noteBaseRecord: NoteBase!
     var bSearchEntries = Bool(false)
     var searchString: String?
+    
+    // MARK: - define variables - local
+
 
     
     // MARK: - local variables
@@ -55,13 +73,21 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     var noteCreateDate = Date()
     var statusText = String()
     var bNewNote = true
-    var noteRecord = Note()
-    var bIsRestore = true
-    var myViewController = UIViewController()
-    var currentCell: TSNoteEntriesTableCell!
+    var noteRecord = Note(context:context)   // firstEntity = FirstEntity(context:context)
+    
+    // Temporary add to get lastest elapsed date from noteEntries
+    var latestModifiedDate = Date()
+
+
+    var cellWidth = CGFloat(45)
+    var offsetPoint = CGPoint()
+    var yDisplacement = Int()
+    
+    var numSections = Int()
     
     var lineStyle = NSMutableParagraphStyle()
-
+    
+    var contentOffset = CGPoint ()
     
     let displayDateFormatter = DateFormatter()
     let sortableDateOnlyFormatter = DateFormatter()
@@ -72,7 +98,10 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     var sectionName = String()
 //    var noteText = String()
 //    var noteModDateTime = Date()
-    
+    var currentDateTime = Date()
+    var modifyDateArray = [Date()]
+    var modifyDateArray1 = [Date()]
+
     // MARK: - variables associated with search
 
     var cellText = String()
@@ -87,13 +116,17 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     var matchCount = Int(0)
     var recordNum = Int(0)
     var objectRecordPtr = [[Int]]()
-   // var matchLocations: [String.Index] = []
+    var objectRecordPtr1 = [[Int]]()
+    var objectRecordPtrDim2 = [Int]()
+  // var matchLocations: [String.Index] = []
     //var matchArray = [[tempRange]()]
     var firstMatchLocArray = [NSRange]()
     var mutableRecordsArray = [NSMutableAttributedString]()
     var xferVar = NSMutableAttributedString()
     var sectionNameArray = [String]()
     var currentBaseRecord: NoteBase!
+    var firstFindRange = NSRange( location: 0, length: 1)
+
 
     // MARK: - Code section
     
@@ -125,7 +158,35 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         // Searchbar 
         tableView.tableHeaderView = searchBar
         self.searchBar.delegate = self
-        tableView.contentOffset = CGPoint(x:0, y:searchBar.frame.height);
+ //       var contentOffset: CGPoint = self.tableView.contentOffset
+        
+        contentOffset = self.tableView.contentOffset
+        contentOffset.y += (self.tableView.tableHeaderView?.frame)!.height
+        self.tableView.contentOffset = contentOffset
+        
+        
+        // This implements tap/double tap on the navigation bar to scroll the list to the top or bottom
+        let singleTap = UITapGestureRecognizer(target: self, action:#selector(self.singleTapAction(_:)))
+        singleTap.delegate = self
+        singleTap.numberOfTapsRequired = 1
+        self.navigationController?.navigationBar.addGestureRecognizer(singleTap)
+        
+        let doubleTap = UITapGestureRecognizer(target: self, action:#selector(self.doubleTapAction(_:)))
+        doubleTap.delegate = self
+        doubleTap.numberOfTapsRequired = 2
+        self.navigationController?.navigationBar.addGestureRecognizer(doubleTap)
+        
+        // This effects discrimination of single/double tap
+        singleTap.require(toFail: doubleTap)
+        
+        if bSearchEntries {
+            buildPredicate ( searchString: searchString! )
+        }
+        
+
+        // Set up core data for notes
+        fetchedResultsController = getFRC() as! NSFetchedResultsController<Note>
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -138,17 +199,12 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         } else {
             noteName = noteBaseRecord.noteName!
             navigationItem.title = noteName
-            tableView.contentOffset = CGPoint(x:0, y:searchBar.frame.height);
+            statusText = noteName
+            //tableView.contentOffset = CGPoint(x:0, y:searchBar.frame.height);
         }
        
         
-        if bSearchEntries {
-            buildPredicate ( searchString: searchString! )
-        }
-
-        fetchedResultsController = getFRC() as! NSFetchedResultsController<Note>
-        fetchRecords ()
-        
+         fetchRecords ()
     }
     
     
@@ -156,14 +212,25 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         super.viewDidAppear(animated)
         
         if bSearchEntries {
-            
             // set table title
-            setStatusText(queryString: searchString!, count: matchCount)
-            navigationItem.title = statusText
+            setStatusText(queryString: searchString!, count: numHits)
         }
-
-//        bNewFetch = false
         
+        navigationItem.title = statusText
+
+       // This is done because the first view of the table doesn't include the
+        // scrolltovisible actions
+        tableView.reloadData()
+        
+    }
+    
+    func scrollTableCells() {
+        /*
+        for cell in tableView.visibleCells as! [UITableViewCell] {
+            //do someting with the cell here.
+            
+        }
+        */
     }
     
     func setStatusText(queryString: String, count: Int)  {
@@ -185,7 +252,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     }
 
    
-    
+    //MARK: - fetchRecords
     func fetchRecords () {
         
 
@@ -196,20 +263,65 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             print("\(fetchError), \(fetchError.userInfo)")
         }
         
-       
-        if let numHits = fetchedResultsController.fetchedObjects?.count {
-            
+       // numRecords = fetchedResultsController.fetchedObjects!.count
+        numHits = fetchedResultsController.fetchedObjects!.count
+
+        if numHits > 0 {
+
             recordNum = 0
             matchCount = 0
             currentBaseRecord = nil
+            var bNewRecord = Bool (true)
+            var currentSectionNumber = Int (0)
+            var sectionNumber = Int()
+
             
+            // Clear out arrays so they don't keep increasing
+            /*
+            objectRecordPtr.removeAll()
+            modifyDateArray.removeAll()
+            */
+            objectRecordPtr1.removeAll()
+            modifyDateArray1.removeAll()
+            mutableRecordsArray.removeAll()
+            objectRecordPtrDim2.removeAll()
+
+            /*
             objectRecordPtr = Array(repeating: Array(repeating: 0, count: numHits), count: numHits)
-            
+            modifyDateArray = Array(repeating: currentDateTime, count: numHits)
+            */
+
             for object in fetchedResultsController.fetchedObjects! {
                 
-                let pos = fetchedResultsController.indexPath(forObject: object)
-                objectRecordPtr[(pos?[0])!][(pos?[1])!] = recordNum
+                // Save the modify date to later compute elapsed times between entries
+     //            modifyDateArray [recordNum] = object.noteModifiedDateTS!
+                modifyDateArray1.append(object.noteModifiedDateTS!) 
+
                 
+                // Temporary add #ed to get lastest elapsed date from noteEntries
+                // default to existing latest date
+                if recordNum == 0 {
+                    latestModifiedDate = object.noteModifiedDateTS!
+               }
+
+                let pos = fetchedResultsController.indexPath(forObject: object)
+                
+                 sectionNumber = pos![0]
+                
+                if sectionNumber > currentSectionNumber {
+                    if sectionNumber > 0 {
+                        objectRecordPtr1.insert(objectRecordPtrDim2, at: currentSectionNumber)
+                        currentSectionNumber = sectionNumber
+                    }
+                    objectRecordPtrDim2.removeAll()
+                }
+                
+                objectRecordPtrDim2.append(recordNum)
+
+   //             objectRecordPtr[(pos?[0])!][(pos?[1])!] = recordNum
+
+
+                bNewRecord = true
 
                 // This seems like a hack but to actually get a copy (not just a reference) of
                 // myMutableString, you have to instantiate a new object so we do that with xferVar
@@ -229,14 +341,23 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
                         sectionNameArray.append(currentBaseRecord.noteName!)
                     }
                     
+                    for word in wordCollection {
+                        
+                        searchString = word
+                        //searchString = wordCollection[0]
                         // Highlight (and count) matches
-                    let results = countAndHighlightMatchesHelper( stringToFind: searchString!,
-                                                                  entireString: xferVar)
-                    
-                   matchCount += results.matchCount
-                    
-                    firstMatchLocArray.insert(results.firstFindRange, at: recordNum)
+                        let results = Utils.countAndHighlightMatchesHelper( stringToFind: searchString!, entireString: xferVar)
+     
+                       matchCount += results.matchCount
 
+                        if bNewRecord {
+                            firstMatchLocArray.insert(results.firstFindRange, at: recordNum)
+                            bNewRecord = false
+                        } else if results.firstFindRange.location <  firstMatchLocArray[recordNum].location {
+                            firstMatchLocArray[recordNum] = results.firstFindRange
+                        }
+
+                    }
                 }
                 
                 xferVar.addAttributes(myAttribute, range:NSRange(location: 0,length: (xferVar.length)))
@@ -246,11 +367,23 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
                     
                     // Take an opportunity to populate noteBaseRecord pointer
                     noteBaseRecord = object.notesList
+ 
                 }
                 
                 recordNum += 1
 
             }
+            
+            // Take care of possible last section
+            if sectionNumber > -1 {
+                objectRecordPtr1.insert(objectRecordPtrDim2, at: sectionNumber)
+             }
+            
+            // And I think we have 1 to many in recordNum, and need to clear  objectRecordPtrDim2
+
+            recordNum -= 1
+
+
 
             // When we populate the display we do it from mutableRecordsArray rather than 
             // fetchedResultsController so we'll use recordNum to index in cellForRowAt rather than
@@ -258,19 +391,25 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             
            // recordNum = 0
             
+            /*
             tableView.reloadData()
-     }
+        //    self.tableView.contentOffset = contentOffset
+            if numHits > 0 {
+                let indexPath = NSIndexPath(row: 0, section: 0)
+                self.tableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: false)
+            }
+            */
+        }
         
         
     }
-
-    
-
 
   
     func getFRC() -> NSFetchedResultsController<NSFetchRequestResult>
     {
         let notesFetchRequest: NSFetchRequest<Note> = Note.fetchRequest() as! NSFetchRequest<Note>
+        
+        currentDateTime = Date()
 
         // Add Sort Descriptor
         let sortDescriptor = NSSortDescriptor(key: "noteModifiedDateTS", ascending: false)
@@ -292,15 +431,15 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         if bSearchEntries  {
             sectionType = "notesList.noteName"
         }
-        
-        // Initialize Fetched Results Controller
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: notesFetchRequest, managedObjectContext: self.managedObjectContext,
-            sectionNameKeyPath: sectionType, cacheName: nil)
-
+ 
         // Configure Fetched Results Controller
         fetchedResultsController.delegate = self
-        
-        return fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>
+
+        // Initialize Fetched Results Controller
+        self.fetchedResultsController = NSFetchedResultsController(fetchRequest: notesFetchRequest, managedObjectContext: self.managedObjectContext,
+            sectionNameKeyPath: sectionType, cacheName: nil)
+
+        return self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>
     }
     
     
@@ -331,58 +470,6 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     }
 
     
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        switch (type) {
-            
-        case NSFetchedResultsChangeType(rawValue: 0)!:
-            // iOS 8 bug - Do nothing if we get an invalid change type.
-            break;
-
-            
-        case .insert:
-            if let indexPath = newIndexPath {
-                tableView.insertRows(at: [indexPath], with: .fade)
-            }
-            break;
-            
-        case .delete:
-            if let indexPath = indexPath {
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            }
-            break;
-            
-            
-        case .update:
-            if let indexPath = indexPath {
-                let currentCell = tableView.cellForRow(at: indexPath) as! TSNoteEntriesTableCell
-                configureCell(currentCell, atIndexPath: indexPath, currentRecord: noteRecord)
-            }
-            break;
-
-        case .move:
-            if let indexPath = indexPath {
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            }
-            
-            if let newIndexPath = newIndexPath {
-                tableView.insertRows(at: [newIndexPath], with: .fade)
-            }
-            
-            // Mark - TEB: for some reason, adds are getting marked as moves (because they're child objects?) and the
-            // tableview doesn't get updated so we're going to do it explicity which I think, in princple, we shouldn't have to
-            
-            /*
-            if bNewNote {
-                tableView.reloadData()
-            }
-            */
-            break;
-        }
-        
-        tableView.reloadData()
-
-    }
-    
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         switch type {
         case .insert:
@@ -393,77 +480,11 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             return
         }
     }
-
-/*
-    // Configure table cell
-    func configureSearchMatchCell(_ cell: TSNoteEntriesTableCell, atIndexPath indexPath: IndexPath, noteRecord: Note!) {
-        
-        currentCell = cell
-        
-        // clear string?
-//        myMutableString?.mutableString.setString("")
-        
-        // Update Cell
-        let cellText = noteRecord?.value(forKey: "noteText") as? String
-        myMutableString.mutableString.setString(cellText!)
-        
-        let textLength = cellText?.characters.count
-        var firstFindRange = NSRange( location: 0, length: 1) // Default to start of text
-        var foundRange = NSRange( location: 0, length: textLength!)
-        var bfirstFind = Bool(true)
-        
-        for word in wordCollection {
-            foundRange = highlightWord1(wordToFind: word, lengthEntireString: textLength!)
-            
-            if bfirstFind {
-                firstFindRange = foundRange
-                bfirstFind = false
-            }
-        }
-        
-        
-        cell.noteTextView.attributedText = myMutableString
-        cell.noteTextView.scrollRangeToVisible(firstFindRange)
-    }
-*/
-    
-
-    // Configure table cell
-    func configureCell(_ cell: TSNoteEntriesTableCell, atIndexPath indexPath: IndexPath, currentRecord: Note!) {
-        
-        currentCell = cell
-        
-        // Fetch Record
-        let record = fetchedResultsController.object(at: indexPath) 
-        
-        // Update Cell
-        if let noteModifiedTime = record.noteModifiedDateTime {
-            
-           let textLen = 100
-            var textString = record.noteText!
-            if textString.characters.count > textLen {
-                let indx = textString.characters.index(textString.startIndex, offsetBy: textLen)
-                textString = textString.substring(to: indx)
-            }
-            
-             cell.noteTextView.text =  textString      // record.noteText
-
-         //   cell.noteTextView.scrollRangeToVisible(NSMakeRange(0, 0))
-            cell.noteTextView.setContentOffset(CGPoint.zero, animated: false)
-
-            let timeDate = "\(noteModifiedTime)" 
-            cell.noteEntryDateLabel.text = timeDate  
-        }
-        
-    }
     
     override func viewWillLayoutSubviews() {
         
         super.viewWillLayoutSubviews()
 
-        if currentCell != nil {
-            currentCell.noteTextView.scrollRangeToVisible(NSMakeRange(0, 0))
-        }
     }
         
     
@@ -478,8 +499,9 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     override func numberOfSections(in tableView: UITableView) -> Int {
  
         if let sections = fetchedResultsController.sections {
-            NSLog("number of Sections: \(sections.count)")
-            return sections.count
+            numSections = sections.count
+            NSLog("noteEntries: number of Sections: \(numSections)")
+            return numSections
         }
         
         return 0
@@ -490,13 +512,16 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         if let sections = fetchedResultsController.sections {
             let sectionInfo = sections[section]
             
-         //   NSLog("number Of Rows In Section \(section): \(sectionInfo.numberOfObjects)")
+         //ri   NSLog("number Of Rows In Section \(section): \(sectionInfo.numberOfObjects)")
             
             // set table title
-//            setStatusText(queryString: searchString!, count: tableEntriescount, allReq: bListAll!)
-//            navigationItem.title = statusText
+           // setStatusText(queryString: searchString!, count: tableEntriescount, allReq: bListAll!)
+            navigationItem.title = statusText
+  
+            if cellWidth == 0 {
+                cellWidth = (tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.bounds.size.width)!
+            }
 
-            
             return sectionInfo.numberOfObjects
         }
         
@@ -510,42 +535,53 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         
         noteRecord = fetchedResultsController.object(at: indexPath) //as Note
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TSNoteEntriesTableCell", for: indexPath) as! TSNoteEntriesTableCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TSNoteEntriesTableCell", for: indexPath) as!          TSNoteEntriesTableCell
         
         let sectionName = noteRecord.noteModifiedDateTime
-        var firstFindRange = NSRange( location: 0, length: 1)
         
        // NSLog( "\n\nIn cellForRowAt noteRecord: \(String(describing: self.noteRecord.noteText))\n\n")
 
-        recordNum = objectRecordPtr [indexPath.section] [indexPath.row]
+   //     recordNum = objectRecordPtr [indexPath.section] [indexPath.row]
+        recordNum = objectRecordPtr1 [indexPath.section] [indexPath.row]
         myMutableString = mutableRecordsArray [recordNum]
-
+        
+        if recordNum < numHits - 1 {
+            cell.elapsedTimeLabel.text = Utils.dateDifference(laterDate: modifyDateArray1 [recordNum], earlierDate: modifyDateArray1 [recordNum+1])
+        }
+ 
+       cell.noteTextView.attributedText = myMutableString
+ 
         if bSearchEntries {
             
             // reformat the sectionName info
             let sectionNameReformatted = displayDateOnlyFormatter.string(from: noteRecord.noteModifiedDateTS!)
 
             cell.noteEntryDateLabel.text = sectionNameReformatted + ":    " + sectionName!
-
             firstFindRange = firstMatchLocArray [recordNum]
         }
 
         else {
             cell.noteEntryDateLabel.text = sectionName
-            firstFindRange = NSRange( location: 0, length: 1)        }
+            firstFindRange = NSRange( location: 0, length: 1)
+            
+        }
 
         cell.noteTextView.attributedText = myMutableString
-        cell.noteTextView.scrollRangeToVisible(firstFindRange)
         
-        /*
+        
+        if firstFindRange.location > 0 {
+            firstFindRange.location -= 0
+        }
+  
+        cell.noteTextView.scrollRangeToVisible(firstFindRange)
+
         cell.layer.masksToBounds = true
         cell.layer.borderColor = UIColor( red: 0/255, green: 150/255, blue:115/255, alpha: 1.0 ).cgColor
         cell.layer.borderWidth = 0.5
-      */
+      
         
         return cell
     }
-    
     
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
@@ -563,9 +599,10 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
 
                     // reformat the sectionName info
                 let doDate = sortableDateOnlyFormatter.date(from: sectionName)
-                let sectionNameReformatted = displayDateOnlyFormatter.string(from: doDate!)
-                sectionName = sectionNameReformatted
-            }
+            //    let sectionNameReformatted = displayDateOnlyFormatter.string(from: doDate!)
+           //     sectionName = sectionNameReformatted
+                sectionName = displayDateOnlyFormatter.string(from: doDate!)
+           }
         }
         
         return sectionName
@@ -576,7 +613,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         
         let header = view as! UITableViewHeaderFooterView
         //make the background color light blue
-        header.contentView.backgroundColor = UIColor(colorLiteralRed: 0.84, green: 0.93, blue: 0.93, alpha: 1.0)
+        header.contentView.backgroundColor = UIColor(red: 0.84, green: 0.93, blue: 0.93, alpha: 1.0)
         //UIColor(colorWithRed:0.62, colorWithGreen:0.80, colorWithBlue:0.81, alpha:1.0)
         header.textLabel?.font = UIFont(name: "Times New Roman", size: 15)
         header.textLabel?.textAlignment = NSTextAlignment.center
@@ -640,6 +677,16 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
                 
                 // Delete Record
                 self.managedObjectContext.delete(record)
+                /*
+                // Delete the record
+                do {
+                    try self.managedObjectContext.save()
+                    //5
+                } catch let error as NSError  {
+                    print("Could not save \(error), \(error.userInfo)")
+                }
+                */
+
                 
                 // Update noteBaseReord
 //                var count = noteBaseRecord.valueForKey("noteCount") as! Int
@@ -657,7 +704,13 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
                 } catch let error as NSError  {
                     print("Could not save \(error), \(error.userInfo)")
                 }
+                print("Delete button tapped #2")
                 
+                // I think I need to do this to update the table display
+                self.fetchRecords ()
+                self.tableView.reloadData()
+
+
             })
             
             alertController.addAction(deleteAction)
@@ -674,7 +727,6 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         */
             
         }
-        
         
         deleteChoice.backgroundColor = UIColor.red
 
@@ -764,15 +816,29 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     
     // MARK: - Navigation
     
-    @IBAction func cancelAction(_ sender: AnyObject) {
-        dismiss(animated: true, completion: nil)
+    @IBAction func cancelAction(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "unwindFromNoteEntries", sender: self)
+        
     }
     
     //let segueIndentifier = "presentNoteEntryEdit"
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        let segID = segue.identifier
+        // cancle seques come througth here
+        guard let segID = segue.identifier else {
+            
+            // #ed  Temporary logic to populate new notebase field latestModifiedDate
+            if noteBaseRecord.value(forKey: "latestNoteDate") == nil {
+                noteBaseRecord.setValue(latestModifiedDate, forKey:"latestNoteDate")
+            
+            // Create/update note entity
+            updateDataObject ()
+
+            }
+
+            return
+        }
         
         let navVC = segue.destination as! UINavigationController
         let destinationVC = navVC.viewControllers.first as! noteEntryViewController
@@ -789,8 +855,9 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
                     // Fetch note record
                     noteRecord = fetchedResultsController.object(at: indexPath) //as Note
 
-                    recordNum = objectRecordPtr [indexPath.section] [indexPath.row]
-                    destinationVC.noteText = mutableRecordsArray [recordNum]
+                //    recordNum = objectRecordPtr [indexPath.section] [indexPath.row]
+                    recordNum = objectRecordPtr1 [indexPath.section] [indexPath.row]
+                   destinationVC.noteText = mutableRecordsArray [recordNum]
                     destinationVC.noteModDateTime = noteRecord.noteModifiedDateTS!
                     }
             }
@@ -839,52 +906,29 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             noteRecord.noteModifiedDateDay = sortableDateOnlyFormatter.string(from: sVC.noteModDateTime! as Date)
             noteRecord.noteModifiedDateTime = displayTimeOnlyFormatter.string(from: sVC.noteModDateTime! as Date)
             noteRecord.noteModifiedDateTS  = sVC.noteModDateTime!
+            
+            // New (7.20.18) field in notebase record, latestNoteDate
+            noteBaseRecord.setValue(noteRecord.noteModifiedDateTS, forKey:"latestNoteDate")
 
         // Create/update note entity
+        updateDataObject ()
         
-            do {
-                try managedObjectContext.save()
-                //5
-            } catch let error as NSError  {
-                print("Could not save \(error), \(error.userInfo)")
-            }
-                        
         }
-        
-        
     }
     
-
-    // As of 7/7/17, this is not used
-/*
-    // updates the table view with the search results as user is typing...
-    func updateSearchResults(for searchController: UISearchController) {
+    // Update data object (note + notebase if needed)
+    func updateDataObject () {
         
-        // process the search string, remove leading and trailing spaces
-        let searchString = searchController.searchBar.text!
-        let trimmedSearchString = searchString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        
-        // if search string is not blank
-        if !trimmedSearchString.isEmpty {
-            
-            // form the search format
-            let fetchPredicate = NSPredicate(format: "(name contains [cd] %@)", trimmedSearchString)
-            
-            // add the search filter
-            notesFetchRequest.predicate = fetchPredicate
-        }
-        else {
-            
-            // reset to all records if search string is blank
-            notesFetchRequest.predicate = nil
+        do {
+            try managedObjectContext.save()
+            //5
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
         }
         
-        // refresh the table view
-        self.tableView.reloadData()
     }
 
-*/
-    
+ 
 
 
     // MARK: - Helper functions
@@ -903,7 +947,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         
         for word in wordCollection {
             let trimWord = word.trim()
-            if trimWord.characters.count > 0 {
+            if trimWord.count > 0 {
                 predicateArray.append(NSPredicate(format: "noteText CONTAINS[cd] %@", trimWord))
             }
         }
@@ -927,177 +971,8 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         
         // Initialize Fetched Results Controller
        baseFetchedResultsController = NSFetchedResultsController(fetchRequest: baseFetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
-
-
     }
     
-
-/*
-    // Count matches in note text -- no longer used
-    func countMatches(stringToFind: String, stringToSearch: String) -> Int {
-
-        var localStringToSearch = String(stringToSearch)
-        var occurrenceStartIndex: String.Index
-        var count = 0
-        while let foundRange = localStringToSearch?.range(of: stringToFind, options: .caseInsensitive) {
-            occurrenceStartIndex = foundRange.lowerBound
-            localStringToSearch = localStringToSearch?.replacingCharacters(in: foundRange, with: "")
-            
-            matchLocations.append(foundRange.lowerBound)
-            count += 1
-        }
-        return count
-    }
-*/
-    
-/*
-
-    // Highlight search match words. Now useing the information we found when we dic the predicate-based record fetch
-    func highlightWord1 ( workString: NSMutableAttributedString, matchEntries: [NSRange] ) -> NSRange {
-     
-        var firstFindRange = NSRange( location: 0, length: workString.length)
-        
-        let searchStrLen = wordToFind.characters.count
-        
-        var msRange = NSRange( location: 0, length: strLength)
-        var firstFindRange = NSRange( location: 0, length: lengthEntireString)
-        let endRange = NSRange(location: lengthEntireString, length: searchStrLen)
-        
-        var msRange = NSRange( location: 0, length: lengthEntireString)
-        var bFirstFind = Bool(true)
-        
-        var bCanSearchAgain = Bool(true)
-        
-        repeat {
-            
-            msRange = myMutableString.mutableString.range(of: wordToFind!, options: NSString.CompareOptions.caseInsensitive, range: searchRange)
-            if msRange.location < strLength{
-                print("found location is: \(msRange.location)")
-                searchRange.location += searchStrLength!
-                strLength = strLength - searchStrLength!
-                searchRange.length = strLength
-            } else {
-                bCanSearchAgain = false
-            }
-            
-        } while bCanSearchAgain
-        
-        self.myMutableString.addAttribute( NSBackgroundColorAttributeName,value: UIColor.yellow, range: r)
-        
-        NSLog( "myMutableString after: \(self.myMutableString)")
-        
-        
-        
-        
-        for matchEntry in matchEntries {
-            
-            r.location = matchEntry.location
-            r.length = matchEntry.length
-            
-            workString.addAttribute( NSBackgroundColorAttributeName,value: UIColor.yellow, range: r)
-
-            
-        }
-        
-        
-        
-        
-        return firstFindRange
-   }
-
-    
-
-    // Highlight search match words
-    func highlightWord ( wordToFind: String, lengthEntireString: Int)  {
-        
-        
-        let searchStrLen = wordToFind.characters.count
-        
-        var msRange = NSRange( location: 0, length: strLength)
-        var firstFindRange = NSRange( location: 0, length: lengthEntireString)
-        let endRange = NSRange(location: lengthEntireString, length: searchStrLen)
-    
-        var msRange = NSRange( location: 0, length: lengthEntireString)
-        var bFirstFind = Bool(true)
-
-        var bCanSearchAgain = Bool(true)
-
-        repeat {
-            
-            msRange = myMutableString.mutableString.range(of: wordToFind!, options: NSString.CompareOptions.caseInsensitive, range: searchRange)
-            if msRange.location < strLength{
-                print("found location is: \(msRange.location)")
-                searchRange.location += searchStrLength!
-                strLength = strLength - searchStrLength!
-                searchRange.length = strLength
-            } else {
-                bCanSearchAgain = false
-            }
-            
-        } while bCanSearchAgain
-        
-                       self.myMutableString.addAttribute( NSBackgroundColorAttributeName,value: UIColor.yellow, range: r)
-
-                        NSLog( "myMutableString after: \(self.myMutableString)")
-        
-        
-        
-        }
- */
-    
-    
-  /*
-    // Count matches for search word(s) ===>  needs to change to include multiple search words
-    func countAndHighlightMatches( stringToFind: String, entireString: NSMutableAttributedString, recordNum: Int) -> Int {
-
-        //var stringToSearch = entireString.mutableString
-
-      //  equ highlightAttribute = NSBackgroundColorAttrib,value: UIColor.yellow
-        
-        let entireStringLen = entireString.mutableString.length
-        var searchedStrLength = entireString.mutableString.length
-        var searchRange = NSRange(location: 0, length: searchedStrLength )       //NSRange()
-        var msRange = NSRange( location: 0, length: searchedStrLength)
-        
-        let searchStrLen = stringToFind.characters.count
-        
-        var bFirstFind = Bool(true)
-        
-        var bCanSearchAgain = Bool(true)
-        var matchCount = Int(0)
-        
-        repeat {
-            
-            msRange = entireString.mutableString.range(of: stringToFind, options: NSString.CompareOptions.caseInsensitive, range: searchRange)
-            
-            if msRange.location <= entireStringLen - searchStrLen {
-                
-                print("found location is: \(msRange.location)")
-                
-               entireString.addAttribute( NSBackgroundColorAttributeName,value: UIColor.yellow, range: msRange)
-                
-                // Maybe save first find location
-                if bFirstFind {
-                    bFirstFind = false
-                    firstMatchLocArray.insert(msRange, at: recordNum)
-                 }
-               
-                matchCount += 1
-                searchRange.location = msRange.location + searchStrLen
-                searchedStrLength = entireStringLen - searchRange.location
-                searchRange.length = searchedStrLength
-
- //                NSLog( "myMutableString after: \(self.myMutableString)")
-                
-            } else {
-                bCanSearchAgain = false
-            }
-            
-        } while bCanSearchAgain
-        
-        return matchCount
-    }
-*/
 
 func setStatusText(queryString: String, count: Int, allReq: Bool)  {
     
@@ -1130,30 +1005,52 @@ func setStatusText(queryString: String, count: Int, allReq: Bool)  {
     
     //  1 tap to top, 2 to bottom.  These functions set up with addGestureRecognizer in ViewWillAppear
     
+
+    // This insulates button taps from header taps
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if touch.view!.isKind(of: UIControl.self) {
+            return false
+        }
+        return true
+    }
+
+    
+    
     // Handle navigation bar single tap - scroll to the top
-    func singleTapAction (_ theObject: AnyObject) {
+    func singleTapAction (_ theObject: UITapGestureRecognizer) {
+        
+        guard numHits > 0 else { return }
         
         if theObject.state == .ended {
             let indexPath = NSIndexPath(row: 0, section: 0)
-            self.tableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
+            self.tableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: false)
         }
-        
-        // let sbHeight = searchBar.frame.height
-        tableView.contentOffset = CGPoint(x:0, y:searchBar.frame.height);
-        
+
     }
     
     // Handle navigation bar double tap - scroll to the bottom
     func doubleTapAction (_ theObject: AnyObject) {
         
         if theObject.state == .ended {
+            
+            /* replace this with code in notebase
             let numRows = tableView( tableView, numberOfRowsInSection: 0) - 1
             let indexPath = NSIndexPath(row: numRows, section: 0)
             self.tableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
+             */
+        
+            let sections = fetchedResultsController.sections
+            let numSections = (sections?.count)! - 1
+            let sectionInfo = sections![numSections]
+            let numRows = sectionInfo.numberOfObjects - 1
+            // let numRows = tableView( tableView, numberOfRowsInSection: numSections[ - 1
+            let indexPath = NSIndexPath(row: numRows, section: numSections)
+            self.tableView.scrollToRow(at: indexPath as IndexPath, at: .bottom, animated: false)
+
         }
         
         // let sbHeight = searchBar.frame.height
-        tableView.contentOffset = CGPoint(x:0, y:searchBar.frame.height);
+       // tableView.contentOffset = CGPoint(x:0, y:searchBar.frame.height);
         
     }
     

@@ -30,8 +30,6 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
     
     var bIsRestore = Bool(true)
     
-//    var selectedNote = TSNote()
-    
     let dayTimePeriodFormatter = DateFormatter()
     let originalModTSFormatter = DateFormatter()
     let sortableDateOnlyFormatter = DateFormatter()
@@ -103,7 +101,7 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
     }
 
      func textViewDidChange( _ textView: UITextView) {
-        let textLen = textView.text.characters.count
+        let textLen = textView.text.count
         if textLen > 0 {
             saveButton.isEnabled = true
         } else {
@@ -115,7 +113,7 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
     
         func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
             
-        let textLen = textView.text.characters.count
+        let textLen = textView.text.count
  //       let textLen2 =  text.characters.count
         
         if textLen > 0 {
@@ -142,11 +140,6 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
     // MARK: - Navigation
     
     
-    // Cancel
-    @IBAction func cancelEntry(_ sender: AnyObject) {
-        
-        dismiss(animated: true, completion: nil)
-    }
     
     
     @IBAction func timeDisplayLongPress(_ sender: UILongPressGestureRecognizer) {
