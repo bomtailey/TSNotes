@@ -57,13 +57,13 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     
     var latestNoteDate = Date()
     
-    // MARK: - variables from NoteBaseTableController
+    // MARK: - variables to and from NoteBaseTableController
     var managedObjectContext: NSManagedObjectContext!
     var noteBaseRecord: NoteBase!
     var bSearchEntries = Bool(false)
     var searchString: String?
     
-    // MARK: - define variables - local
+    var bEntryModified = Bool(false)
 
 
     
@@ -306,6 +306,16 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
 
                 let pos = fetchedResultsController.indexPath(forObject: object)
                 
+                guard pos != nil else {
+                    print("Null value from fetchedResultsController for \(object.noteText!)")
+                    
+                    let alertController = UIAlertController(title: "TS Notes", message:
+                        "No path information for ?", preferredStyle: UIAlertControllerStyle.alert)
+                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                    self.present(alertController, animated: true, completion: nil)
+
+                    return
+                }
                  sectionNumber = pos![0]
                 
                 if sectionNumber > currentSectionNumber {
@@ -825,7 +835,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        // cancle seques come througth here
+        // cancel seques come througth here
         guard let segID = segue.identifier else {
             
             // #ed  Temporary logic to populate new notebase field latestModifiedDate
@@ -868,20 +878,15 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     }
     
     
-    
-    @IBAction func unwindFromNoteEntry(_ sender: UIStoryboardSegue) {
-   
-        if let sVC = sender.source as? noteEntryViewController {
-        
-/*            var nbRecord = NoteBase()
-            nbRecord = noteRecord.notesList!
-            print ("Note Base record = \(nbRecord))\n")
-*/
-            if bNewNote {
-               
-                // If in search mode, we need to get noteBaseReord
+    @IBAction func unwindFromNoteEntryCancel(_ sender: UIStoryboardSegue) {
+    }
 
-                
+    @IBAction func unwindFromNoteEntrySave(_ sender: UIStoryboardSegue) {
+   
+       if let sVC = sender.source as? noteEntryViewController {
+
+        if bNewNote {
+               
                 // Update noteBaseReord
                 var noteCount = noteBaseRecord.value(forKey: "noteCount") as! Int
                 noteCount += 1
@@ -903,6 +908,17 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             noteBaseRecord.modifyDateTS = Date()
             
             noteRecord.noteText = sVC.noteText.string
+        
+            // 10.14.18 Temporary copy until I figure out the occasional crash
+            let pasteBoard = UIPasteboard.general
+            pasteBoard.string = sVC.noteText.string
+        /*
+            if let strData = Data(base64Encoded: sVC.noteText.string) {
+                pasteBoard.setData(sVC.noteText.string, forPasteboardType: <#string#> )
+        }
+        */
+
+        
             noteRecord.noteModifiedDateDay = sortableDateOnlyFormatter.string(from: sVC.noteModDateTime! as Date)
             noteRecord.noteModifiedDateTime = displayTimeOnlyFormatter.string(from: sVC.noteModDateTime! as Date)
             noteRecord.noteModifiedDateTS  = sVC.noteModDateTime!

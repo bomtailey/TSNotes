@@ -67,7 +67,7 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
     // dayTimePeriodFormatter.dateFormat = "EEEE, d MMMM yyyy h:m a"
 
     // MARK: - viewDidLoad
-    override func t {
+    override func viewDidLoad() {
         
         super.viewDidLoad()
         
@@ -170,8 +170,10 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
         fetchRequest = NSFetchRequest(entityName: "NoteBase")
  
         // Add Sort Descriptors
-        let sortDescriptor = NSSortDescriptor(key: "modifyDateTS", ascending: false)
-        fetchRequest.sortDescriptors = [sortDescriptor]
+        // 8/4/18 - changed sort from modifyDateTS to latest
+  //      let sortDescriptor = NSSortDescriptor(key: "modifyDateTS", ascending: false)
+        let sortDescriptor = NSSortDescriptor(key: "latestNoteDate", ascending: false)
+       fetchRequest.sortDescriptors = [sortDescriptor]
         
         // Initialize Fetched Results Controller
         
@@ -503,6 +505,9 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
     }
     
     // Handle navigation bar double tap - scroll to the bottom
+    /// <#Description#>
+    ///
+    /// - Parameter theObject: <#theObject description#>
     func doubleTapAction (_ theObject: AnyObject) {
         
     guard numRecords > 0 else { return }

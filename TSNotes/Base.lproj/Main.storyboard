@@ -99,7 +99,6 @@
         <!--New List of Notes TVC-->
         <scene sceneID="RFG-WQ-Lyx">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="p77-1y-JSa" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="NoteBaseTableController" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8XW-Rj-H5x" userLabel="New List of Notes TVC" customClass="NoteBaseTableController" customModule="TSNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="djV-NP-2rL" userLabel="noteBaseTableView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -227,6 +226,7 @@
                         <segue destination="cAe-38-Exb" kind="presentation" identifier="searchNotesSegue" id="Cb7-2j-ZNL"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p77-1y-JSa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1352" y="-235"/>
         </scene>
@@ -400,14 +400,14 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Title" id="pKP-9l-PSE">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="JeU-OB-Dj4">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="JeU-OB-Dj4" userLabel="cancelButton">
                             <connections>
-                                <segue destination="hcg-hy-kr8" kind="unwind" unwindAction="unwindFromNoteEntry:" id="RvW-jZ-iD0"/>
+                                <segue destination="hcg-hy-kr8" kind="unwind" unwindAction="unwindFromNoteEntryCancel:" id="hef-V2-YIy"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="save" id="PZO-32-5pt" userLabel="saveButton">
+                        <barButtonItem key="rightBarButtonItem" tag="1" enabled="NO" systemItem="save" id="PZO-32-5pt" userLabel="saveButton">
                             <connections>
-                                <segue destination="hcg-hy-kr8" kind="unwind" unwindAction="unwindFromNoteEntry:" id="DEU-zm-wgw"/>
+                                <segue destination="hcg-hy-kr8" kind="unwind" unwindAction="unwindFromNoteEntrySave:" id="CoI-OH-dDs"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

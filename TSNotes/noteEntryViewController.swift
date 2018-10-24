@@ -20,6 +20,7 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var datetimeDisplay: UILabel!
     @IBOutlet weak var titleText: UINavigationItem!
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
     
     // properties from noteEntriesTableViewController
     var bNewNote = true
@@ -171,13 +172,14 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
         
         let segID = segue.identifier
         
-        if let sender = sender as? UIBarButtonItem,  saveButton === sender {  // save the note
-            
-            noteModDateTime = dayTimePeriodFormatter.date(from: datetimeDisplay.text!)!
-            
-            noteText.mutableString.setString(noteTextView.text!) 
-        
-        } else
+        if let sender = sender as? UIBarButtonItem {
+            if sender == cancelButton {
+                return
+            } else {
+                noteModDateTime = dayTimePeriodFormatter.date(from: datetimeDisplay.text!)!
+                noteText.mutableString.setString(noteTextView.text!)
+            }
+        }   else
             if segID == "segueToDatePicker" {   // go off to date adjustment view
                 
                 let destinationNavController = segue.destination as! UINavigationController
@@ -190,10 +192,10 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
         
     }
     
-    // This is unwind from date picker
+    // This is unwind from NoteEntry and it's not used
     @IBAction func unwindFromNoteEntry(_ sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.source as? handleDatePickerTableViewController {
  
+        if let sourceViewController = sender.source as? handleDatePickerTableViewController {
             noteModDateTime = sourceViewController.existingDate! as Date
             datetimeDisplay.text = dayTimePeriodFormatter.string(from: noteModDateTime!)
             saveButton.isEnabled = true
