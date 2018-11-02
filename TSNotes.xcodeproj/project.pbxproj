@@ -10,7 +10,7 @@
 		05C6FEE8F88664DC018242FE /* Pods_TSNotesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 866CAF122530A1247B07882C /* Pods_TSNotesTests.framework */; };
 		E74122D820A1059C26CCAC53 /* Pods_TSNotes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9123F3E34B50A6C923682658 /* Pods_TSNotes.framework */; };
 		FA1AB7162102B5670042269C /* TSNotesDB2.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = FA1AB7152102B5670042269C /* TSNotesDB2.xcmappingmodel */; };
-		FA25E1AB1DB201300087F527 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25E1AA1DB2012F0087F527 /* CoreDataStack.swift */; };
+		FA24D80D218114B3005217B9 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA24D80C218114B2005217B9 /* DataController.swift */; };
 		FA3F5B491BF0857600A7804C /* TSNoteEntriesTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F5B481BF0857600A7804C /* TSNoteEntriesTableCell.swift */; };
 		FA6D27FF1BEDA80100768930 /* NoteBaseTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6D27FE1BEDA80100768930 /* NoteBaseTableController.swift */; };
 		FA73889C1BF5703B00758E68 /* noteEntriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA73889B1BF5703B00758E68 /* noteEntriesTableViewController.swift */; };
@@ -26,9 +26,9 @@
 		FAE72BC51BE043B20053F50E /* handleDatePickerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE72BC41BE043B20053F50E /* handleDatePickerTableViewController.swift */; };
 		FAE9229D1BF34315001E37FD /* noteListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE9229C1BF34315001E37FD /* noteListTableViewCell.swift */; };
 		FAE9FDA31D2CB5AE00288221 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE9FDA21D2CB5AE00288221 /* PopoverViewController.swift */; };
+		FAEB01EE2181929D002270B1 /* TSNotesDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAEB01EB2181929C002270B1 /* TSNotesDataModel.xcdatamodeld */; };
 		FAED29B21D2459F10009C873 /* NoteBase+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED29B01D2459F10009C873 /* NoteBase+CoreDataProperties.swift */; };
 		FAED29B31D2459F10009C873 /* NoteBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED29B11D2459F10009C873 /* NoteBase.swift */; };
-		FAED29B61D24A8720009C873 /* TSNotesDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAED29B41D24A8720009C873 /* TSNotesDataModel.xcdatamodeld */; };
 		FAED29BA1D24F30A0009C873 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED29B81D24F30A0009C873 /* Note.swift */; };
 		FAED29BC1D24F6480009C873 /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED29BB1D24F6480009C873 /* Note+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
@@ -51,9 +51,8 @@
 		B3558DE201C5F7DF6FD83DD9 /* Pods-TSNotesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TSNotesTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TSNotesTests/Pods-TSNotesTests.release.xcconfig"; sourceTree = "<group>"; };
 		EE849A74E1F3D88CDE25E53D /* Pods-TSNotes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TSNotes.release.xcconfig"; path = "Pods/Target Support Files/Pods-TSNotes/Pods-TSNotes.release.xcconfig"; sourceTree = "<group>"; };
 		FA1405741F23119800FDBE75 /* TSNotes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TSNotes.entitlements; sourceTree = "<group>"; };
-		FA1AB7142102B2B10042269C /* TSNotesDataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "TSNotesDataModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		FA1AB7152102B5670042269C /* TSNotesDB2.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = TSNotesDB2.xcmappingmodel; sourceTree = "<group>"; };
-		FA25E1AA1DB2012F0087F527 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		FA24D80C218114B2005217B9 /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		FA3F5B481BF0857600A7804C /* TSNoteEntriesTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSNoteEntriesTableCell.swift; sourceTree = "<group>"; };
 		FA6D27FE1BEDA80100768930 /* NoteBaseTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteBaseTableController.swift; sourceTree = "<group>"; };
 		FA73889B1BF5703B00758E68 /* noteEntriesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = noteEntriesTableViewController.swift; path = ../noteEntriesTableViewController.swift; sourceTree = "<group>"; };
@@ -73,9 +72,10 @@
 		FAE72BC41BE043B20053F50E /* handleDatePickerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = handleDatePickerTableViewController.swift; path = ../handleDatePickerTableViewController.swift; sourceTree = "<group>"; };
 		FAE9229C1BF34315001E37FD /* noteListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = noteListTableViewCell.swift; sourceTree = "<group>"; };
 		FAE9FDA21D2CB5AE00288221 /* PopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
+		FAEB01EC2181929C002270B1 /* TSNotesDataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "TSNotesDataModel 2.xcdatamodel"; sourceTree = "<group>"; };
+		FAEB01ED2181929C002270B1 /* TSNotesDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TSNotesDataModel.xcdatamodel; sourceTree = "<group>"; };
 		FAED29B01D2459F10009C873 /* NoteBase+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NoteBase+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		FAED29B11D2459F10009C873 /* NoteBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteBase.swift; sourceTree = "<group>"; };
-		FAED29B51D24A8720009C873 /* TSNotesDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TSNotesDataModel.xcdatamodel; sourceTree = "<group>"; };
 		FAED29B81D24F30A0009C873 /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		FAED29BB1D24F6480009C873 /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -147,6 +147,7 @@
 				FA96ABA421008A0F00CA5BF0 /* globalFunctions.swift */,
 				FAA701331BDB171E0013EFF7 /* AppDelegate.swift */,
 				FA6D27FE1BEDA80100768930 /* NoteBaseTableController.swift */,
+				FA24D80C218114B2005217B9 /* DataController.swift */,
 				FAE9229C1BF34315001E37FD /* noteListTableViewCell.swift */,
 				FA7CE5D51BF2C971008FD365 /* TitleEntryViewController.swift */,
 				FA73889B1BF5703B00758E68 /* noteEntriesTableViewController.swift */,
@@ -155,9 +156,8 @@
 				FAE72BC41BE043B20053F50E /* handleDatePickerTableViewController.swift */,
 				FAE9FDA21D2CB5AE00288221 /* PopoverViewController.swift */,
 				FAA701371BDB171E0013EFF7 /* Main.storyboard */,
-				FAED29B41D24A8720009C873 /* TSNotesDataModel.xcdatamodeld */,
 				FA1AB7152102B5670042269C /* TSNotesDB2.xcmappingmodel */,
-				FA25E1AA1DB2012F0087F527 /* CoreDataStack.swift */,
+				FAEB01EB2181929C002270B1 /* TSNotesDataModel.xcdatamodeld */,
 				FAA701351BDB171E0013EFF7 /* ViewController.swift */,
 				FAED29B01D2459F10009C873 /* NoteBase+CoreDataProperties.swift */,
 				FAED29B81D24F30A0009C873 /* Note.swift */,
@@ -397,11 +397,11 @@
 				FA1AB7162102B5670042269C /* TSNotesDB2.xcmappingmodel in Sources */,
 				FA3F5B491BF0857600A7804C /* TSNoteEntriesTableCell.swift in Sources */,
 				FAED29B21D2459F10009C873 /* NoteBase+CoreDataProperties.swift in Sources */,
-				FA25E1AB1DB201300087F527 /* CoreDataStack.swift in Sources */,
 				FAE9FDA31D2CB5AE00288221 /* PopoverViewController.swift in Sources */,
+				FA24D80D218114B3005217B9 /* DataController.swift in Sources */,
 				FAED29B31D2459F10009C873 /* NoteBase.swift in Sources */,
 				FA73889C1BF5703B00758E68 /* noteEntriesTableViewController.swift in Sources */,
-				FAED29B61D24A8720009C873 /* TSNotesDataModel.xcdatamodeld in Sources */,
+				FAEB01EE2181929D002270B1 /* TSNotesDataModel.xcdatamodeld in Sources */,
 				FAE72BC51BE043B20053F50E /* handleDatePickerTableViewController.swift in Sources */,
 				FA96ABA521008A0F00CA5BF0 /* globalFunctions.swift in Sources */,
 				FAA701341BDB171E0013EFF7 /* AppDelegate.swift in Sources */,
@@ -639,13 +639,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		FAED29B41D24A8720009C873 /* TSNotesDataModel.xcdatamodeld */ = {
+		FAEB01EB2181929C002270B1 /* TSNotesDataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				FA1AB7142102B2B10042269C /* TSNotesDataModel 2.xcdatamodel */,
-				FAED29B51D24A8720009C873 /* TSNotesDataModel.xcdatamodel */,
+				FAEB01EC2181929C002270B1 /* TSNotesDataModel 2.xcdatamodel */,
+				FAEB01ED2181929C002270B1 /* TSNotesDataModel.xcdatamodel */,
 			);
-			currentVersion = FA1AB7142102B2B10042269C /* TSNotesDataModel 2.xcdatamodel */;
+			currentVersion = FAEB01EC2181929C002270B1 /* TSNotesDataModel 2.xcdatamodel */;
 			path = TSNotesDataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

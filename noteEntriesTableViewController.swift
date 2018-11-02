@@ -22,6 +22,8 @@
 import UIKit
 import CoreData
 
+
+
 class noteEntriesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate, UICollectionViewDelegate {
     
     // MARK: - Outlets
@@ -73,7 +75,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     var noteCreateDate = Date()
     var statusText = String()
     var bNewNote = true
-    var noteRecord = Note(context:context)   // firstEntity = FirstEntity(context:context)
+    var noteRecord = Note(context:moc)   // firstEntity = FirstEntity(context:context)
     
     // Temporary add to get lastest elapsed date from noteEntries
     var latestModifiedDate = Date()
@@ -1069,6 +1071,20 @@ func setStatusText(queryString: String, count: Int, allReq: Bool)  {
        // tableView.contentOffset = CGPoint(x:0, y:searchBar.frame.height);
         
     }
+    
+    /// Issue alert
+    ///
+    /// - Parameters:
+    ///   - title: <#title description#>
+    ///   - message: <#message description#>
+    func issueAlert (title: String, message: String){
+        let fullTitle = "TS Notes: " + title
+        let alertController = UIAlertController(title: fullTitle, message:
+            message, preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+        self.present(alertController, animated: true, completion: nil)
+    }
+        
     
 
 

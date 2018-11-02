@@ -30,7 +30,7 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
     var searchString = String()
     
     // Properties for core data functions
-    var managedObjectContext: NSManagedObjectContext!
+ //   var managedObjectContext: NSManagedObjectContext!
     var fetchedResultsController: NSFetchedResultsController<NoteBase> = NSFetchedResultsController()
     var fetchRequest: NSFetchRequest<NoteBase> = NoteBase.fetchRequest() as! NSFetchRequest<NoteBase>
     var fetchPredicate: NSPredicate?
@@ -113,6 +113,10 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
         notificationCenter.addObserver(self, selector: #selector(appWillMoveToForeground), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
 
         
+        // Initialize data stack
+   //     DataController()
+
+        /*
         // Initialize core data elements
         if managedObjectContext == nil {
             managedObjectContext = getManagedContext ()
@@ -121,10 +125,11 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
                 //exit(0)
             }
             
+        */
             initializeFetchRequest()
         }
         
-    }
+   
     
     override func viewWillAppear(_ animated: Bool)  {
         
@@ -156,11 +161,14 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
     
     // MARK: - core data actions
     
+    /*
     
     func getManagedContext () -> NSManagedObjectContext {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         return appDelegate.managedObjectContext!
+     //   return appDelegate.createMainContext
     }
+    */
 
     // Initialize fetchedResultsController
     func initializeFetchRequest() {
@@ -177,7 +185,7 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
         
         // Initialize Fetched Results Controller
         
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         
         // Configure Fetched Results Controller
         fetchedResultsController.delegate = self as NSFetchedResultsControllerDelegate
@@ -205,12 +213,17 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
             break;
+            
         case .update:
             if let indexPath = indexPath {
-                let cell = tableView.cellForRow(at: indexPath) as! noteListTableViewCell
-                configureCell(cell, atIndexPath: indexPath)
+                if let cell = tableView?.cellForRow(at: indexPath) as? noteListTableViewCell {
+                    configureCell(cell, atIndexPath: indexPath)
+               } else {
+                    issueAlert(title: "Un-created table cell", message: "What's going on?")
+                }
             }
             break;
+            
         case .move:
             if let indexPath = indexPath {
                 tableView.deleteRows(at: [indexPath], with: .fade)
@@ -350,7 +363,7 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
     
     func applicationDidEnterBackground(_ application: UIApplication) {
         do {
-            try self.managedObjectContext.save()
+            try managedObjectContext.save()
         } catch {
             let saveError = error as NSError
             print("\(saveError), \(saveError.userInfo)")
@@ -398,10 +411,10 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
                 let record = self.fetchedResultsController.object(at: indexPath) as NSManagedObject
                 
                 // Delete Record
-                self.managedObjectContext.delete(record)
+                managedObjectContext.delete(record)
                 
                 do {
-                    try self.managedObjectContext.save()
+                    try managedObjectContext.save()
                     tableView.reloadRows (at: [indexPath], with: UITableViewRowAnimation.automatic)
                     //5
                 } catch let error as NSError  {
@@ -619,6 +632,22 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
 
         tableView.reloadData()
     }
+    
+    
+    
+    /// Issue alert
+    ///
+    /// - Parameters:
+    ///   - title: <#title description#>
+    ///   - message: <#message description#>
+    func issueAlert (title: String, message: String){
+        let fullTitle = "TS Notes: " + title
+        let alertController = UIAlertController(title: fullTitle, message:
+            message, preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+        self.present(alertController, animated: true, completion: nil)
+    }
+
 
     
     
