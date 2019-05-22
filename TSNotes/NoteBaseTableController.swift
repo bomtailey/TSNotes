@@ -1,4 +1,4 @@
-
+            
 //
 //  NoteBaseTableController.swift - this is the table listing all the notes
 //  TSNotes
@@ -6,14 +6,20 @@
 //  Created by Jeanne's MacBook on 11/6/15.
 //  Copyright © 2015 LCI. All rights reserved.
 //
-
+        /*
+            11/3/18 - start adding cloudkit logic to synchronize changes from different devices
+        */
+            
 import UIKit
 import CoreData
+import CloudKit
 
-    /*
+        /*
+        5/21/19 - List of enhancements/fixes
+             - Edit on the 1st screen (list of note categories, doesn't do anything
         7/20/18 - changing date used for elapsed time since last entry
             will use latest note entry date for comparison with current date
-    */
+        */
 
 class NoteBaseTableController: UITableViewController,  NSFetchedResultsControllerDelegate, UISearchBarDelegate,  UIGestureRecognizerDelegate  {
     
@@ -50,7 +56,8 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
     var titleString = ""
     var segueListNoteInstance : NoteBase!
     
-    let myBoldAttribute: [String: Any] = [ NSFontAttributeName: UIFont(name: "Optima-BoldItalic", size: 16.0)! ]
+ //   let myBoldAttribute: [String: Any] = [ NSAttributedStringKey.font.rawValue: UIFont(name: "Optima-BoldItalic", size: 16.0)! ]
+    let myBoldAttribute: [NSString: Any] = [ NSAttributedStringKey.font.rawValue as NSString: UIFont(name: "Optima-BoldItalic", size: 16.0)! ]
     var tempAttributedString = NSMutableAttributedString()
 
     
@@ -63,10 +70,10 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
     var tapGestureRecognizer : UITapGestureRecognizer!
 
     
-    
     // dayTimePeriodFormatter.dateFormat = "EEEE, d MMMM yyyy h:m a"
 
     // MARK: - viewDidLoad
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -76,7 +83,6 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
         let dirPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         print("\n\nDatabase Path: \(dirPaths)\n\n")
         
-
         // Uncomment the following line to preserve selection between presentations
          //self.clearsSelectionOnViewWillAppear = false
 
@@ -141,8 +147,8 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
         
     }
     
-   // Called when notified that app will move to foreground
-    func appWillMoveToForeground(_ application: UIApplication) {
+    // Called when notified that app will move to@objc  foreground
+    @objc func appWillMoveToForeground(_ application: UIApplication) {
         
     // try fetchcontroller fetch
         tableView.reloadData()
@@ -247,7 +253,7 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
         if let modifyDateTS = noteBaseRecord.value(forKey: "modifyDateTS") as? Date {
             
             tempAttributedString.mutableString.setString(noteBaseRecord.value(forKey: "noteName") as! String )
-            tempAttributedString.addAttributes(myBoldAttribute, range:NSRange(location: 0,length: (tempAttributedString.length)))
+            tempAttributedString.addAttributes(myBoldAttribute as [NSAttributedStringKey : Any], range:NSRange(location: 0,length: (tempAttributedString.length)))
 
  //          cell.noteTitleField.text = noteBaseRecord.value(forKey: "noteName") as? String
             cell.noteTitleField.attributedText = tempAttributedString
@@ -268,7 +274,7 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
         if let count = noteBaseRecord.value(forKey: "noteCount") as? Int {
             
             tempAttributedString.mutableString.setString(String(count) )
-            tempAttributedString.addAttributes(myBoldAttribute, range:NSRange(location: 0,length: (tempAttributedString.length)))
+            tempAttributedString.addAttributes(myBoldAttribute as [NSAttributedStringKey : Any], range:NSRange(location: 0,length: (tempAttributedString.length)))
 
    //         cell.noteCount.text = String(count)
             cell.noteCount.attributedText = tempAttributedString
@@ -502,8 +508,8 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
         return true
     }
 
-    // Handle navigation bar single tap - scroll to the top
-    func singleTapAction (_ theObject: AnyObject) {
+    // Handle navigation bar single tap - @objc scroll to the top
+    @objc func singleTapAction (_ theObject: AnyObject) {
         
         guard numRecords > 0 else { return }
         
@@ -520,8 +526,8 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
     // Handle navigation bar double tap - scroll to the bottom
     /// <#Description#>
     ///
-    /// - Parameter theObject: <#theObject description#>
-    func doubleTapAction (_ theObject: AnyObject) {
+    /// - Parameter theObject: <#@objc theObject description#>
+    @objc func doubleTapAction (_ theObject: AnyObject) {
         
     guard numRecords > 0 else { return }
         

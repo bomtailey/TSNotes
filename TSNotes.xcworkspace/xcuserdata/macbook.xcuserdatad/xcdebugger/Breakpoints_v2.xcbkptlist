@@ -10,13 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.5263211"
+            timestampString = "580165197.915534"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "437"
-            endingLineNumber = "437"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "438"
+            endingLineNumber = "438"
+            landmarkName = "tableView(_:editActionsForRowAt:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -26,13 +26,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.581279"
+            timestampString = "580165197.943229"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "444"
-            endingLineNumber = "444"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "445"
+            endingLineNumber = "445"
+            landmarkName = "tableView(_:editActionsForRowAt:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -42,77 +42,77 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.582408"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.583508"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "279"
-            endingLineNumber = "279"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.586392"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "479"
-            endingLineNumber = "479"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.587297"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.587934"
+            timestampString = "580165197.9443949"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "119"
             endingLineNumber = "119"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TSNotes/NoteBaseTableController.swift"
+            timestampString = "580165197.9455611"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "280"
+            endingLineNumber = "280"
+            landmarkName = "configureCell(_:atIndexPath:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TSNotes/NoteBaseTableController.swift"
+            timestampString = "580165197.946497"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "480"
+            endingLineNumber = "480"
+            landmarkName = "NoteBaseTableController"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TSNotes/NoteBaseTableController.swift"
+            timestampString = "580165197.947454"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
+            landmarkName = "NoteBaseTableController"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TSNotes/NoteBaseTableController.swift"
+            timestampString = "580165197.948384"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -138,13 +138,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.5934089"
+            timestampString = "580165197.950599"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "469"
+            endingLineNumber = "469"
+            landmarkName = "refresh(sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TSNotes/NoteBaseTableController.swift"
+            timestampString = "580165197.953609"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "468"
             endingLineNumber = "468"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "refresh(sender:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -154,29 +170,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.594344"
+            timestampString = "580165197.9545749"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "467"
-            endingLineNumber = "467"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.595041"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "428"
-            endingLineNumber = "428"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "429"
+            endingLineNumber = "429"
+            landmarkName = "tableView(_:editActionsForRowAt:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -186,13 +186,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.595845"
+            timestampString = "580165197.955478"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "174"
+            endingLineNumber = "174"
+            landmarkName = "NoteBaseTableController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "562196130.148823"
+            timestampString = "580165197.959892"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "202"
-            endingLineNumber = "202"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
             landmarkName = "AppDelegate"
             landmarkType = "3">
          </BreakpointContent>
@@ -218,13 +218,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.596539"
+            timestampString = "580165197.9607559"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "550"
-            endingLineNumber = "550"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "551"
+            endingLineNumber = "551"
+            landmarkName = "NoteBaseTableController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -234,13 +234,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.597418"
+            timestampString = "580165197.962641"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "594"
-            endingLineNumber = "594"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "595"
+            endingLineNumber = "595"
+            landmarkName = "prepare(for:sender:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -250,7 +250,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.1545531"
+            timestampString = "579131487.309973"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "116"
@@ -282,7 +282,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "562196130.156952"
+            timestampString = "580165197.9638129"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "11"
@@ -360,13 +360,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.598338"
+            timestampString = "580165197.96418"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "202"
-            endingLineNumber = "202"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "203"
+            endingLineNumber = "203"
+            landmarkName = "NoteBaseTableController"
+            landmarkType = "3">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -408,13 +408,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.6016181"
+            timestampString = "580165197.965018"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "399"
-            endingLineNumber = "399"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "400"
+            endingLineNumber = "400"
+            landmarkName = "tableView(_:editActionsForRowAt:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -424,13 +424,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.602632"
+            timestampString = "580165197.9658"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "384"
-            endingLineNumber = "384"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "385"
+            endingLineNumber = "385"
+            landmarkName = "cancelButton(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -440,13 +440,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.6034991"
+            timestampString = "580165197.966388"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "402"
-            endingLineNumber = "402"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "403"
+            endingLineNumber = "403"
+            landmarkName = "tableView(_:editActionsForRowAt:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -456,13 +456,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.604273"
+            timestampString = "580165197.967163"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "351"
-            endingLineNumber = "351"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "352"
+            endingLineNumber = "352"
+            landmarkName = "NoteBaseTableController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -472,13 +472,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.60507"
+            timestampString = "580165197.967948"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "306"
-            endingLineNumber = "306"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "307"
+            endingLineNumber = "307"
+            landmarkName = "numberOfSections(in:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -488,13 +488,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.605741"
+            timestampString = "580165197.96863"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "238"
+            endingLineNumber = "238"
+            landmarkName = "controller(_:didChange:at:for:newIndexPath:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -504,13 +504,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.606392"
+            timestampString = "580165197.969376"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "201"
+            endingLineNumber = "201"
+            landmarkName = "controllerWillChangeContent(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -520,11 +520,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.17567"
+            timestampString = "579131487.319611"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "865"
-            endingLineNumber = "865"
+            startingLineNumber = "866"
+            endingLineNumber = "866"
             landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -536,13 +536,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.607247"
+            timestampString = "580165197.970166"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "319"
-            endingLineNumber = "319"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "320"
+            endingLineNumber = "320"
+            landmarkName = "tableView(_:numberOfRowsInSection:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -552,13 +552,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.608065"
+            timestampString = "580165197.970868"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "456"
-            endingLineNumber = "456"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "457"
+            endingLineNumber = "457"
+            landmarkName = "NoteBaseTableController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -568,13 +568,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.608927"
+            timestampString = "580165197.971614"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "472"
-            endingLineNumber = "472"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "473"
+            endingLineNumber = "473"
+            landmarkName = "NoteBaseTableController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -600,76 +600,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.6097471"
+            timestampString = "580165197.972392"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.610472"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "562196130.188202"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
-            landmarkName = "AppDelegate"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "562196130.188946"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
-            landmarkName = "AppDelegate"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "562196130.189514"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
-            landmarkName = "AppDelegate"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
+            landmarkName = "NoteBaseTableController"
             landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
@@ -680,13 +616,77 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.611316"
+            timestampString = "580165197.973169"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "161"
+            endingLineNumber = "161"
+            landmarkName = "application(_:willFinishLaunchingWithOptions:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TSNotes/AppDelegate.swift"
+            timestampString = "580165197.973956"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "AppDelegate"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TSNotes/AppDelegate.swift"
+            timestampString = "580165197.9741729"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "198"
+            endingLineNumber = "198"
+            landmarkName = "AppDelegate"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TSNotes/AppDelegate.swift"
+            timestampString = "580165197.974384"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
+            landmarkName = "AppDelegate"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TSNotes/NoteBaseTableController.swift"
+            timestampString = "580165197.974563"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -696,13 +696,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.6120059"
+            timestampString = "580165197.97534"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -712,13 +712,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.612612"
+            timestampString = "580165197.975997"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "137"
+            endingLineNumber = "137"
+            landmarkName = "NoteBaseTableController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -744,7 +744,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.196901"
+            timestampString = "579131487.33799"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "528"
@@ -760,13 +760,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.613412"
+            timestampString = "580165197.97671"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -776,13 +776,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.61406"
+            timestampString = "580165197.9773149"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "450"
-            endingLineNumber = "450"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "451"
+            endingLineNumber = "451"
+            landmarkName = "tableView(_:editActionsForRowAt:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -792,7 +792,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.201937"
+            timestampString = "579131487.340094"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "124"
@@ -808,13 +808,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.617731"
+            timestampString = "580165197.9780051"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "187"
+            endingLineNumber = "187"
+            landmarkName = "initializeFetchRequest()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -824,13 +824,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.618662"
+            timestampString = "580165197.978655"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "502"
-            endingLineNumber = "502"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "503"
+            endingLineNumber = "503"
+            landmarkName = "gestureRecognizer(_:shouldReceive:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -840,13 +840,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.619356"
+            timestampString = "580165197.9793071"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "517"
-            endingLineNumber = "517"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "518"
+            endingLineNumber = "518"
+            landmarkName = "singleTapAction(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -856,11 +856,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.210357"
+            timestampString = "579131487.343224"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "910"
-            endingLineNumber = "910"
+            startingLineNumber = "911"
+            endingLineNumber = "911"
             landmarkName = "unwindFromNoteEntrySave(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -872,7 +872,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.2109981"
+            timestampString = "579131487.350901"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "239"
@@ -888,11 +888,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.211706"
+            timestampString = "579131487.351408"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "804"
-            endingLineNumber = "804"
+            startingLineNumber = "805"
+            endingLineNumber = "805"
             landmarkName = "noteEntriesTableViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -904,7 +904,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.212365"
+            timestampString = "579131487.351746"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "18"
@@ -920,7 +920,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.213087"
+            timestampString = "579131487.3521661"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "126"
@@ -936,7 +936,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.213784"
+            timestampString = "579131487.352712"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "523"
@@ -952,7 +952,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.2144459"
+            timestampString = "579131487.353156"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "127"
@@ -968,7 +968,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.215108"
+            timestampString = "579131487.353503"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "189"
@@ -984,7 +984,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.21568"
+            timestampString = "579131487.3538409"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "527"
@@ -1000,7 +1000,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.216252"
+            timestampString = "579131487.3542221"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "208"
@@ -1016,7 +1016,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.216706"
+            timestampString = "579131487.354579"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "108"
@@ -1117,7 +1117,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.217221"
+            timestampString = "579131487.354972"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "255"
@@ -1165,12 +1165,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.217769"
+            timestampString = "579131487.3555599"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "493"
             endingLineNumber = "493"
-            landmarkName = "controller(_:didChange:atSectionIndex:for:)"
+            landmarkName = "didReceiveMemoryWarning()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1181,7 +1181,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.218363"
+            timestampString = "579131487.355929"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "546"
@@ -1197,12 +1197,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.2188981"
+            timestampString = "579131487.356169"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "771"
-            endingLineNumber = "771"
-            landmarkName = "tableView(_:commit:forRowAt:)"
+            startingLineNumber = "772"
+            endingLineNumber = "772"
+            landmarkName = "applicationDidEnterBackground(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1213,11 +1213,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.219636"
+            timestampString = "579131487.35639"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "961"
-            endingLineNumber = "961"
+            startingLineNumber = "962"
+            endingLineNumber = "962"
             landmarkName = "buildPredicate(searchString:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1229,7 +1229,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.22036"
+            timestampString = "579131487.35659"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "150"
@@ -1245,12 +1245,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.221321"
+            timestampString = "579131487.3568439"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "620"
-            endingLineNumber = "620"
-            landmarkName = "tableView(_:titleForHeaderInSection:)"
+            startingLineNumber = "621"
+            endingLineNumber = "621"
+            landmarkName = "tableView(_:willDisplayHeaderView:forSection:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1261,12 +1261,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.2219141"
+            timestampString = "579131487.357047"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "538"
             endingLineNumber = "538"
-            landmarkName = "tableView(_:numberOfRowsInSection:)"
+            landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1277,13 +1277,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.621124"
+            timestampString = "580165197.980885"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "294"
-            endingLineNumber = "294"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "295"
+            endingLineNumber = "295"
+            landmarkName = "didReceiveMemoryWarning()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1293,13 +1293,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.621801"
+            timestampString = "580165197.981644"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1309,13 +1309,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.622399"
+            timestampString = "580165197.982269"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "551"
-            endingLineNumber = "551"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "552"
+            endingLineNumber = "552"
+            landmarkName = "NoteBaseTableController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1325,13 +1325,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.6230071"
+            timestampString = "580165197.982865"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "547"
-            endingLineNumber = "547"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "548"
+            endingLineNumber = "548"
+            landmarkName = "doubleTapAction(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1341,13 +1341,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.6235681"
+            timestampString = "580165197.98358"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "493"
-            endingLineNumber = "493"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "494"
+            endingLineNumber = "494"
+            landmarkName = "NoteBaseTableController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1373,13 +1373,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.624143"
+            timestampString = "580165197.984322"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "521"
-            endingLineNumber = "521"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "522"
+            endingLineNumber = "522"
+            landmarkName = "singleTapAction(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1396,7 +1396,7 @@
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "UIViewAlertForUnsatisfiableConstraints"
-                  moduleName = "UIKitCore"
+                  moduleName = "UIKit"
                   usesParentBreakpointCondition = "Yes"
                   offsetFromSymbolStart = "0">
                </Location>
@@ -1429,7 +1429,7 @@
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "UIViewAlertForUnsatisfiableConstraints"
-                  moduleName = "UIKitCore"
+                  moduleName = "UIKit"
                   usesParentBreakpointCondition = "Yes"
                   offsetFromSymbolStart = "0">
                </Location>
@@ -1443,13 +1443,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.624895"
+            timestampString = "580165197.984977"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "233"
-            endingLineNumber = "233"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "234"
+            endingLineNumber = "234"
+            landmarkName = "controller(_:didChange:at:for:newIndexPath:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1459,7 +1459,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.2384501"
+            timestampString = "579131487.364608"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "186"
@@ -1475,7 +1475,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.2391109"
+            timestampString = "579131487.364791"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "400"
@@ -1491,12 +1491,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.2397031"
+            timestampString = "579131487.365041"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1044"
-            endingLineNumber = "1044"
-            landmarkName = "singleTapAction(_:)"
+            startingLineNumber = "1045"
+            endingLineNumber = "1045"
+            landmarkName = "doubleTapAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1507,11 +1507,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.240347"
+            timestampString = "579131487.365217"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1050"
-            endingLineNumber = "1050"
+            startingLineNumber = "1051"
+            endingLineNumber = "1051"
             landmarkName = "doubleTapAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1523,7 +1523,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.242494"
+            timestampString = "579131487.365383"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "201"
@@ -1539,13 +1539,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.625659"
+            timestampString = "580165197.985811"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "300"
-            endingLineNumber = "300"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "301"
+            endingLineNumber = "301"
+            landmarkName = "NoteBaseTableController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1555,11 +1555,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.245707"
+            timestampString = "579131487.371937"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "673"
-            endingLineNumber = "673"
+            startingLineNumber = "674"
+            endingLineNumber = "674"
             landmarkName = "tableView(_:editActionsForRowAt:)"
             landmarkType = "7">
             <Locations>
@@ -1567,31 +1567,31 @@
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "TSNotes.noteEntriesTableViewController.tableView(_: __C.UITableView, editActionsForRowAt: Foundation.IndexPath) -&gt; Swift.Optional&lt;Swift.Array&lt;__C.UITableViewRowAction&gt;&gt;"
+                  symbolName = "closure #2 (__ObjC.UITableViewRowAction, Foundation.IndexPath) -&gt; () in TSNotes.noteEntriesTableViewController.tableView(__ObjC.UITableView, editActionsForRowAt: Foundation.IndexPath) -&gt; Swift.Optional&lt;Swift.Array&lt;__ObjC.UITableViewRowAction&gt;&gt;"
                   moduleName = "TSNotes"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/noteEntriesTableViewController.swift"
-                  timestampString = "562532695.484275"
+                  timestampString = "580165249.2943799"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "674"
-                  endingLineNumber = "674"
-                  offsetFromSymbolStart = "222">
+                  startingLineNumber = "675"
+                  endingLineNumber = "675"
+                  offsetFromSymbolStart = "347">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;__C.UIAlertAction&gt;) -&gt; () in TSNotes.noteEntriesTableViewController.tableView(_: __C.UITableView, editActionsForRowAt: Foundation.IndexPath) -&gt; Swift.Optional&lt;Swift.Array&lt;__C.UITableViewRowAction&gt;&gt;"
+                  symbolName = "closure #1 (Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UIAlertAction&gt;) -&gt; () in closure #2 (__ObjC.UITableViewRowAction, Foundation.IndexPath) -&gt; () in TSNotes.noteEntriesTableViewController.tableView(__ObjC.UITableView, editActionsForRowAt: Foundation.IndexPath) -&gt; Swift.Optional&lt;Swift.Array&lt;__ObjC.UITableViewRowAction&gt;&gt;"
                   moduleName = "TSNotes"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/noteEntriesTableViewController.swift"
-                  timestampString = "562532695.489037"
+                  timestampString = "580165249.297249"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "675"
-                  endingLineNumber = "675"
-                  offsetFromSymbolStart = "49">
+                  startingLineNumber = "676"
+                  endingLineNumber = "676"
+                  offsetFromSymbolStart = "45">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -1603,11 +1603,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.246177"
+            timestampString = "579131487.372295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "676"
-            endingLineNumber = "676"
+            startingLineNumber = "677"
+            endingLineNumber = "677"
             landmarkName = "tableView(_:editActionsForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1619,11 +1619,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.246801"
+            timestampString = "579131487.372615"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "714"
-            endingLineNumber = "714"
+            startingLineNumber = "715"
+            endingLineNumber = "715"
             landmarkName = "tableView(_:editActionsForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1635,7 +1635,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.247245"
+            timestampString = "579131487.373034"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "183"
@@ -1651,7 +1651,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.247897"
+            timestampString = "579131487.373358"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "263"
@@ -1667,7 +1667,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.248536"
+            timestampString = "579131487.373669"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "423"
@@ -1683,12 +1683,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.2489311"
+            timestampString = "579131487.373938"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "590"
-            endingLineNumber = "590"
-            landmarkName = "tableView(_:cellForRowAt:)"
+            startingLineNumber = "591"
+            endingLineNumber = "591"
+            landmarkName = "tableView(_:titleForHeaderInSection:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1699,7 +1699,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.249441"
+            timestampString = "579131487.374245"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "221"
@@ -1715,27 +1715,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.24998"
+            timestampString = "579131487.374586"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "591"
-            endingLineNumber = "591"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.250412"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "616"
-            endingLineNumber = "616"
+            startingLineNumber = "592"
+            endingLineNumber = "592"
             landmarkName = "tableView(_:titleForHeaderInSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1747,11 +1731,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.251688"
+            timestampString = "579131487.375088"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "631"
-            endingLineNumber = "631"
+            startingLineNumber = "617"
+            endingLineNumber = "617"
             landmarkName = "tableView(_:willDisplayHeaderView:forSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1763,28 +1747,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.252172"
+            timestampString = "579131487.375589"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "660"
-            endingLineNumber = "660"
-            landmarkName = "noteEntriesTableViewController"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.252641"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "746"
-            endingLineNumber = "746"
-            landmarkName = "tableView(_:editActionsForRowAt:)"
+            startingLineNumber = "632"
+            endingLineNumber = "632"
+            landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1795,7 +1763,39 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.253023"
+            timestampString = "579131487.3760819"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "661"
+            endingLineNumber = "661"
+            landmarkName = "tableView(_:editActionsForRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "noteEntriesTableViewController.swift"
+            timestampString = "579131487.3764091"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "747"
+            endingLineNumber = "747"
+            landmarkName = "tableView(_:commit:forRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "noteEntriesTableViewController.swift"
+            timestampString = "579131487.3766789"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "218"
@@ -1811,11 +1811,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.253523"
+            timestampString = "579131487.376915"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "574"
-            endingLineNumber = "574"
+            startingLineNumber = "575"
+            endingLineNumber = "575"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1827,11 +1827,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.254035"
+            timestampString = "579131487.377079"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "584"
-            endingLineNumber = "584"
+            startingLineNumber = "585"
+            endingLineNumber = "585"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1843,11 +1843,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.254432"
+            timestampString = "579131487.377288"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "606"
-            endingLineNumber = "606"
+            startingLineNumber = "607"
+            endingLineNumber = "607"
             landmarkName = "tableView(_:titleForHeaderInSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1859,13 +1859,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.627388"
+            timestampString = "580165197.987093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "125"
+            endingLineNumber = "125"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1875,7 +1875,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.256478"
+            timestampString = "579131487.378427"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "525"
@@ -1923,12 +1923,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "562196130.257194"
+            timestampString = "580165197.987968"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "applicationWillEnterForeground(_:)"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "applicationDidEnterBackground(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1939,13 +1939,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.628231"
+            timestampString = "580165197.990054"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "140"
+            endingLineNumber = "140"
+            landmarkName = "viewWillAppear(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1955,13 +1955,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.259415"
+            timestampString = "579131487.3799469"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "830"
-            endingLineNumber = "830"
-            landmarkName = "noteEntriesTableViewController"
-            landmarkType = "3">
+            startingLineNumber = "831"
+            endingLineNumber = "831"
+            landmarkName = "prepare(for:sender:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1971,12 +1971,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.259878"
+            timestampString = "579131487.380138"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "878"
-            endingLineNumber = "878"
-            landmarkName = "prepare(for:sender:)"
+            startingLineNumber = "879"
+            endingLineNumber = "879"
+            landmarkName = "unwindFromNoteEntrySave(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2003,7 +2003,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.26059"
+            timestampString = "579131487.380471"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "187"
@@ -2055,11 +2055,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "562196130.26125"
+            timestampString = "580165197.992624"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
             landmarkName = "AppDelegate"
             landmarkType = "3">
          </BreakpointContent>
@@ -2071,7 +2071,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.262284"
+            timestampString = "579131487.380744"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "196"
@@ -2087,12 +2087,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.262888"
+            timestampString = "579131487.38095"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "639"
-            endingLineNumber = "639"
-            landmarkName = "tableView(_:didSelectRowAt:)"
+            startingLineNumber = "640"
+            endingLineNumber = "640"
+            landmarkName = "applicationWillTerminate(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2103,13 +2103,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.629208"
+            timestampString = "580165197.99317"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "253"
-            endingLineNumber = "253"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "254"
+            endingLineNumber = "254"
+            landmarkName = "configureCell(_:atIndexPath:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2135,11 +2135,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.26555"
+            timestampString = "579131487.382585"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "687"
-            endingLineNumber = "687"
+            startingLineNumber = "688"
+            endingLineNumber = "688"
             landmarkName = "tableView(_:editActionsForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2151,11 +2151,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.266133"
+            timestampString = "579131487.3829"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "705"
-            endingLineNumber = "705"
+            startingLineNumber = "706"
+            endingLineNumber = "706"
             landmarkName = "tableView(_:editActionsForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2167,11 +2167,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.266722"
+            timestampString = "579131487.383111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "728"
-            endingLineNumber = "728"
+            startingLineNumber = "729"
+            endingLineNumber = "729"
             landmarkName = "tableView(_:editActionsForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2183,7 +2183,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.267351"
+            timestampString = "579131487.3833489"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "564"
@@ -2199,11 +2199,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.26794"
+            timestampString = "579131487.383585"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "723"
-            endingLineNumber = "723"
+            startingLineNumber = "724"
+            endingLineNumber = "724"
             landmarkName = "tableView(_:editActionsForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2215,12 +2215,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.268443"
+            timestampString = "579131487.383752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "416"
             endingLineNumber = "416"
-            landmarkName = "fetchRecords()"
+            landmarkName = "getFRC()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2231,7 +2231,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.268965"
+            timestampString = "579131487.384023"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "559"
@@ -2279,11 +2279,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.270418"
+            timestampString = "579131487.384342"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "840"
-            endingLineNumber = "840"
+            startingLineNumber = "841"
+            endingLineNumber = "841"
             landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2295,12 +2295,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.2709709"
+            timestampString = "579131487.384487"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "831"
-            endingLineNumber = "831"
-            landmarkName = "cancelAction(_:)"
+            startingLineNumber = "832"
+            endingLineNumber = "832"
+            landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2311,13 +2311,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.630645"
+            timestampString = "580165197.995361"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "614"
-            endingLineNumber = "614"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "615"
+            endingLineNumber = "615"
+            landmarkName = "prepare(for:sender:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2327,7 +2327,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.273559"
+            timestampString = "579131487.385702"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "271"
@@ -2343,12 +2343,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.274075"
+            timestampString = "579131487.385886"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "512"
             endingLineNumber = "512"
-            landmarkName = "numberOfSections(in:)"
+            landmarkName = "tableView(_:numberOfRowsInSection:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2359,7 +2359,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.2745579"
+            timestampString = "579131487.386127"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "389"
@@ -2375,7 +2375,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.2751679"
+            timestampString = "579131487.38636"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "396"
@@ -2391,13 +2391,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.2756"
+            timestampString = "579131487.386565"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "941"
-            endingLineNumber = "941"
-            landmarkName = "updateDataObject()"
-            landmarkType = "7">
+            startingLineNumber = "942"
+            endingLineNumber = "942"
+            landmarkName = "noteEntriesTableViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2407,7 +2407,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.276031"
+            timestampString = "579131487.386726"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "323"
@@ -2423,12 +2423,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.277958"
+            timestampString = "579131487.387054"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "417"
             endingLineNumber = "417"
-            landmarkName = "fetchRecords()"
+            landmarkName = "getFRC()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2439,7 +2439,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.279013"
+            timestampString = "579131487.387354"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "305"
@@ -2455,11 +2455,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562196130.279418"
+            timestampString = "579131487.387639"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "886"
-            endingLineNumber = "886"
+            startingLineNumber = "887"
+            endingLineNumber = "887"
             landmarkName = "unwindFromNoteEntrySave(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2487,11 +2487,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "562196130.279954"
+            timestampString = "580165197.997123"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "262"
-            endingLineNumber = "262"
+            startingLineNumber = "264"
+            endingLineNumber = "264"
             landmarkName = "AppDelegate"
             landmarkType = "3">
          </BreakpointContent>
@@ -2503,27 +2503,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "562196130.28049"
+            timestampString = "580165197.997579"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "562196130.28099"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
             landmarkName = "AppDelegate"
             landmarkType = "3">
          </BreakpointContent>
@@ -2535,11 +2519,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "562196130.281651"
+            timestampString = "580165197.997894"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "198"
-            endingLineNumber = "198"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
             landmarkName = "AppDelegate"
             landmarkType = "3">
          </BreakpointContent>
@@ -2551,11 +2535,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "562196130.282117"
+            timestampString = "580165197.99833"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "205"
-            endingLineNumber = "205"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
             landmarkName = "AppDelegate"
             landmarkType = "3">
          </BreakpointContent>
@@ -2567,11 +2551,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "562196130.282666"
+            timestampString = "580165197.998543"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "230"
-            endingLineNumber = "230"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
             landmarkName = "AppDelegate"
             landmarkType = "3">
          </BreakpointContent>
@@ -2647,11 +2631,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "562196130.283595"
+            timestampString = "580165197.998914"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
             landmarkName = "AppDelegate"
             landmarkType = "3">
          </BreakpointContent>
@@ -2679,7 +2663,7 @@
                   moduleName = "TSNotes"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/DataController.swift"
-                  timestampString = "562532695.789322"
+                  timestampString = "580165249.519449"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
@@ -2694,12 +2678,12 @@
                   moduleName = "TSNotes"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/DataController.swift"
-                  timestampString = "562532695.799144"
+                  timestampString = "580165249.522323"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "22"
                   endingLineNumber = "22"
-                  offsetFromSymbolStart = "41">
+                  offsetFromSymbolStart = "28">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -2711,11 +2695,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/AppDelegate.swift"
-            timestampString = "562196130.284784"
+            timestampString = "580165197.9991831"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
             landmarkName = "AppDelegate"
             landmarkType = "3">
          </BreakpointContent>
@@ -2727,11 +2711,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "noteEntriesTableViewController.swift"
-            timestampString = "562532522.520434"
+            timestampString = "579131487.388422"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "890"
-            endingLineNumber = "890"
+            startingLineNumber = "891"
+            endingLineNumber = "891"
             landmarkName = "unwindFromNoteEntrySave(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2743,13 +2727,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.632604"
+            timestampString = "580165197.9994709"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "622"
-            endingLineNumber = "622"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "623"
+            endingLineNumber = "623"
+            landmarkName = "NoteBaseTableController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2759,13 +2743,155 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TSNotes/NoteBaseTableController.swift"
-            timestampString = "562532633.635219"
+            timestampString = "580165198.000437"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "204"
-            endingLineNumber = "204"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
+            landmarkName = "controllerDidChangeContent(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TSNotes/AppDelegate.swift"
+            timestampString = "580165198.001119"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
             landmarkName = "unknown"
             landmarkType = "0">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TSNotes.AppDelegate.__deallocating_deinit"
+                  moduleName = "TSNotes"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
+                  timestampString = "580165249.5471801"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TSNotes.AppDelegate.__allocating_init() -&gt; TSNotes.AppDelegate"
+                  moduleName = "TSNotes"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
+                  timestampString = "580165249.550422"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TSNotes.AppDelegate.init() -&gt; TSNotes.AppDelegate"
+                  moduleName = "TSNotes"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
+                  timestampString = "580165249.553489"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23"
+                  offsetFromSymbolStart = "32">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "main"
+                  moduleName = "TSNotes"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/macbook/Applications/Xcode%20Apps/TSNotes/TSNotes/AppDelegate.swift"
+                  timestampString = "580165249.556556"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TSNotes/AppDelegate.swift"
+            timestampString = "580165198.001505"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "application(_:willFinishLaunchingWithOptions:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TSNotes/AppDelegate.swift"
+            timestampString = "580165198.001717"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "AppDelegate"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "noteEntriesTableViewController.swift"
+            timestampString = "579131487.390442"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "378"
+            endingLineNumber = "378"
+            landmarkName = "fetchRecords()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TSNotes/NoteBaseTableController.swift"
+            timestampString = "580165198.001942"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "251"
+            endingLineNumber = "251"
+            landmarkName = "configureCell(_:atIndexPath:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -108,7 +108,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
 
     var cellText = String()
     var myMutableString = NSMutableAttributedString()
-    let myAttribute = [ NSFontAttributeName: UIFont(name: "Papyrus", size: 16.0)! ]
+    let myAttribute = [ NSAttributedStringKey.font: UIFont(name: "Papyrus", size: 16.0)! ]
  
     var wordCollection = [(String())]
     var firstSearchTerm: String?
@@ -143,7 +143,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
        
         displayDateFormatter.dateFormat = "h:mm a  EEEE, MMMM d, yyyy"
         sortableDateOnlyFormatter.dateFormat = "yyyy.MM.dd"
-        displayDateOnlyFormatter.dateFormat = "EEEE MMMM, d yyyy"  // "EEEE, d MMMM yyyy"
+        displayDateOnlyFormatter.dateFormat = "MMMM, d yyyy, EEEE"     //"EEEE MMMM, d yyyy"  
         displayTimeOnlyFormatter.dateFormat = "h:mm a"
         
        
@@ -279,25 +279,15 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
 
             
             // Clear out arrays so they don't keep increasing
-            /*
-            objectRecordPtr.removeAll()
-            modifyDateArray.removeAll()
-            */
             objectRecordPtr1.removeAll()
             modifyDateArray1.removeAll()
             mutableRecordsArray.removeAll()
             objectRecordPtrDim2.removeAll()
 
-            /*
-            objectRecordPtr = Array(repeating: Array(repeating: 0, count: numHits), count: numHits)
-            modifyDateArray = Array(repeating: currentDateTime, count: numHits)
-            */
-
             for object in fetchedResultsController.fetchedObjects! {
                 
                 // Save the modify date to later compute elapsed times between entries
-     //            modifyDateArray [recordNum] = object.noteModifiedDateTS!
-                modifyDateArray1.append(object.noteModifiedDateTS!) 
+                modifyDateArray1.append(object.noteModifiedDateTS!)
 
                 
                 // Temporary add #ed to get lastest elapsed date from noteEntries
@@ -575,7 +565,8 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         else {
             cell.noteEntryDateLabel.text = sectionName
             firstFindRange = NSRange( location: 0, length: 1)
-            
+            firstFindRange = NSMakeRange( 0, 1)
+
         }
 
         cell.noteTextView.attributedText = myMutableString
@@ -869,7 +860,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
 
                 //    recordNum = objectRecordPtr [indexPath.section] [indexPath.row]
                     recordNum = objectRecordPtr1 [indexPath.section] [indexPath.row]
-                   destinationVC.noteText = mutableRecordsArray [recordNum]
+                    destinationVC.noteText = mutableRecordsArray [recordNum]
                     destinationVC.noteModDateTime = noteRecord.noteModifiedDateTS!
                     }
             }
@@ -1034,8 +1025,8 @@ func setStatusText(queryString: String, count: Int, allReq: Bool)  {
 
     
     
-    // Handle navigation bar single tap - scroll to the top
-    func singleTapAction (_ theObject: UITapGestureRecognizer) {
+    // Handle navigation bar single tap - scroll to the t@objc op
+    @objc func singleTapAction (_ theObject: UITapGestureRecognizer) {
         
         guard numHits > 0 else { return }
         
@@ -1046,8 +1037,8 @@ func setStatusText(queryString: String, count: Int, allReq: Bool)  {
 
     }
     
-    // Handle navigation bar double tap - scroll to the bottom
-    func doubleTapAction (_ theObject: AnyObject) {
+    // Handle navigation bar double tap - scroll to th@objc e bottom
+    @objc func doubleTapAction (_ theObject: AnyObject) {
         
         if theObject.state == .ended {
             
@@ -1094,13 +1085,27 @@ func setStatusText(queryString: String, count: Int, allReq: Bool)  {
 
 // Update for Swift 3 (Xcode 8):
 extension String {
+    /*
     func nsRange(from range: Range<String.Index>) -> NSRange {
         let from = range.lowerBound.samePosition(in: utf16)
         let to = range.upperBound.samePosition(in: utf16)
+        var myLength = range.upperBound - range.lowerBound + 1
+        NSRange(location:range.distance(from: from, to: to),length:range.count)
         return NSRange(location: utf16.distance(from: utf16.startIndex, to: from),
                        length: utf16.distance(from: from, to: to))
     }
+    */
     
+    func range(nsRange: NSRange) -> NSRange? {
+        guard
+            let from16 = utf16.index(utf16.startIndex, offsetBy: nsRange.location, limitedBy: utf16.endIndex),
+            let to16 = utf16.index(utf16.startIndex, offsetBy: nsRange.length, limitedBy: utf16.endIndex),
+            let from = from16.samePosition(in: self),
+            let to = to16.samePosition(in: self)
+            else { return nil }
+        return NSMakeRange(from.encodedOffset, to.encodedOffset)
+    }
+
     func trim() -> String
     {
         return self.trimmingCharacters( in: NSCharacterSet.whitespaces)

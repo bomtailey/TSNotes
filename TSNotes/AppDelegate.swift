@@ -12,6 +12,7 @@ import IQKeyboardManagerSwift
 
 let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
+
 //var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
 
@@ -21,6 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        return true
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         // Override point for customization after application launch.
@@ -30,8 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
    //     lazy var coreDataStack = CoreDataStack()
         
         // Set up handling move entry fields above keyboard
-        IQKeyboardManager.sharedManager().enable = true
- //       IQKeyboardManager.sharedManager().canAdjustTextView = true    Unable to parse the format string "noteModifiedDateTS! == %@"
+        IQKeyboardManager.shared.enable = true
         
         return true
     }

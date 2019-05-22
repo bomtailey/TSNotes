@@ -236,7 +236,7 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
         let nsTextRange = NSMakeRange(0, nsText.length)
         
             if nsTextRange.length > 0 {       // check for not found
-                mutableString.addAttribute(NSBackgroundColorAttributeName, value: UIColor.blue, range: nsTextRange)
+                mutableString.addAttribute(NSAttributedStringKey.backgroundColor, value: UIColor.blue, range: nsTextRange)
             }
         
         

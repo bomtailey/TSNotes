@@ -63,7 +63,7 @@ static func countAndHighlightMatchesHelper( stringToFind: String, entireString: 
             
            // print("found location is: \(msRange.location)")
             
-            entireString.addAttribute( NSBackgroundColorAttributeName,value: UIColor.yellow, range: msRange)
+            entireString.addAttribute( NSAttributedStringKey.backgroundColor,value: UIColor.yellow, range: msRange)
             
             // Maybe save first find location
             if bFirstFind {
