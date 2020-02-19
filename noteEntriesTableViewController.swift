@@ -21,7 +21,7 @@
 
 import UIKit
 import CoreData
-
+import CloudKit
 
 
 class noteEntriesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate, UICollectionViewDelegate {
@@ -108,7 +108,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
 
     var cellText = String()
     var myMutableString = NSMutableAttributedString()
-    let myAttribute = [ NSAttributedStringKey.font: UIFont(name: "Papyrus", size: 16.0)! ]
+    let myAttribute = [ NSAttributedString.Key.font: UIFont(name: "Papyrus", size: 16.0)! ]
  
     var wordCollection = [(String())]
     var firstSearchTerm: String?
@@ -140,10 +140,9 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         //   provide a normal display.  Perhaps we should separate the search function in its own
         //   controller and display
         
-       
-        displayDateFormatter.dateFormat = "h:mm a  EEEE, MMMM d, yyyy"
+        displayDateFormatter.dateFormat = "h:mm a d MMMM yyyy EEEE"
         sortableDateOnlyFormatter.dateFormat = "yyyy.MM.dd"
-        displayDateOnlyFormatter.dateFormat = "MMMM, d yyyy, EEEE"     //"EEEE MMMM, d yyyy"  
+        displayDateOnlyFormatter.dateFormat = "d MMMM yyyy EEEE"     //"EEEE MMMM, d yyyy"  
         displayTimeOnlyFormatter.dateFormat = "h:mm a"
         
        
@@ -185,6 +184,10 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             buildPredicate ( searchString: searchString! )
         }
         
+                
+        // Setup to receive notices of CloudKit changes (sent from AppDelegate
+        NotificationCenter.default.addObserver(self, selector: #selector(onDidReceiveData(_:)), name: .didReceiveData, object: nil)
+        
 
         // Set up core data for notes
         fetchedResultsController = getFRC() as! NSFetchedResultsController<Note>
@@ -205,6 +208,12 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             //tableView.contentOffset = CGPoint(x:0, y:searchBar.frame.height);
         }
        
+               
+       /*
+       // Setup to receive notices of CloudKit changes (sent from AppDelegate
+       NotificationCenter.default.addObserver(self, selector: #selector(onDidReceiveData(_:)), name: .didReceiveData, object: nil)
+       */
+        
         
          fetchRecords ()
     }
@@ -218,12 +227,28 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             setStatusText(queryString: searchString!, count: numHits)
         }
         
+        /*
+        // Setup to receive notices of CloudKit changes (sent from AppDelegate
+        NotificationCenter.default.addObserver(self, selector: #selector(onDidReceiveData(_:)), name: .didReceiveData, object: nil)
+        */
+        
         navigationItem.title = statusText
 
        // This is done because the first view of the table doesn't include the
         // scrolltovisible actions
         tableView.reloadData()
         
+    }
+    
+    // Routine to respond to notices of CloudKit updates 1/15/20
+    @objc func onDidReceiveData(_ notification:Notification) {
+        // Do something now
+        
+        // For starters lets just reload the table
+         //
+        print ("\n======> from noteEntriesTableViewController:viewDidAppear about to refetch note entries  <===========\n")
+         fetchRecords()
+
     }
     
     func scrollTableCells() {
@@ -302,8 +327,8 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
                     print("Null value from fetchedResultsController for \(object.noteText!)")
                     
                     let alertController = UIAlertController(title: "TS Notes", message:
-                        "No path information for ?", preferredStyle: UIAlertControllerStyle.alert)
-                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                        "No path information for ?", preferredStyle: UIAlertController.Style.alert)
+                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
                     self.present(alertController, animated: true, completion: nil)
 
                     return
@@ -393,14 +418,12 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             
            // recordNum = 0
             
-            /*
             tableView.reloadData()
         //    self.tableView.contentOffset = contentOffset
             if numHits > 0 {
                 let indexPath = NSIndexPath(row: 0, section: 0)
                 self.tableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: false)
             }
-            */
         }
         
         
@@ -659,12 +682,12 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         
-        let alertController = UIAlertController(title: "TS Notes", message: "Do you really want to delete?", preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = UIAlertController(title: "TS Notes", message: "Do you really want to delete?", preferredStyle: UIAlertController.Style.alert)
         
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {(alert :UIAlertAction!) in
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: {(alert :UIAlertAction!) in
             print("Cancel button tapped")
-            tableView.reloadRows (at: [indexPath], with: UITableViewRowAnimation.automatic)
+            tableView.reloadRows (at: [indexPath], with: UITableView.RowAnimation.automatic)
         })
         
         alertController.addAction(cancelAction)
@@ -672,7 +695,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         let deleteChoice = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
             print("delete button tapped")
             
-            let deleteAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.destructive, handler: {(alert :UIAlertAction!) in
+            let deleteAction = UIAlertAction(title: "Delete", style: UIAlertAction.Style.destructive, handler: {(alert :UIAlertAction!) in
                 print("Delete button tapped")
                 
                 // Fetch Record
@@ -741,7 +764,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     
 
     // ******* ==> DON'T THINK THIS CODE IS EVER EXECUTED.  REPLACED BY editActionsForRowAtIndexPath
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if (editingStyle == .delete) {
             // Fetch Record
@@ -920,6 +943,8 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             noteBaseRecord.setValue(noteRecord.noteModifiedDateTS, forKey:"latestNoteDate")
 
         // Create/update note entity
+        print ("\n======> from noteEntriesTableViewController:noteEntryViewController about to refetch note entries  <===========\n")
+
         updateDataObject ()
         
         }
@@ -935,6 +960,11 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             print("Could not save \(error), \(error.userInfo)")
         }
         
+        // 1/3/2020 - I think we need to refresh the table display
+
+        fetchRecords ()
+        tableView.reloadData()
+
     }
 
  
@@ -1071,8 +1101,8 @@ func setStatusText(queryString: String, count: Int, allReq: Bool)  {
     func issueAlert (title: String, message: String){
         let fullTitle = "TS Notes: " + title
         let alertController = UIAlertController(title: fullTitle, message:
-            message, preferredStyle: UIAlertControllerStyle.alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+            message, preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
         self.present(alertController, animated: true, completion: nil)
     }
         
@@ -1096,6 +1126,7 @@ extension String {
     }
     */
     
+    /*
     func range(nsRange: NSRange) -> NSRange? {
         guard
             let from16 = utf16.index(utf16.startIndex, offsetBy: nsRange.location, limitedBy: utf16.endIndex),
@@ -1103,8 +1134,10 @@ extension String {
             let from = from16.samePosition(in: self),
             let to = to16.samePosition(in: self)
             else { return nil }
-        return NSMakeRange(from.encodedOffset, to.encodedOffset)
+        return NSMakeRange(from.utf16Offset(in: from), to.utf16Offset(in: to))
+        return NSMakeRange(from, to)     //from.utf16Offset(in: from), to.utf16Offset(in: to))
     }
+    */
 
     func trim() -> String
     {
@@ -1121,7 +1154,7 @@ struct tempRange {
     
     init () {
         let simpleString = " "
-        location = String.Index.init(simpleString.unicodeScalars.index(of: " ")!, within: simpleString)!     //init(0, within: " ")
+        location = String.Index.init(simpleString.unicodeScalars.firstIndex(of: " ")!, within: simpleString)!     //init(0, within: " ")
         length = 0
     }
 }
@@ -1139,4 +1172,10 @@ struct tempRange {
         print("User selected note")
     
     }
+
+extension Notification.Name {
+    static let didReceiveData = Notification.Name("didReceiveData")
+    static let didCompleteTask = Notification.Name("didCompleteTask")
+    static let completedLengthyDownload = Notification.Name("completedLengthyDownload")
+}
 

@@ -30,6 +30,16 @@ class Utils {
     return differenceString
     }
     
+     // Count matches for search word(s) ===>  needs to change to include multiple search words
+    static func nowString () -> String {
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        return df.string(from: Date())
+    }
+        
+
+    
+    
     //MARK: - countAndHighlightMatchesHelper: highlight matches
     
     // Count matches for search word(s) ===>  needs to change to include multiple search words
@@ -63,7 +73,7 @@ static func countAndHighlightMatchesHelper( stringToFind: String, entireString: 
             
            // print("found location is: \(msRange.location)")
             
-            entireString.addAttribute( NSAttributedStringKey.backgroundColor,value: UIColor.yellow, range: msRange)
+            entireString.addAttribute( NSAttributedString.Key.backgroundColor,value: UIColor.yellow, range: msRange)
             
             // Maybe save first find location
             if bFirstFind {

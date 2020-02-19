@@ -63,9 +63,9 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
             
         }
         
-        dayTimePeriodFormatter.dateFormat =  "EEEE, d MMMM yyyy   h:mm a"
+        dayTimePeriodFormatter.dateFormat =  "d MMMM yyyy EEEE  h:mm a"
         sortableDateOnlyFormatter.dateFormat = "yyyy.MM.dd"
-        displayDateOnlyFormatter.dateFormat = "EEEE MMMM,d yyyy"  // "EEEE, d MMMM yyyy"
+        displayDateOnlyFormatter.dateFormat = "d MMMM yyyy EEEE"  // "EEEE, d MMMM yyyy"
         displayTimeOnlyFormatter.dateFormat = "h:mm a"
 
 //        noteName = noteRecord.n
@@ -145,7 +145,7 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
     
     @IBAction func timeDisplayLongPress(_ sender: UILongPressGestureRecognizer) {
         
-        if (sender.state == UIGestureRecognizerState.began) {
+        if (sender.state == UIGestureRecognizer.State.began) {
         
 //            let oldTimeStamp = formatAttributedStringWithHighlights(datetimeDisplay.text!)
            let oldTimeStamp = datetimeDisplay.text!
@@ -236,7 +236,7 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
         let nsTextRange = NSMakeRange(0, nsText.length)
         
             if nsTextRange.length > 0 {       // check for not found
-                mutableString.addAttribute(NSAttributedStringKey.backgroundColor, value: UIColor.blue, range: nsTextRange)
+                mutableString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.blue, range: nsTextRange)
             }
         
         

@@ -21,6 +21,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+    /*
+    ***************
+    TB must have modified this module as well (as IQKeyboardManager) to remove use of firstIndex
+ Same issues. Don't know why others aren't getting this (and mentioning it) issue
+    */
+
 
 import Foundation
 import UIKit
@@ -228,7 +234,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
                 textView.delegate = modal.textViewDelegate
             }
             
-            if let index = textFieldInfoCache.index(where: { $0.textFieldView == view}) {
+            if let index = textFieldInfoCache.firstIndex(where: { $0.textFieldView == view}) {
 
                 textFieldInfoCache.remove(at: index)
             }
@@ -300,7 +306,7 @@ public class IQKeyboardReturnKeyHandler: NSObject , UITextFieldDelegate, UITextV
         }
 
         //Getting index of current textField.
-        if let index = textFields.index(of: view) {
+        if let index = textFields.firstIndex(of: view) {
             //If it is not last textField. then it's next object becomeFirstResponder.
             if index < (textFields.count - 1) {
                 

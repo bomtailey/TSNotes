@@ -21,6 +21,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+//***************
+// TB modified code to change use of textFields.firstIndex to textFields.index. A) don't know if this works and B) it
+// would be a problem with updates in the future unless the problem is fixed on github.
+
 
 import Foundation
 import CoreGraphics
@@ -459,7 +463,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             if let  textFieldRetain = _textFieldView {
                 
                 //Getting index of current textField.
-                if let index = textFields.index(of: textFieldRetain) {
+                if let index = textFields.firstIndex(of: textFieldRetain) {
                     
                     //If it is not first textField. then it's previous object canBecomeFirstResponder.
                     if index > 0 {
@@ -480,7 +484,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             if let  textFieldRetain = _textFieldView {
                 //Getting index of current textField.
        //         if let index = textFields.firstIndex(of: textFieldRetain) {
-                    if let index = textFields.index(of: textFieldRetain) {
+                    if let index = textFields.firstIndex(of: textFieldRetain) {
 
                     //If it is not first textField. then it's previous object canBecomeFirstResponder.
                     if index < textFields.count-1 {
@@ -501,7 +505,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         if let  textFieldRetain = _textFieldView {
             if let textFields = responderViews() {
                 //Getting index of current textField.
-                if let index = textFields.index(of: textFieldRetain) {
+                if let index = textFields.firstIndex(of: textFieldRetain) {
                     
                     //If it is not first textField. then it's previous object becomeFirstResponder.
                     if index > 0 {
@@ -536,7 +540,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         if let  textFieldRetain = _textFieldView {
             if let textFields = responderViews() {
                 //Getting index of current textField.
-                if let index = textFields.index(of: textFieldRetain) {
+                if let index = textFields.firstIndex(of: textFieldRetain) {
                     //If it is not last textField. then it's next object becomeFirstResponder.
                     if index < textFields.count-1 {
                         
@@ -768,7 +772,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
     
     @objc public func unregisterTextFieldViewClass(_ aClass: UIView.Type, didBeginEditingNotificationName : String, didEndEditingNotificationName : String) {
         
-        if let index = registeredClasses.index(where: { element in
+        if let index = registeredClasses.firstIndex(where: { element in
             return element == aClass.self
         }) {
             registeredClasses.remove(at: index)
@@ -1451,9 +1455,9 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             let durationUserInfoKey = UIResponder.keyboardAnimationDurationUserInfoKey
             let frameEndUserInfoKey = UIResponder.keyboardFrameEndUserInfoKey
             #else
-            let curveUserInfoKey    = UIKeyboardAnimationCurveUserInfoKey
-            let durationUserInfoKey = UIKeyboardAnimationDurationUserInfoKey
-            let frameEndUserInfoKey = UIKeyboardFrameEndUserInfoKey
+            let curveUserInfoKey    = UIResponder.keyboardAnimationCurveUserInfoKey
+            let durationUserInfoKey = UIResponder.keyboardAnimationDurationUserInfoKey
+            let frameEndUserInfoKey = UIResponder.keyboardFrameEndUserInfoKey
             #endif
 
             //  Getting keyboard animation.
@@ -1564,7 +1568,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             #if swift(>=4.2)
             let durationUserInfoKey = UIResponder.keyboardAnimationDurationUserInfoKey
             #else
-            let durationUserInfoKey = UIKeyboardAnimationDurationUserInfoKey
+            let durationUserInfoKey = UIResponder.keyboardAnimationDurationUserInfoKey
             #endif
 
             //  Getting keyboard animation duration
@@ -2128,18 +2132,18 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         
         let UIApplicationWillChangeStatusBarOrientation = UIApplication.willChangeStatusBarOrientationNotification
         #else
-        let UIKeyboardWillShow  = Notification.Name.UIKeyboardWillShow
-        let UIKeyboardDidShow   = Notification.Name.UIKeyboardDidShow
-        let UIKeyboardWillHide  = Notification.Name.UIKeyboardWillHide
-        let UIKeyboardDidHide   = Notification.Name.UIKeyboardDidHide
+        let UIKeyboardWillShow  = UIResponder.keyboardWillShowNotification
+        let UIKeyboardDidShow   = UIResponder.keyboardDidShowNotification
+        let UIKeyboardWillHide  = UIResponder.keyboardWillHideNotification
+        let UIKeyboardDidHide   = UIResponder.keyboardDidHideNotification
         
-        let UITextFieldTextDidBeginEditing  = Notification.Name.UITextFieldTextDidBeginEditing
-        let UITextFieldTextDidEndEditing    = Notification.Name.UITextFieldTextDidEndEditing
+        let UITextFieldTextDidBeginEditing  = UITextField.textDidBeginEditingNotification
+        let UITextFieldTextDidEndEditing    = UITextField.textDidEndEditingNotification
         
-        let UITextViewTextDidBeginEditing   = Notification.Name.UITextViewTextDidBeginEditing
-        let UITextViewTextDidEndEditing     = Notification.Name.UITextViewTextDidEndEditing
+        let UITextViewTextDidBeginEditing   = UITextView.textDidBeginEditingNotification
+        let UITextViewTextDidEndEditing     = UITextView.textDidEndEditingNotification
         
-        let UIApplicationWillChangeStatusBarOrientation = Notification.Name.UIApplicationWillChangeStatusBarOrientation
+        let UIApplicationWillChangeStatusBarOrientation = UIApplication.willChangeStatusBarOrientationNotification
         #endif
 
         //  Registering for keyboard notification.
@@ -2174,18 +2178,18 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
         
         let UIApplicationWillChangeStatusBarOrientation = UIApplication.willChangeStatusBarOrientationNotification
         #else
-        let UIKeyboardWillShow  = Notification.Name.UIKeyboardWillShow
-        let UIKeyboardDidShow   = Notification.Name.UIKeyboardDidShow
-        let UIKeyboardWillHide  = Notification.Name.UIKeyboardWillHide
-        let UIKeyboardDidHide   = Notification.Name.UIKeyboardDidHide
+        let UIKeyboardWillShow  = UIResponder.keyboardWillShowNotification
+        let UIKeyboardDidShow   = UIResponder.keyboardDidShowNotification
+        let UIKeyboardWillHide  = UIResponder.keyboardWillHideNotification
+        let UIKeyboardDidHide   = UIResponder.keyboardDidHideNotification
         
-        let UITextFieldTextDidBeginEditing  = Notification.Name.UITextFieldTextDidBeginEditing
-        let UITextFieldTextDidEndEditing    = Notification.Name.UITextFieldTextDidEndEditing
+        let UITextFieldTextDidBeginEditing  = UITextField.textDidBeginEditingNotification
+        let UITextFieldTextDidEndEditing    = UITextField.textDidEndEditingNotification
         
-        let UITextViewTextDidBeginEditing   = Notification.Name.UITextViewTextDidBeginEditing
-        let UITextViewTextDidEndEditing     = Notification.Name.UITextViewTextDidEndEditing
+        let UITextViewTextDidBeginEditing   = UITextView.textDidBeginEditingNotification
+        let UITextViewTextDidEndEditing     = UITextView.textDidEndEditingNotification
         
-        let UIApplicationWillChangeStatusBarOrientation = Notification.Name.UIApplicationWillChangeStatusBarOrientation
+        let UIApplicationWillChangeStatusBarOrientation = UIApplication.willChangeStatusBarOrientationNotification
         #endif
 
         //  Unregistering for keyboard notification.

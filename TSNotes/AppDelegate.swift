@@ -8,62 +8,149 @@
 
 import UIKit
 import CoreData
+import CloudKit
+import UserNotifications
+
 import IQKeyboardManagerSwift
 
-let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
-//var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    // iCloud Global variables
+    let ckID = "iCloud.com.LCI.TSNotes.CloudKit.PushNotify"
+    var ckContainer = CKContainer(identifier: ckID)
+    var defaultContainer = CKContainer.default()
+    var publicCloudDB = defaultContainer.publicCloudDatabase
+    var privateCloudDB = defaultContainer.privateCloudDatabase
+
+    // Some more definitions for scanning records
+    let documents = CKContainer(identifier: "iCloud.com.LCI.TSNotes.CloudKit.PushNotify.documents")
+    let settings = CKContainer(identifier: "iCloud.com.LCI.TSNotes.CloudKit.PushNotify.settings")
+
+    let containerRecordTypes: [CKContainer: [String]] = [
+        defaultContainer: ["log", "verboseLog"],
+        documents: ["textDocument", "spreadsheet"],
+        settings: ["preference", "profile"]
+    ]
+
+    let containers = Array(containerRecordTypes.keys)
+
+    //var context = (UIApplication.shared.delegate as! AppDelegate).   //.persistentContainer.viewContext
+
 var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-
+ 
     var window: UIWindow?
+    
+        // iCloud Global variables
+        /*
+        let ckID = "iCloud.com.LCI.TSNotes.CloudKit.PushNotify"
+        let defaultContainer = CKContainer.default()
+        */
 
-    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    //    let publicCloudDB = CKContainer.default().publicCloudDatabase
+
+
+    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
         return true
     }
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         // Override point for customization after application launch.
         
-       managedObjectContext = createMainContext()
+         ckContainer = CKContainer(identifier: ckID)
+         publicCloudDB = defaultContainer.publicCloudDatabase
+         privateCloudDB = defaultContainer.privateCloudDatabase
+
+        managedObjectContext = createMainContext()
         
-   //     lazy var coreDataStack = CoreDataStack()
+        // 1/3/2020 will this work to implement cloudkit?
+        managedObjectContext.automaticallyMergesChangesFromParent = true
         
+        // Establish notification environment
+        establishSubscriptions(recordType: "CD_Note")
+
+        // 1/7/2020 Set up push change notifications and subscribing
+        // set self (AppDelegate) to handle notification
+        UNUserNotificationCenter.current().delegate = self
+
+        // Request permission from user to send notification
+        /* Temporarily don't subscribe for notifications
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { authorized, error in
+          if authorized {
+            DispatchQueue.main.async(execute: {
+              application.registerForRemoteNotifications()
+            })
+          }
+        })
+        */
+               
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            if let error = error {
+                print("D'oh: \(error.localizedDescription)")
+            } else {
+                DispatchQueue.main.async {
+                    application.registerForRemoteNotifications()
+                }
+            }
+        }
+        
+       //===> temporary reporting function
+        reviewDatabase ()
+
         // Set up handling move entry fields above keyboard
         IQKeyboardManager.shared.enable = true
         
         return true
     }
     
-    func createMainContext() -> NSManagedObjectContext {
+    
+    
+    
+    func createMainContext() ->  NSManagedObjectContext {
         
         // Initialize NSManagedObjectModel
-        let modelURL = Bundle.main.url(forResource: "TSNotesDataModel", withExtension: "momd")
-        guard let model = NSManagedObjectModel(contentsOf: modelURL!) else { fatalError("model not found") }
+        guard let modelURL = Bundle.main.url(forResource: "TSNotesDataModel", withExtension: "momd")
+            else {
+            fatalError("Error loading model from bundle")
+            }
+        
+        guard NSManagedObjectModel(contentsOf: modelURL) != nil else { fatalError("Error initializing model from: \(modelURL)" ) }
         
         // Configure NSPersistentStoreCoordinator with an NSPersistentStore
-        let psc = NSPersistentStoreCoordinator(managedObjectModel: model)
+        // 1/4/2020 - change this to NSPersistentCloudKitContainer
+      //  let psc = NSPersistentStoreCoordinator(managedObjectModel: model)
+       // let psc = NSPersistentCloudKitContainer(name: "TSNotes")
         
+        let viewContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        /*
+        let navigationController = self.window?.rootViewController as! UINavigationController
+        let mainVC = navigationController.viewControllers[0] //as! MainViewController
+        */
+
+
+        /*
         let storeURL = try! FileManager
             .default
             .url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
             .appendingPathComponent("TSNotes.sqlite")
         
         try! psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: nil)
+        */
         
         // Create and return NSManagedObjectContext
-        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        context.persistentStoreCoordinator = psc
-        
-        return context
+        viewContext.automaticallyMergesChangesFromParent = true
+
+   //       mainVC.managedObjectContext = viewContext
+        return viewContext
     }
     
-   /*
     // iOS-10
     @available(iOS 10.0, *)
     lazy var persistentContainer: NSPersistentContainer = {
@@ -73,7 +160,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
          */
-        let container = NSPersistentContainer(name: "TSNotes")
+      //  let container = NSPersistentCloudKitContainer(name: "TSNotes")
+        let container = NSPersistentCloudKitContainer(name: "TSNotesDataModel")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
@@ -93,7 +181,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
    //     print("\(self.applicationDocumentsDirectory)")
         return container
     }()
-   */
 
 
     
@@ -149,156 +236,355 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
+    func application(_ application: UIApplication, shouldRestoreSecureApplicationState coder: NSCoder) -> Bool {
    //     return true
         return false
     }
  
-  
-    
-    // MARK: - Core Data stack
-    
-    
-    /*
-    lazy var persistentContainer: NSPersistentContainer = {
-        /*
-         The persistent container for the application. This implementation
-         creates and returns a container, having loaded the store for the
-         application to it. This property is optional since there are legitimate
-         error conditions that could cause the creation of the store to fail.
-         */
-        let container = NSPersistentContainer(name: "TSNotesDataModel 2")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        return container
-    }()
-    */
+  // MARK: - Set up notification subscriptions
 
-    
-    /*
-    lazy var applicationDocumentsDirectory: URL = {
-        print("In var applicationDocumentsDirectory")
-        // The directory the application uses to store the Core Data store file. This code uses a directory named "com.xxxx.TSNotes" in the application's documents Application Support directory.
-        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return urls[urls.count-1] 
-    }()
-    
-    lazy var managedObjectModel: NSManagedObjectModel = {
-        // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = Bundle.main.url(forResource: "TSNotesDataModel", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOf: modelURL)!
-    }()
-    
-    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
-        // The persistent store coordinator for the application. This implementation creates and returns a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
-        // Create the coordinator and store
-        var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let url = self.applicationDocumentsDirectory.appendingPathComponent("TSNotes.sqlite")
-        var error: NSError? = nil
-        var failureReason = "There was an error creating or loading the application's saved data."
-
-        let options = [
-            NSMigratePersistentStoresAutomaticallyOption: true,
-            NSInferMappingModelAutomaticallyOption: true]
-
-        do {
-        try coordinator!.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: options)
-        }  catch let error as NSError {
-       
-            // Report any error we got.
-            // Replace this with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog("Unresolved error \(error), \(error.userInfo)")
-            abort()
-        }
+    func establishSubscriptions(recordType: String) {
         
-        return coordinator
-    }()
-    
-    lazy var managedObjectContext: NSManagedObjectContext? = {
-        // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
-        let coordinator = self.persistentStoreCoordinator
-        if coordinator == nil {
-            return nil
-        }
-        var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        managedObjectContext.persistentStoreCoordinator = coordinator
-        return managedObjectContext
-    }()
-    */
-    
-
-    
- /*
-    func saveContext () {
-
-        if let moc = self.managedObjectContext {
-
- //           if let noteRecord =
-            if moc.hasChanges {
-                do {
-                    try moc.save()
-                } catch {
-                    fatalError("Failure to save context: \(error)")
-                }
-            }
+        // First see if there are any existing subscriptions in which case nothing
+        // needs to be done
+        
+        let subscription = CKDatabaseSubscription(subscriptionID: recordType)
+     /*
+        b = subscription.i
+     
+        if ( subscriptionIslocallyCached) {
             
         }
-    }
  */
+
+        clearSubscriptions()
+
+        
+    }
+    
+    // MARK: - CloudKit implementation
+    
+    // 1/7/2020 Add CloudKit change notification implementation
+    
+    // When user allowed push notification and the app has gotten the device token
+    // (device token is a unique ID that Apple server use to determine which device to send push notification to)
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
+    }
+    
+    // issueSubscription
+    func issueSubscription ( recordType: String, alertTitle: String) {
+        
+        // The predicate lets you define condition of the subscription, eg: only be notified of change if the newly created notification start with "A"
+        // the TRUEPREDICATE means any new Notifications record created will be notified
+        
+    //   Subscribe to NoteBase changes
+        let subscription = CKQuerySubscription(recordType: recordType, predicate: NSPredicate(format: "TRUEPREDICATE"), options: [.firesOnRecordCreation, .firesOnRecordUpdate, .firesOnRecordDeletion ] )
+        
+        // Here we customize the notification message
+        let info = CKSubscription.NotificationInfo()
+        
+        // this will use the 'CD_noteName' field in the Record type 'CD_NoteBase' as the title of the push notification
+        info.titleLocalizationKey = "%1$@"
+        info.titleLocalizationArgs = [alertTitle]
+        
+        // if you want to use multiple field combined for the title of push notification
+        // info.titleLocalizationKey = "%1$@ %2$@" // if want to add more, the format will be "%3$@", "%4$@" and so on
+        // info.titleLocalizationArgs = ["title", "subtitle"]
+        
+        // this will use the 'content' field in the Record type 'notifications' as the content of the push notification
+        info.alertLocalizationKey = "%1$@"
+        info.alertLocalizationArgs = [alertTitle]
+        
+        // increment the red number count on the top right corner of app icon
+        info.shouldBadge = true
+        
+        // use system default notification sound
+        info.soundName = "default"
+        info.shouldSendContentAvailable = true
+        info.alertBody = ""
+        
+        subscription.notificationInfo = info
+        
+        // Save the subscription to Public Database in Cloudkit publicCloudDB
+        
+        publicCloudDB.save(subscription, completionHandler: { subscription, error in
+            if error == nil {
+                // Subscription saved successfully
+                print("Attempt to subscribe succeeded - \(Utils.nowString())")
+            } else {
+                // Error occurred  CKError
+                print("Attempt to subscribe failed: \(Utils.nowString())\(String(describing: error))")
+            }
+         })
+        
+
+    }
+    
+    // Registration failed
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Failed to register for notifications: \(error.localizedDescription)")
+    }
+    
+    // Method to delete existing subscriptions
+    func clearSubscriptions() {
+                
+        publicCloudDB.fetchAllSubscriptions(completionHandler: {subscriptions, error in
+           
+            if error == nil {
+                if let subscriptions = subscriptions {
+                    for subscription in subscriptions {
+                        publicCloudDB.delete(withSubscriptionID: subscription.subscriptionID) { str, error in
+                            if error != nil {
+                                // do your error handling here!
+                                print(error!.localizedDescription)
+                            }
+                        }
+
+                    }
+                }
+
+                self.issueSubscription ( recordType: "CD_NoteBase", alertTitle: "CD_noteName")
+                self.issueSubscription ( recordType: "CD_Note", alertTitle: "CD_noteText")
+
+            }
+        })
+        
+    }
+    
+    // Utility function to display records.
+    // Customize it to display records appropriately
+    // according to your app's unique record types.
+    func printRecords(_ records: [CKRecord]) {
+        for record in records {
+            for key in record.allKeys() {
+                let value = record[key]
+                print(key + " = " + (value?.description ?? "") + ")")
+            }
+        }
+    }
+
+    func reviewDatabase () {
+        
+        
+        for container in containers {
+            // User data should be stored in the private database.
+            let containerID = container.containerIdentifier
+            print("Container ID: \(String(describing: containerID))")
+            
+            if containerID == ckID {
+            
+                let database = container.privateCloudDatabase
+                
+                database.fetchAllRecordZones { zones, error in
+                    guard let zones = zones, error == nil else {
+                        print(error!)
+                        return
+                    }
+                    
+                    // The true predicate represents a query for all records.
+                    let alwaysTrue = NSPredicate(value: true)
+                    for zone in zones {
+                        for recordType in containerRecordTypes[container] ?? [] {
+                            let query = CKQuery(recordType: recordType, predicate: alwaysTrue)
+                            database.perform(query, inZoneWith: zone.zoneID) { records, error in
+                                guard let records = records, error == nil else {
+                                    print("An error occurred fetching these records.")
+                                    return
+                                }
+                                
+                                self.printRecords(records)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate{
+    
+ 
+    // This function will be called when the app receives notification
+  func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+    
+    // show the notification alert (banner), and with sound
+    completionHandler([.alert, .sound])
+  }
+  
+  // This function will be called right after user taps on the notification
+  func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+    
+    // tell the app that we have finished processing the user’s action (eg: tap on notification banner) / response
+    completionHandler()
+  }
     
     /*
-    // Attempt to deal with a data model init error
-    init(completionClosure: @escaping () -> ()) {
-        super.init()
-        
-        
-        //This resource is the same name as your xcdatamodeld contained in your project
-        guard let modelURL = Bundle.main.url(forResource: "TSNotesDataModel", withExtension:"momd") else {
-            fatalError("Error loading model from bundle")
-        }
-        // The managed object model for the application. It is a fatal error for the application not to be able to find and load its model.
-        guard let mom = NSManagedObjectModel(contentsOf: modelURL) else {
-            fatalError("Error initializing mom from: \(modelURL)")
-        }
-        
-        let psc = NSPersistentStoreCoordinator(managedObjectModel: mom)
-        
-        managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
-        managedObjectContext!.persistentStoreCoordinator = psc
-        
-        let queue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
-        queue.async {
-            guard let docURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last else {
-                fatalError("Unable to resolve document directory")
+    // Version 1 of handling remote push notifications from CloudKit
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+
+           guard let aps = userInfo["aps"] as? [String: AnyObject] else {
+             completionHandler(.failed)
+             return
+           }
+           
+
+           let newInfo = aps.description
+           
+           print ("\n======> from AppDelegate:didReceiveRemoteNotification received notice of cloudkit update  <===========\n")
+
+           print ("Notification description is ===> \(newInfo)")
+           
+           /*
+           var notificationType : String
+              notificationType = CloudKit.Notification.Name (rawValue: <#T##String#>).rawValue
+          
+           var notificationType = CloudKit.Notification.Name.self
+           
+           if notificationType == CloudKit.isqu {
+           }
+    
+           if CloudKit.Notification.Type.self == CloudKit.isQueryNotification {
+           }
+           
+           if CloudKit.Notification.Type.Type == CloudKit.CKQueryNotification     //.notificationType == CloudKit.QueryNotification   //.isQueryNotification    {
+           }
+            */
+           
+           // Try to get all the notifications associated with this change
+           /// from [here](https://www.invasivecode.com/weblog/advanced-cloudkit-part-iii))
+           fetchNotificationChanges()
+           
+           
+           switch application.applicationState {
+
+            case .inactive:
+                print("Inactive")
+                //Show the view with the content of the push
+                completionHandler(.newData)
+
+            case .background:
+                print("Background")
+                //Refresh the local model
+                completionHandler(.newData)
+
+            case .active:
+                print("Active")
+                
+                // noyify others
+                NotificationCenter.default.post(name: .didReceiveData, object: userInfo)
+                
+                
+                //Show an in-app banner
+                completionHandler(.newData)
             }
-            let storeURL = docURL.appendingPathComponent("DataModel.sqlite")
-            do {
-                try psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: nil)
-                //The callback block is expected to complete the User Interface and therefore should be presented back on the main queue so that the user interface does not need to be concerned with which queue this call is coming from.
-                DispatchQueue.main.sync(execute: completionClosure)
-            } catch {
-                fatalError("Error migrating store: \(error)")
-            }
         }
-    }
     */
 
     
+    /// from [here](https://www.invasivecode.com/weblog/advanced-cloudkit-part-iii))
+ 
+    // Version 2 of handling remote push notifications from CloudKit
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        let cloudKitNotification = CKNotification(fromRemoteNotificationDictionary: userInfo as! [String : NSObject])
+        
+        if cloudKitNotification?.notificationType == .query {
+            let queryNotification = cloudKitNotification as! CKQueryNotification
+            if queryNotification.queryNotificationReason == .recordDeleted {
+                //
+                // If the record has been deleted in CloudKit then delete the local copy here
+            } else {
+                // If the record has been created or changed, we fetch the data from CloudKit
+                let database: CKDatabase
+      //          if queryNotification.isPublicDatabase        //.databaseScope.self
+                
+          //      let databaseScope = CKDatabase.Scope.
+                let dict = userInfo as! [String: NSObject]
 
+               guard let notification:CKDatabaseNotification = CKNotification(fromRemoteNotificationDictionary:dict) as? CKDatabaseNotification else { return }
+                
+                switch notification.databaseScope
+                {
+                case .public:
+                    database = CKContainer.default().publicCloudDatabase
+                default:
+                    database = CKContainer.default().privateCloudDatabase
+
+                }
+
+                database.fetch(withRecordID: queryNotification.recordID!, completionHandler: { (record: CKRecord?, error: NSError?) -> Void in
+                    guard error == nil else {
+                        // Handle the error here
+                        return
+                    }
+     
+                    if queryNotification.queryNotificationReason == .recordUpdated {
+                        // Use the information in the record object to modify your local data
+                    } else {
+                        // Use the information in the record object to create a new local object
+                    }
+                    } as! (CKRecord?, Error?) -> Void)
+            }
+        }
+    }
+
+    //
+    func fetchNotificationChanges() {
+        let operation = CKFetchNotificationChangesOperation(previousServerChangeToken: nil)
+     
+        var notificationIDsToMarkRead = [CKNotification.ID]()
+     
+        operation.notificationChangedBlock = { (notification: CKNotification) -> Void in
+            // Process each notification received
+            if notification.notificationType == .query {
+                let queryNotification = notification as! CKQueryNotification
+                //let reason = queryNotification.queryNotificationReason
+                let recordID = queryNotification.recordID
+     
+                // Do your process here depending on the reason of the change
+     
+                // Add the notification id to the array of processed notifications to mark them as read
+                notificationIDsToMarkRead.append(queryNotification.notificationID!)
+            }
+        }
+     
+        operation.fetchNotificationChangesCompletionBlock = { (serverChangeToken: CKServerChangeToken?, operationError: NSError?) -> Void in
+            guard operationError == nil else {
+                // Handle the error here
+                return
+            }
+     
+            // Mark the notifications as read to avoid processing them again
+            // CKFetchRecordZoneChangesOperation()
+            
+            // Mark the notifications as read to avoid processing them again
+            let markOperation = CKMarkNotificationsReadOperation(notificationIDsToMarkRead: notificationIDsToMarkRead)
+            markOperation.markNotificationsReadCompletionBlock = ({ (notificationIDsMarkedRead: [CKNotification.ID]?, operationError: NSError?) -> Void in
+                guard operationError == nil else {
+                    // Handle the error here
+                    return
+                }
+                } as! ([CKNotification.ID]?, Error?) -> Void)
+                guard operationError == nil else {
+                    // Handle the error here
+                    return
+                }
+               // } as? ([CKNotification.ID]?, Error?) -> Void
+     
+            let operationQueue = OperationQueue()
+            operationQueue.addOperation(markOperation)
+            } as? (CKServerChangeToken?, Error?) -> Void
+     
+        /*
+        let operationQueue = OperationQueue()
+        operationQueue.addOperation(operation)
+             as! (CKServerChangeToken?, Error?) -> Void
+        */
+        }
 }
+
+
 

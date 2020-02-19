@@ -22,7 +22,7 @@ class ViewController: UIViewController {
         
         // Fill current date time
         let dayTimePeriodFormatter = DateFormatter()
-        dayTimePeriodFormatter.dateFormat = "EEEE, d MMMM yyyy h:m a"
+        dayTimePeriodFormatter.dateFormat = "d MMMM yyyy EEEE h:m a"
         
         dateLabelDisplay.text = dayTimePeriodFormatter.string(from: Date())
 

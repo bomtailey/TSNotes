@@ -62,7 +62,7 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
 
         } else {
             noteTitleFieldText.text = noteBaseRecord.noteName
-            dayTimePeriodFormatter.dateFormat =  "EEEE MM/d/yy h:mm a"
+            dayTimePeriodFormatter.dateFormat =  "d MMMM yyyy EEEE h:mm a"
             createDateTimeLabel.text = "Date Created: " +
                 dayTimePeriodFormatter.string(from: noteBaseRecord.createDateTS! as Date)
 
@@ -152,13 +152,14 @@ class TitleEntryViewController: UIViewController, UITextFieldDelegate {
             if newTitleRequest {
                 
                 let entity =  NSEntityDescription.entity(forEntityName: "NoteBase", in:managedObjectContext)
-                noteBaseRecord = NSManagedObject(entity: entity!, insertInto: managedObjectContext) as! NoteBase
+                noteBaseRecord = NSManagedObject(entity: entity!, insertInto: managedObjectContext) as? NoteBase
 
                 noteBaseRecord.setValue(nowTime, forKey: "createDateTS")
                 noteBaseRecord.setValue(0, forKey:"noteCount")
             }
  
             noteBaseRecord.setValue(nowTime, forKey: "modifyDateTS")
+            noteBaseRecord.setValue(nowTime, forKey: "latestNoteDate") 
             noteBaseRecord.setValue(noteTitleFieldText.text!, forKey: "noteName")
 
             // Try save managed context

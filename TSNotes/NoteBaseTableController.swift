@@ -57,7 +57,7 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
     var segueListNoteInstance : NoteBase!
     
  //   let myBoldAttribute: [String: Any] = [ NSAttributedStringKey.font.rawValue: UIFont(name: "Optima-BoldItalic", size: 16.0)! ]
-    let myBoldAttribute: [NSString: Any] = [ NSAttributedStringKey.font.rawValue as NSString: UIFont(name: "Optima-BoldItalic", size: 16.0)! ]
+    let myBoldAttribute: [NSString: Any] = [ NSAttributedString.Key.font.rawValue as NSString: UIFont(name: "Optima-BoldItalic", size: 16.0)! ]
     var tempAttributedString = NSMutableAttributedString()
 
     
@@ -68,6 +68,9 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
     var bSearchFieldShowing = Bool(false)
     
     var tapGestureRecognizer : UITapGestureRecognizer!
+    
+    // iCloud variables
+            var record = CKRecord(recordType: "NoteBase")
 
     
     // dayTimePeriodFormatter.dateFormat = "EEEE, d MMMM yyyy h:m a"
@@ -78,16 +81,30 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
         
         super.viewDidLoad()
         
+
+        CKFunctions.fetchUserRecordID()     //.fetchUserRecordID()
+
+
         
         // Show location of database
         let dirPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         print("\n\nDatabase Path: \(dirPaths)\n\n")
         
+        // ==> NEW Set up iCloud infrastructure
+        /*
+        let dataContainer = CKContainer(identifier: containerIdentifier)
+        let greatID = CKRecord.ID(recordName: "GreatPlace")
+        let place = CKRecord(recordType: "Place", recordID: greatID)
+ 
+        
+        publicDB.save(place) { savedRecord, error in
+            // handle errors here
+        }
+       */
+        
+        
         // Uncomment the following line to preserve selection between presentations
          //self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
 
         dayTimePeriodFormatter.dateFormat =  "E MM/d/yy  h:mm a"
 
@@ -116,7 +133,12 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
         
         // Set up to be notified when app comes to foreground
         let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(appWillMoveToForeground), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(appWillMoveToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        
+                
+        // Setup to receive notices of CloudKit changes (sent from AppDelegate
+        NotificationCenter.default.addObserver(self, selector: #selector(onDidReceiveData(_:)), name: .didReceiveData, object: nil)
+
 
         
         // Initialize data stack
@@ -133,7 +155,7 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
             
         */
             initializeFetchRequest()
-        }
+    }
         
    
     
@@ -151,7 +173,10 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
     @objc func appWillMoveToForeground(_ application: UIApplication) {
         
     // try fetchcontroller fetch
-        tableView.reloadData()
+        //1/9/20 change table update to refetch data
+        fetchRecords()
+        
+      //  tableView.reloadData()
     }
     
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [AnyHashable: Any]?) -> Bool {
@@ -187,7 +212,7 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
         // 8/4/18 - changed sort from modifyDateTS to latest
   //      let sortDescriptor = NSSortDescriptor(key: "modifyDateTS", ascending: false)
         let sortDescriptor = NSSortDescriptor(key: "latestNoteDate", ascending: false)
-       fetchRequest.sortDescriptors = [sortDescriptor]
+        fetchRequest.sortDescriptors = [sortDescriptor]
         
         // Initialize Fetched Results Controller
         
@@ -241,7 +266,10 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
             break;
         }
 
-        tableView.reloadData()
+        //1/9/20 change table update to refetch data
+        fetchRecords()
+
+//        tableView.reloadData()
 
     }
     
@@ -253,7 +281,7 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
         if let modifyDateTS = noteBaseRecord.value(forKey: "modifyDateTS") as? Date {
             
             tempAttributedString.mutableString.setString(noteBaseRecord.value(forKey: "noteName") as! String )
-            tempAttributedString.addAttributes(myBoldAttribute as [NSAttributedStringKey : Any], range:NSRange(location: 0,length: (tempAttributedString.length)))
+            tempAttributedString.addAttributes(myBoldAttribute as [NSAttributedString.Key : Any], range:NSRange(location: 0,length: (tempAttributedString.length)))
 
  //          cell.noteTitleField.text = noteBaseRecord.value(forKey: "noteName") as? String
             cell.noteTitleField.attributedText = tempAttributedString
@@ -274,7 +302,7 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
         if let count = noteBaseRecord.value(forKey: "noteCount") as? Int {
             
             tempAttributedString.mutableString.setString(String(count) )
-            tempAttributedString.addAttributes(myBoldAttribute as [NSAttributedStringKey : Any], range:NSRange(location: 0,length: (tempAttributedString.length)))
+            tempAttributedString.addAttributes(myBoldAttribute as [NSAttributedString.Key : Any], range:NSRange(location: 0,length: (tempAttributedString.length)))
 
    //         cell.noteCount.text = String(count)
             cell.noteCount.attributedText = tempAttributedString
@@ -291,7 +319,7 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-        let alertController = UIAlertController(title: "TS Notes", message: "Recieved a memory warning", preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = UIAlertController(title: "TS Notes", message: "Recieved a memory warning", preferredStyle: UIAlertController.Style.alert)
         let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(defaultAction)
         
@@ -299,6 +327,16 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
         
     }
     
+
+    // Routine to respond to notices of CloudKit updates 1/15/20
+    @objc func onDidReceiveData(_ notification:Notification) {
+        // Do something now
+        
+        // For starters lets just reload the table
+         //
+        print ("\n======> from NoteBaseTableController:viewDidAppear about to refetch note entries  <===========\n")
+        
+    }
 
     // MARK: - Table view data source
 
@@ -348,7 +386,7 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
 
     // Enable row deletes
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
  
     }
     
@@ -395,12 +433,12 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         
-        let alertController = UIAlertController(title: "TS Notes", message: "Do you really want to delete?", preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = UIAlertController(title: "TS Notes", message: "Do you really want to delete?", preferredStyle: UIAlertController.Style.alert)
         
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {(alert :UIAlertAction!) in
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: {(alert :UIAlertAction!) in
             print("Cancel button tapped")
-            tableView.reloadRows (at: [indexPath], with: UITableViewRowAnimation.automatic)
+            tableView.reloadRows (at: [indexPath], with: UITableView.RowAnimation.automatic)
            // self.tableView.contentOffset = CGPoint(x:0, y:self.searchBar.frame.size.height);
         })
         
@@ -410,7 +448,7 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
         let deleteChoice = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
             //print("delete button tapped")
             
-            let deleteAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.destructive, handler: {(alert :UIAlertAction!) in
+            let deleteAction = UIAlertAction(title: "Delete", style: UIAlertAction.Style.destructive, handler: {(alert :UIAlertAction!) in
                // print("Delete button tapped")
                 
                 // Fetch Record
@@ -421,7 +459,7 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
                 
                 do {
                     try managedObjectContext.save()
-                    tableView.reloadRows (at: [indexPath], with: UITableViewRowAnimation.automatic)
+                    tableView.reloadRows (at: [indexPath], with: UITableView.RowAnimation.automatic)
                     //5
                 } catch let error as NSError  {
                     print("Could not save \(error), \(error.userInfo)")
@@ -443,7 +481,7 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
        //     print("edit button tapped")
             self.currentIndexPath = indexPath
             self.performSegue(withIdentifier: "modifyNoteTitle", sender: self)
-            tableView.reloadRows (at: [indexPath], with: UITableViewRowAnimation.automatic)
+            tableView.reloadRows (at: [indexPath], with: UITableView.RowAnimation.automatic)
             //self.tableView.contentOffset = CGPoint(x:0, y:self.searchBar.frame.size.height);
 
         }
@@ -629,14 +667,19 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
  
         // Add temporary logic to add latest elapsed date to notebase if it's empty
 
-       tableView.reloadData()
+        //1/9/20 change table update to refetch data
+        fetchRecords()
+        
+     //   tableView.reloadData()
     }
     
     
     //  All data update functions moved to TitleEntryViewController
     @IBAction func unwindFromTitleEntry(_ sender: UIStoryboardSegue) {
 
-        tableView.reloadData()
+        //1/9/20 change table update to refetch data
+        fetchRecords()
+//        tableView.reloadData()
     }
     
     
@@ -649,45 +692,12 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
     func issueAlert (title: String, message: String){
         let fullTitle = "TS Notes: " + title
         let alertController = UIAlertController(title: fullTitle, message:
-            message, preferredStyle: UIAlertControllerStyle.alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+            message, preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
         self.present(alertController, animated: true, completion: nil)
     }
 
 
-    
-    
-/*
-    // Preserve/restore state data if interrupted
-    override func encodeRestorableStateWithCoder(coder: NSCoder) {
-        //1
-        coder.encodeObject(noteCreateDate, forKey: "noteCreateDate")
-        coder.encodeObject(noteTitle, forKey: "noteTitle")
-//        coder.encodeObject(record, forKey: "noteBaseRecord")
-        coder.encodeObject(managedObjectContext, forKey: "MOC")
-     
-        //2
-        super.encodeRestorableStateWithCoder(coder)
-    }
-    
-    override func decodeRestorableStateWithCoder(coder: NSCoder) {
-
-
-        managedObjectContext = coder.decodeObjectForKey("MOC") as! NSManagedObjectContext!
-        noteCreateDate = coder.decodeObjectForKey("noteCreateDate") as! NSDate!
-        noteTitle = coder.decodeObjectForKey("noteTitle") as! String!
- //       record = coder.decodeObjectForKey("noteBaseRecord") as! NSManagedObject!
-     
-        super.decodeRestorableStateWithCoder(coder)
-    }
- 
-     override func applicationFinishedRestoringState() {
-        NSLog("called applicationFinishedRestoringState")
-//        performSegueWithIdentifier("mySegue", sender: self)
-
-        
-    }
-    */
     
     // Mark - end of NoteBaseTableController class definition
 }

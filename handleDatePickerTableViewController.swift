@@ -53,7 +53,7 @@ class handleDatePickerTableViewController: UITableViewController {
 
         
         // Fill current date time
-        dayTimePeriodFormatter.dateFormat = "EEEE, d MMMM yyyy   h:mm a"
+        dayTimePeriodFormatter.dateFormat = "d MMMM yyyy EEEE   h:mm a"
         setDateDisplay ()
         
         /*
