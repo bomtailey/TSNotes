@@ -3,12 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		3B8E592A5945ED197E970D86 /* Pods_TSNotesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED265E03224C35BCA03DEEB6 /* Pods_TSNotesTests.framework */; };
 		C961C8F785078F00DECBAD6A /* Pods_TSNotes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E38BD78E6779A3805B8F9020 /* Pods_TSNotes.framework */; };
+		CE7D1186240DF4AA006D4878 /* NoteBase+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7D1185240DF4AA006D4878 /* NoteBase+CoreDataProperties.swift */; };
+		CE7D1188240DF4B0006D4878 /* NoteBase+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7D1187240DF4AF006D4878 /* NoteBase+CoreDataClass.swift */; };
+		CE7D118A240DF4B5006D4878 /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7D1189240DF4B5006D4878 /* Note+CoreDataProperties.swift */; };
+		CE7D118C240DF4B9006D4878 /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7D118B240DF4B9006D4878 /* Note+CoreDataClass.swift */; };
 		FA1AB7162102B5670042269C /* TSNotesDB2.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = FA1AB7152102B5670042269C /* TSNotesDB2.xcmappingmodel */; };
 		FA24D80D218114B3005217B9 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA24D80C218114B2005217B9 /* DataController.swift */; };
 		FA3F5B491BF0857600A7804C /* TSNoteEntriesTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F5B481BF0857600A7804C /* TSNoteEntriesTableCell.swift */; };
@@ -31,10 +35,6 @@
 		FAE9229D1BF34315001E37FD /* noteListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE9229C1BF34315001E37FD /* noteListTableViewCell.swift */; };
 		FAE9FDA31D2CB5AE00288221 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE9FDA21D2CB5AE00288221 /* PopoverViewController.swift */; };
 		FAEB01EE2181929D002270B1 /* TSNotesDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAEB01EB2181929C002270B1 /* TSNotesDataModel.xcdatamodeld */; };
-		FAED29B21D2459F10009C873 /* NoteBase+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED29B01D2459F10009C873 /* NoteBase+CoreDataProperties.swift */; };
-		FAED29B31D2459F10009C873 /* NoteBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED29B11D2459F10009C873 /* NoteBase.swift */; };
-		FAED29BA1D24F30A0009C873 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED29B81D24F30A0009C873 /* Note.swift */; };
-		FAED29BC1D24F6480009C873 /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED29BB1D24F6480009C873 /* Note+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +51,10 @@
 		108BA2625F66D1735E18827D /* Pods-TSNotes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TSNotes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TSNotes/Pods-TSNotes.debug.xcconfig"; sourceTree = "<group>"; };
 		AEB6303D2B120CEC61B7FAD4 /* Pods-TSNotesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TSNotesTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TSNotesTests/Pods-TSNotesTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C407872E68EE4423CB3C6B75 /* Pods-TSNotesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TSNotesTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TSNotesTests/Pods-TSNotesTests.release.xcconfig"; sourceTree = "<group>"; };
+		CE7D1185240DF4AA006D4878 /* NoteBase+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NoteBase+CoreDataProperties.swift"; path = "TSNotes/NoteBase+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		CE7D1187240DF4AF006D4878 /* NoteBase+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "NoteBase+CoreDataClass.swift"; path = "/Users/macbook/Applications/Xcode Apps/TSNotes/NoteBase+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		CE7D1189240DF4B5006D4878 /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Note+CoreDataProperties.swift"; path = "/Users/macbook/Applications/Xcode Apps/TSNotes/Note+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		CE7D118B240DF4B9006D4878 /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Note+CoreDataClass.swift"; path = "/Users/macbook/Applications/Xcode Apps/TSNotes/Note+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		D89A673051EF957858FE7452 /* Pods-TSNotes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TSNotes.release.xcconfig"; path = "Pods/Target Support Files/Pods-TSNotes/Pods-TSNotes.release.xcconfig"; sourceTree = "<group>"; };
 		E38BD78E6779A3805B8F9020 /* Pods_TSNotes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TSNotes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED265E03224C35BCA03DEEB6 /* Pods_TSNotesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TSNotesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,10 +86,6 @@
 		FAE9FDA21D2CB5AE00288221 /* PopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		FAEB01EC2181929C002270B1 /* TSNotesDataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "TSNotesDataModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		FAEB01ED2181929C002270B1 /* TSNotesDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TSNotesDataModel.xcdatamodel; sourceTree = "<group>"; };
-		FAED29B01D2459F10009C873 /* NoteBase+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NoteBase+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		FAED29B11D2459F10009C873 /* NoteBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteBase.swift; sourceTree = "<group>"; };
-		FAED29B81D24F30A0009C873 /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
-		FAED29BB1D24F6480009C873 /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +133,10 @@
 		FAA701271BDB171E0013EFF7 = {
 			isa = PBXGroup;
 			children = (
+				CE7D118B240DF4B9006D4878 /* Note+CoreDataClass.swift */,
+				CE7D1189240DF4B5006D4878 /* Note+CoreDataProperties.swift */,
+				CE7D1187240DF4AF006D4878 /* NoteBase+CoreDataClass.swift */,
+				CE7D1185240DF4AA006D4878 /* NoteBase+CoreDataProperties.swift */,
 				FAA701321BDB171E0013EFF7 /* TSNotes */,
 				FAA701471BDB171E0013EFF7 /* TSNotesTests */,
 				FAA701311BDB171E0013EFF7 /* Products */,
@@ -172,10 +176,6 @@
 				FA1AB7152102B5670042269C /* TSNotesDB2.xcmappingmodel */,
 				FAEB01EB2181929C002270B1 /* TSNotesDataModel.xcdatamodeld */,
 				FAA701351BDB171E0013EFF7 /* ViewController.swift */,
-				FAED29B01D2459F10009C873 /* NoteBase+CoreDataProperties.swift */,
-				FAED29B81D24F30A0009C873 /* Note.swift */,
-				FAED29B11D2459F10009C873 /* NoteBase.swift */,
-				FAED29BB1D24F6480009C873 /* Note+CoreDataProperties.swift */,
 				FAA7013A1BDB171E0013EFF7 /* Assets.xcassets */,
 				FAA7013C1BDB171E0013EFF7 /* LaunchScreen.storyboard */,
 				FAA7013F1BDB171E0013EFF7 /* Info.plist */,
@@ -263,7 +263,7 @@
 				};
 			};
 			buildConfigurationList = FAA7012B1BDB171E0013EFF7 /* Build configuration list for PBXProject "TSNotes" */;
-			compatibilityVersion = "Xcode 10.0";
+			compatibilityVersion = "Xcode 11.4";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -343,17 +343,16 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-TSNotes/Pods-TSNotes-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TSNotes/Pods-TSNotes-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TSNotes/Pods-TSNotes-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TSNotes/Pods-TSNotes-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TSNotes/Pods-TSNotes-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -363,27 +362,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE7D1188240DF4B0006D4878 /* NoteBase+CoreDataClass.swift in Sources */,
 				FA7CE5D61BF2C971008FD365 /* TitleEntryViewController.swift in Sources */,
 				FA7636FB22B4751300D2B29D /* cloudDBRecordDefs.swift in Sources */,
 				FAA701361BDB171E0013EFF7 /* ViewController.swift in Sources */,
 				FAE9229D1BF34315001E37FD /* noteListTableViewCell.swift in Sources */,
-				FAED29BA1D24F30A0009C873 /* Note.swift in Sources */,
 				FAD2061E1C3D25ED00A045E5 /* noteEntryViewController.swift in Sources */,
 				FA1AB7162102B5670042269C /* TSNotesDB2.xcmappingmodel in Sources */,
+				CE7D118A240DF4B5006D4878 /* Note+CoreDataProperties.swift in Sources */,
 				FA3F5B491BF0857600A7804C /* TSNoteEntriesTableCell.swift in Sources */,
-				FAED29B21D2459F10009C873 /* NoteBase+CoreDataProperties.swift in Sources */,
 				FAE9FDA31D2CB5AE00288221 /* PopoverViewController.swift in Sources */,
 				FAB5F38D22A1B60100C41A0B /* iCloudFunctions.swift in Sources */,
 				FA24D80D218114B3005217B9 /* DataController.swift in Sources */,
-				FAED29B31D2459F10009C873 /* NoteBase.swift in Sources */,
+				CE7D118C240DF4B9006D4878 /* Note+CoreDataClass.swift in Sources */,
 				FA73889C1BF5703B00758E68 /* noteEntriesTableViewController.swift in Sources */,
 				FAEB01EE2181929D002270B1 /* TSNotesDataModel.xcdatamodeld in Sources */,
+				CE7D1186240DF4AA006D4878 /* NoteBase+CoreDataProperties.swift in Sources */,
 				FAE72BC51BE043B20053F50E /* handleDatePickerTableViewController.swift in Sources */,
 				FA96ABA521008A0F00CA5BF0 /* globalFunctions.swift in Sources */,
 				FA502356229B4F7E008618A4 /* CoreCloudInterface.swift in Sources */,
 				FAA701341BDB171E0013EFF7 /* AppDelegate.swift in Sources */,
 				FA6D27FF1BEDA80100768930 /* NoteBaseTableController.swift in Sources */,
-				FAED29BC1D24F6480009C873 /* Note+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -46,11 +46,21 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
 
     // Properties for core data functions
     var fetchedResultsController: NSFetchedResultsController<Note> = NSFetchedResultsController()
+    /*
     var notesFetchRequest: NSFetchRequest<Note> = Note.fetchRequest() as! NSFetchRequest<Note>
+    */
+    let notesFetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
+
+    
     var sortDescriptor = NSSortDescriptor(key: "noteModifiedDateTS", ascending: false)
 
     var baseFetchedResultsController: NSFetchedResultsController<NoteBase> = NSFetchedResultsController()
+    /*
     var baseFetchRequest: NSFetchRequest<NoteBase> = NoteBase.fetchRequest() as! NSFetchRequest<NoteBase>
+    */
+    let baseFetchRequest: NSFetchRequest<NoteBase> = NoteBase.fetchRequest()
+
+    
     var bNewFetch = Bool(false)
     
     var numRecords = Int(0)
@@ -58,6 +68,11 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     var numHits = Int(0)
     
     var latestNoteDate = Date()
+    
+    let deviceID = UIDevice.current.identifierForVendor?.uuidString
+    var controllerName = String("")
+
+
     
     // MARK: - variables to and from NoteBaseTableController
     var managedObjectContext: NSManagedObjectContext!
@@ -145,6 +160,8 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         displayDateOnlyFormatter.dateFormat = "d MMMM yyyy EEEE"     //"EEEE MMMM, d yyyy"  
         displayTimeOnlyFormatter.dateFormat = "h:mm a"
         
+        controllerName = String(describing: self.classForCoder)
+        
        
 //        fetchedResultsController = getFRC() as! NSFetchedResultsController<Note>
         
@@ -186,11 +203,83 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         
                 
         // Setup to receive notices of CloudKit changes (sent from AppDelegate
+        /*
         NotificationCenter.default.addObserver(self, selector: #selector(onDidReceiveData(_:)), name: .didReceiveData, object: nil)
+        */
+        
+        if let managedObjectContext = managedObjectContext {
+                 // Add Observer --> from    let udid = UIDevice.current.identifierForVendor?.uuidString
+            
+            let mobInfo = managedObjectContext.userInfo.self
+
+            
+            let notificationCenter = NotificationCenter.default
+            notificationCenter.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: managedObjectContext)
+                 /*
+                 notificationCenter.addObserver(self, selector: #selector(managedObjectContextWillSave), name: NSManagedObjectContextWillSaveNotification, object: managedObjectContext)
+                 notificationCenter.addObserver(self, selector: #selector(managedObjectContextDidSave), name: NSManagedObjectContextDidSaveNotification, object: managedObjectContext)
+                 */
+             }
         
 
         // Set up core data for notes
         fetchedResultsController = getFRC() as! NSFetchedResultsController<Note>
+
+    }
+    
+    @objc func managedObjectContextObjectsDidChange(notification: NSNotification) {
+        guard let userInfo = notification.userInfo else { return }
+        
+
+        /*
+        Utils.showAlert( callingView: self, titleString:  String(controllerName), msgString: "In managedObjectContextObjectsDidChange")
+        */
+              
+        let componentsArray = userInfo.description      //.description
+        
+        print ("\(componentsArray)")
+  //      let whatever =  componentsArray.in
+        var initial = [String: String]()
+        /*
+        var final = componentsArray.reduce(into: initial) { $0 =  $1
+        }
+        */
+        let varIndex = componentsArray.index(ofAccessibilityElement: "noteName")
+        // range
+        /*
+        let startIndex =
+        let endIndex = componentsArray.index(varIndex, offsetBy:10)
+
+        let range = varIndex..<endIndex
+
+        let varName = componentsArray[range]
+        */
+        
+ //       let uiNoteName = componentsArray[index]
+        //var keyValue = componentsArray[index]
+        
+        //     let recordType = managedObjectContext.registeredObject(for: <#T##NSManagedObjectID#>)
+        //let recordType = NSManagedObjectID.value(forKey: "entity")
+
+        if let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject>, inserts.count > 0 {
+            /*
+            Utils.showAlert( callingView: self, titleString: String(controllerName), msgString: "notification that note was ADDED, add count is: \(inserts.count)")
+            */
+        }
+
+        if let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject>, updates.count > 0 {
+            /*
+            Utils.showAlert( callingView: self, titleString: String(controllerName), msgString: "notification that note was UPDATED, update count is: \(updates.count)")
+            */
+        }
+
+        if let deletes = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject>, deletes.count > 0 {
+            /*
+            Utils.showAlert( callingView: self, titleString: String(controllerName), msgString: "notification that note was DELETED, delete count is: \(deletes.count)")
+            */
+        }
+        
+        fetchRecords()
 
     }
     
@@ -244,6 +333,10 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
     @objc func onDidReceiveData(_ notification:Notification) {
         // Do something now
         
+        /*
+        Utils.showAlert( callingView: self, titleString:  String(controllerName), msgString: "In onDidReceiveData")
+        */
+
         // For starters lets just reload the table
          //
         print ("\n======> from noteEntriesTableViewController:viewDidAppear about to refetch note entries  <===========\n")
@@ -432,7 +525,9 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
   
     func getFRC() -> NSFetchedResultsController<NSFetchRequestResult>
     {
+        /*
         let notesFetchRequest: NSFetchRequest<Note> = Note.fetchRequest() as! NSFetchRequest<Note>
+        */
         
         currentDateTime = Date()
 
@@ -457,14 +552,16 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             sectionType = "notesList.noteName"
         }
  
-        // Configure Fetched Results Controller
-        fetchedResultsController.delegate = self
-
         // Initialize Fetched Results Controller
         self.fetchedResultsController = NSFetchedResultsController(fetchRequest: notesFetchRequest, managedObjectContext: self.managedObjectContext,
             sectionNameKeyPath: sectionType, cacheName: nil)
 
         return self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>
+        
+        // Configure Fetched Results Controller
+       // fetchedResultsController.delegate = self
+        fetchedResultsController.delegate = self as NSFetchedResultsControllerDelegate
+
     }
     
     
@@ -998,7 +1095,9 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         
         // Initialize fetch request
     //    let baseFetchRequest = NSFetchRequest<NoteBase>(entityName: "NoteBase")
+        /*
         let baseFetchRequest = NoteBase.fetchRequest() as! NSFetchRequest<NoteBase>         //NSFetchRequest<NoteBase>(entityName: "NoteBase")
+        */
         
         // Add Sort Descriptors
         //let sortDescriptor = NSSortDescriptor(key: "modifyDateTS", ascending: false)
@@ -1173,9 +1272,11 @@ struct tempRange {
     
     }
 
+
 extension Notification.Name {
     static let didReceiveData = Notification.Name("didReceiveData")
     static let didCompleteTask = Notification.Name("didCompleteTask")
     static let completedLengthyDownload = Notification.Name("completedLengthyDownload")
 }
+
 

@@ -38,7 +38,18 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
     // Properties for core data functions
  //   var managedObjectContext: NSManagedObjectContext!
     var fetchedResultsController: NSFetchedResultsController<NoteBase> = NSFetchedResultsController()
-    var fetchRequest: NSFetchRequest<NoteBase> = NoteBase.fetchRequest() as! NSFetchRequest<NoteBase>
+    /*
+     ==========> changed 3/2/20
+     
+     this format was getting ambiguous use of fetchRequest()
+    var noteBaseFetchRequest: NSFetchRequest<NoteBase> = NoteBase.fetchRequest() as! NSFetchRequest<NoteBase>
+     The format below works, no idea why, got the suggestion in:
+     https://stackoverflow.com/questions/39495199/subclass-fetchrequest-swift-3-0-extension-not-really-helping-100
+        Did this in noteEntriesTableViewController also
+    */
+    
+    let noteBaseFetchRequest: NSFetchRequest<NoteBase> = NoteBase.fetchRequest()
+    
     var fetchPredicate: NSPredicate?
     
     var numRecords = Int(0)
@@ -80,15 +91,20 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
 
         CKFunctions.fetchUserRecordID()     //.fetchUserRecordID()
-
-
         
         // Show location of database
         let dirPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         print("\n\nDatabase Path: \(dirPaths)\n\n")
+        
+                
+        // get the device ID to use in database change notifications to decide response
+        let uniqueId=UIDevice.current.identifierForVendor?.uuidString
+        /*
+        Utils.showAlert( callingView: self, titleString: "Device ID", msgString: "Device ID is: \(uniqueId)")
+        */
+
         
         // ==> NEW Set up iCloud infrastructure
         /*
@@ -203,20 +219,19 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
 
     // Initialize fetchedResultsController
     func initializeFetchRequest() {
-        
-        
+         
         // Initialize fetch request
-        fetchRequest = NSFetchRequest(entityName: "NoteBase")
+     //   NoteBase.fetchRequest = NSFetchRequest<NoteBase>(entityName: "NoteBase")
  
         // Add Sort Descriptors
         // 8/4/18 - changed sort from modifyDateTS to latest
   //      let sortDescriptor = NSSortDescriptor(key: "modifyDateTS", ascending: false)
         let sortDescriptor = NSSortDescriptor(key: "latestNoteDate", ascending: false)
-        fetchRequest.sortDescriptors = [sortDescriptor]
+        noteBaseFetchRequest.sortDescriptors = [sortDescriptor]
         
         // Initialize Fetched Results Controller
         
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: noteBaseFetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         
         // Configure Fetched Results Controller
         fetchedResultsController.delegate = self as NSFetchedResultsControllerDelegate
@@ -529,6 +544,10 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
         }
         
         numRecords = fetchedResultsController.fetchedObjects!.count
+        
+        // Added 2/26/20 to refresh table display for all who call fetch records
+           tableView.reloadData()
+
     }
     
     

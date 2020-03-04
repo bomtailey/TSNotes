@@ -93,5 +93,20 @@ static func countAndHighlightMatchesHelper( stringToFind: String, entireString: 
         
         return (matchCount, firstFindRange)
     }
+    
+        // Issue popup alert
+    
+    static func showAlert( callingView: UIViewController, titleString: String, msgString: String)   {
+    
+        let alert = UIAlertController( title: titleString, message: msgString, preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        /*
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        */
+
+        callingView.present(alert, animated: true)
+        
+    }
 
 }

@@ -73,7 +73,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         managedObjectContext.automaticallyMergesChangesFromParent = true
         
         // Establish notification environment
+        /*
+        establishSubscriptions(recordType: "CD_NoteBase")
         establishSubscriptions(recordType: "CD_Note")
+        */
 
         // 1/7/2020 Set up push change notifications and subscribing
         // set self (AppDelegate) to handle notification
@@ -114,7 +117,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func createMainContext() ->  NSManagedObjectContext {
         
-        // Initialize NSManagedObjectModel
+        // Initialize NSManagedObjectModel 
         guard let modelURL = Bundle.main.url(forResource: "TSNotesDataModel", withExtension: "momd")
             else {
             fatalError("Error loading model from bundle")

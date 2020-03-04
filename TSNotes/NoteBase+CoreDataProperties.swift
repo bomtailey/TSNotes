@@ -1,25 +1,43 @@
 //
 //  NoteBase+CoreDataProperties.swift
-//  TSNotes
+//  
 //
-//  Created by Jeanne's MacBook on 6/29/16.
-//  Copyright © 2016 LCI. All rights reserved.
+//  Created by Tom's Macbook Pro on 3/2/20.
 //
-//  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
-//  to delete and recreate this implementation file for your updated model.
 //
-//  Added latestNoteDate 7/20/18
 
 import Foundation
 import CoreData
 
+
 extension NoteBase {
 
-    @NSManaged var createDateTS: Date?
-    @NSManaged var latestNoteDate: Date?
-    @NSManaged var modifyDateTS: Date?
-    @NSManaged var noteCount: NSNumber?
-    @NSManaged var noteName: String?
-    @NSManaged var notes: NSSet?
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<NoteBase> {
+        return NSFetchRequest<NoteBase>(entityName: "NoteBase")
+    }
+
+    @NSManaged public var createDateTS: Date?
+    @NSManaged public var latestNoteDate: Date?
+    @NSManaged public var modifyDateTS: Date?
+    @NSManaged public var noteCount: NSNumber?
+    @NSManaged public var noteName: String?
+    @NSManaged public var notes: NSSet?
+
+}
+
+// MARK: Generated accessors for notes
+extension NoteBase {
+
+    @objc(addNotesObject:)
+    @NSManaged public func addToNotes(_ value: Note)
+
+    @objc(removeNotesObject:)
+    @NSManaged public func removeFromNotes(_ value: Note)
+
+    @objc(addNotes:)
+    @NSManaged public func addToNotes(_ values: NSSet)
+
+    @objc(removeNotes:)
+    @NSManaged public func removeFromNotes(_ values: NSSet)
 
 }
