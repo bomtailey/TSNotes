@@ -22,7 +22,10 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
     @IBOutlet weak var titleText: UINavigationItem!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     
+    
+    
     // properties from noteEntriesTableViewController
+    
     var bNewNote = true
     var noteName: String?
     var noteText =  NSMutableAttributedString()
@@ -242,5 +245,8 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
         
         return mutableString
     }
+    
+    @IBAction func menuButton(_ sender: Any) {
+        Utils.showAlert( callingView: self, titleString: "Toolbar button pressed", msgString: "Menu button pressed")    }
 
 }

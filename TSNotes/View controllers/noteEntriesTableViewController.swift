@@ -210,8 +210,6 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         if let managedObjectContext = managedObjectContext {
                  // Add Observer --> from    let udid = UIDevice.current.identifierForVendor?.uuidString
             
-            let mobInfo = managedObjectContext.userInfo.self
-
             
             let notificationCenter = NotificationCenter.default
             notificationCenter.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: managedObjectContext)
@@ -391,6 +389,7 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
             recordNum = 0
             matchCount = 0
             currentBaseRecord = nil
+//            var bNewRecord = Bool (true)
             var bNewRecord = Bool (true)
             var currentSectionNumber = Int (0)
             var sectionNumber = Int()
@@ -830,9 +829,16 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
                 print("Delete button tapped #2")
                 
                 // I think I need to do this to update the table display
-                self.fetchRecords ()
-                self.tableView.reloadData()
+ //               self.fetchRecords ()
+//                self.tableView.reloadData()
 
+                let sections = self.fetchedResultsController.sections
+                let numSections = (sections?.count)! - 1
+                let sectionInfo = sections![numSections]
+                let numRows = sectionInfo.numberOfObjects - 1
+                // let numRows = tableView( tableView, numberOfRowsInSection: numSections[ - 1
+                let indexPath = NSIndexPath(row: numRows, section: numSections)
+                self.tableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: false)
 
             })
             
@@ -952,12 +958,13 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         guard let segID = segue.identifier else {
             
             // #ed  Temporary logic to populate new notebase field latestModifiedDate
-            if noteBaseRecord.value(forKey: "latestNoteDate") == nil {
-                noteBaseRecord.setValue(latestModifiedDate, forKey:"latestNoteDate")
-            
-            // Create/update note entity
-            updateDataObject ()
-
+            if noteBaseRecord != nil {
+                if noteBaseRecord.value(forKey: "latestNoteDate") == nil {
+                    noteBaseRecord.setValue(latestModifiedDate, forKey:"latestNoteDate")
+                
+                // Create/update note entity
+                updateDataObject ()
+                }
             }
 
             return
@@ -1167,7 +1174,7 @@ func setStatusText(queryString: String, count: Int, allReq: Bool)  {
     }
     
     // Handle navigation bar double tap - scroll to th@objc e bottom
-    @objc func doubleTapAction (_ theObject: AnyObject) {
+    @objc func doubleTapAction (_ theObject: UITapGestureRecognizer) {
         
         if theObject.state == .ended {
             

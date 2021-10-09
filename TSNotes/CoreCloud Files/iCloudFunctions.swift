@@ -27,12 +27,12 @@ class CKFunctions {
     func getCKID () -> String {
        return ckID
     }
-    */
-    
+
         func initCloudDB () {
             let cloudRecord = CKRecord(recordType: "Note")
         }
-    
+     */
+
     /**
       [From Building a Shopping List Application With CloudKit - ENVATO TUTS+](https://code.tutsplus.com/tutorials/building-a-shopping-list-application-with-cloudkit-introduction--cms-24674)
     */

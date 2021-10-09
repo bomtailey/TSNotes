@@ -7,7 +7,10 @@
 //  Copyright © 2015 LCI. All rights reserved.
 //
         /*
-            11/3/18 - start adding cloudkit logic to synchronize changes from different devices
+         9/7/21 - data from iPhone saved prior to updating TSNotes code (to hopefully correct
+                  problem of adding records on updates).
+                  Data saved at: /Users/tomsmacbookpro/Applications/TSNotes/Data from iphone
+         11/3/18 - start adding cloudkit logic to synchronize changes from different devices
         */
             
 import UIKit
@@ -300,6 +303,15 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
 
  //          cell.noteTitleField.text = noteBaseRecord.value(forKey: "noteName") as? String
             cell.noteTitleField.attributedText = tempAttributedString
+            guard let customFont = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.regular) as UIFont? else {
+                fatalError("""
+                    Failed to load the "English-Papyrus" font.
+                    Make sure the font file is included in the project and the font name is spelled correctly.
+                    """
+                )
+            }
+            cell.noteTitleField.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: customFont)
+            cell.noteTitleField.adjustsFontForContentSizeCategory = true
             
             cell.noteModifyDate.text = dayTimePeriodFormatter.string(from: modifyDateTS)
             
@@ -566,8 +578,8 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
     }
 
     // Handle navigation bar single tap - @objc scroll to the top
-    @objc func singleTapAction (_ theObject: AnyObject) {
-        
+ //   @objc func singleTapAction (_ theObject: AnyObject) {
+    @objc func singleTapAction (_ theObject: UITapGestureRecognizer) {
         guard numRecords > 0 else { return }
         
         if theObject.state == .ended {
@@ -584,11 +596,12 @@ class NoteBaseTableController: UITableViewController,  NSFetchedResultsControlle
     /// <#Description#>
     ///
     /// - Parameter theObject: <#@objc theObject description#>
-    @objc func doubleTapAction (_ theObject: AnyObject) {
-        
+ //   @objc func doubleTapAction (_ theObject: UITapGestureRecognizer) {
+    @objc func doubleTapAction (_ theObject: UITapGestureRecognizer) {
+
     guard numRecords > 0 else { return }
         
-    if theObject.state == .ended {
+        if theObject.state == .ended {
         
             // I'm changing the logic here.  It works pretty well as is but doesn't make sense to me
         

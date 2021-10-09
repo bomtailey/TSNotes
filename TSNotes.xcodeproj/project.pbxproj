@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3B8E592A5945ED197E970D86 /* Pods_TSNotesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED265E03224C35BCA03DEEB6 /* Pods_TSNotesTests.framework */; };
-		C961C8F785078F00DECBAD6A /* Pods_TSNotes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E38BD78E6779A3805B8F9020 /* Pods_TSNotes.framework */; };
+		564E263157F9624EB60F65AF /* Pods_TSNotesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4AFC868CB484853A40E904B /* Pods_TSNotesTests.framework */; };
+		764F09F8443E3BFED6443267 /* Pods_TSNotes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 173D3B275689C3960142563E /* Pods_TSNotes.framework */; };
 		CE7D1186240DF4AA006D4878 /* NoteBase+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7D1185240DF4AA006D4878 /* NoteBase+CoreDataProperties.swift */; };
 		CE7D1188240DF4B0006D4878 /* NoteBase+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7D1187240DF4AF006D4878 /* NoteBase+CoreDataClass.swift */; };
 		CE7D118A240DF4B5006D4878 /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7D1189240DF4B5006D4878 /* Note+CoreDataProperties.swift */; };
@@ -48,23 +48,26 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		108BA2625F66D1735E18827D /* Pods-TSNotes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TSNotes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TSNotes/Pods-TSNotes.debug.xcconfig"; sourceTree = "<group>"; };
-		AEB6303D2B120CEC61B7FAD4 /* Pods-TSNotesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TSNotesTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TSNotesTests/Pods-TSNotesTests.debug.xcconfig"; sourceTree = "<group>"; };
-		C407872E68EE4423CB3C6B75 /* Pods-TSNotesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TSNotesTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TSNotesTests/Pods-TSNotesTests.release.xcconfig"; sourceTree = "<group>"; };
+		122BD235A70D8172B203BBF6 /* Pods-TSNotesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TSNotesTests.debug.xcconfig"; path = "Target Support Files/Pods-TSNotesTests/Pods-TSNotesTests.debug.xcconfig"; sourceTree = "<group>"; };
+		173D3B275689C3960142563E /* Pods_TSNotes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TSNotes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		735AEDF8E337EEBFE7024495 /* Pods-TSNotesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TSNotesTests.release.xcconfig"; path = "Target Support Files/Pods-TSNotesTests/Pods-TSNotesTests.release.xcconfig"; sourceTree = "<group>"; };
+		7EE05D58F1D2D55562A11E3B /* Pods-TSNotes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TSNotes.debug.xcconfig"; path = "Target Support Files/Pods-TSNotes/Pods-TSNotes.debug.xcconfig"; sourceTree = "<group>"; };
+		9C24A3986669920A3EA7425D /* Pods-TSNotes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TSNotes.release.xcconfig"; path = "Target Support Files/Pods-TSNotes/Pods-TSNotes.release.xcconfig"; sourceTree = "<group>"; };
 		CE7D1185240DF4AA006D4878 /* NoteBase+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NoteBase+CoreDataProperties.swift"; path = "TSNotes/NoteBase+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CE7D1187240DF4AF006D4878 /* NoteBase+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "NoteBase+CoreDataClass.swift"; path = "/Users/macbook/Applications/Xcode Apps/TSNotes/NoteBase+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		CE7D1189240DF4B5006D4878 /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Note+CoreDataProperties.swift"; path = "/Users/macbook/Applications/Xcode Apps/TSNotes/Note+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		CE7D118B240DF4B9006D4878 /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Note+CoreDataClass.swift"; path = "/Users/macbook/Applications/Xcode Apps/TSNotes/Note+CoreDataClass.swift"; sourceTree = "<absolute>"; };
-		D89A673051EF957858FE7452 /* Pods-TSNotes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TSNotes.release.xcconfig"; path = "Pods/Target Support Files/Pods-TSNotes/Pods-TSNotes.release.xcconfig"; sourceTree = "<group>"; };
-		E38BD78E6779A3805B8F9020 /* Pods_TSNotes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TSNotes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		ED265E03224C35BCA03DEEB6 /* Pods_TSNotesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TSNotesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEBD0CF0250AF1BF00F62135 /* com.LCI.TSNotes.New 2020-01-09 11:38.05.674.xcappdata */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "com.LCI.TSNotes.New 2020-01-09 11:38.05.674.xcappdata"; sourceTree = "<group>"; };
+		CEBD0CF1250B19BA00F62135 /* com.LCI.TSNotes.CloudKit.PushNotify from iPad 2020-05-08 20:52.15.xcappdata */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "com.LCI.TSNotes.CloudKit.PushNotify from iPad 2020-05-08 20:52.15.xcappdata"; path = "Data from iphone/com.LCI.TSNotes.CloudKit.PushNotify from iPad 2020-05-08 20:52.15.xcappdata"; sourceTree = SOURCE_ROOT; };
+		CEBD0CF2250B1B5700F62135 /* com.LCI.TSNotes.CloudKit.PushNotify 2020-05-08 10:59.23.509.xcappdata */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "com.LCI.TSNotes.CloudKit.PushNotify 2020-05-08 10:59.23.509.xcappdata"; path = "Data from iphone/com.LCI.TSNotes.CloudKit.PushNotify 2020-05-08 10:59.23.509.xcappdata"; sourceTree = SOURCE_ROOT; };
+		E4AFC868CB484853A40E904B /* Pods_TSNotesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TSNotesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA1405741F23119800FDBE75 /* TSNotes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TSNotes.entitlements; sourceTree = "<group>"; };
 		FA1AB7152102B5670042269C /* TSNotesDB2.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = TSNotesDB2.xcmappingmodel; sourceTree = "<group>"; };
 		FA24D80C218114B2005217B9 /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		FA3F5B481BF0857600A7804C /* TSNoteEntriesTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSNoteEntriesTableCell.swift; sourceTree = "<group>"; };
 		FA502355229B4F7E008618A4 /* CoreCloudInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreCloudInterface.swift; sourceTree = "<group>"; };
 		FA6D27FE1BEDA80100768930 /* NoteBaseTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteBaseTableController.swift; sourceTree = "<group>"; };
-		FA73889B1BF5703B00758E68 /* noteEntriesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = noteEntriesTableViewController.swift; path = ../noteEntriesTableViewController.swift; sourceTree = "<group>"; };
+		FA73889B1BF5703B00758E68 /* noteEntriesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = noteEntriesTableViewController.swift; sourceTree = "<group>"; };
 		FA7636FA22B4751200D2B29D /* cloudDBRecordDefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cloudDBRecordDefs.swift; sourceTree = "<group>"; };
 		FA7CE5D51BF2C971008FD365 /* TitleEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleEntryViewController.swift; sourceTree = "<group>"; };
 		FA85600F22AE3B6A00AF9198 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -81,7 +84,7 @@
 		FAA7014A1BDB171E0013EFF7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAB5F38C22A1B60100C41A0B /* iCloudFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudFunctions.swift; sourceTree = "<group>"; };
 		FAD2061D1C3D25ED00A045E5 /* noteEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = noteEntryViewController.swift; sourceTree = "<group>"; };
-		FAE72BC41BE043B20053F50E /* handleDatePickerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = handleDatePickerTableViewController.swift; path = ../handleDatePickerTableViewController.swift; sourceTree = "<group>"; };
+		FAE72BC41BE043B20053F50E /* handleDatePickerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = handleDatePickerTableViewController.swift; sourceTree = "<group>"; };
 		FAE9229C1BF34315001E37FD /* noteListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = noteListTableViewCell.swift; sourceTree = "<group>"; };
 		FAE9FDA21D2CB5AE00288221 /* PopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		FAEB01EC2181929C002270B1 /* TSNotesDataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "TSNotesDataModel 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -93,8 +96,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C961C8F785078F00DECBAD6A /* Pods_TSNotes.framework in Frameworks */,
 				FA85601022AE3B6A00AF9198 /* CloudKit.framework in Frameworks */,
+				764F09F8443E3BFED6443267 /* Pods_TSNotes.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,37 +105,90 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B8E592A5945ED197E970D86 /* Pods_TSNotesTests.framework in Frameworks */,
+				564E263157F9624EB60F65AF /* Pods_TSNotesTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4C5487723B7E76AA30B31532 /* Pods */ = {
+		9A17E0783809C154A8A44D34 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				108BA2625F66D1735E18827D /* Pods-TSNotes.debug.xcconfig */,
-				D89A673051EF957858FE7452 /* Pods-TSNotes.release.xcconfig */,
-				AEB6303D2B120CEC61B7FAD4 /* Pods-TSNotesTests.debug.xcconfig */,
-				C407872E68EE4423CB3C6B75 /* Pods-TSNotesTests.release.xcconfig */,
+				7EE05D58F1D2D55562A11E3B /* Pods-TSNotes.debug.xcconfig */,
+				9C24A3986669920A3EA7425D /* Pods-TSNotes.release.xcconfig */,
+				122BD235A70D8172B203BBF6 /* Pods-TSNotesTests.debug.xcconfig */,
+				735AEDF8E337EEBFE7024495 /* Pods-TSNotesTests.release.xcconfig */,
 			);
-			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		C24B2BD62AB2F46A3054D7F2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				FA85600F22AE3B6A00AF9198 /* CloudKit.framework */,
-				E38BD78E6779A3805B8F9020 /* Pods_TSNotes.framework */,
-				ED265E03224C35BCA03DEEB6 /* Pods_TSNotesTests.framework */,
+				173D3B275689C3960142563E /* Pods_TSNotes.framework */,
+				E4AFC868CB484853A40E904B /* Pods_TSNotesTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CE7D118D240F890C006D4878 /* CoreData Model Definitions */ = {
+			isa = PBXGroup;
+			children = (
+				FAEB01EB2181929C002270B1 /* TSNotesDataModel.xcdatamodeld */,
+			);
+			path = "CoreData Model Definitions";
+			sourceTree = "<group>";
+		};
+		CE7D118E240F895F006D4878 /* View controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FA6D27FE1BEDA80100768930 /* NoteBaseTableController.swift */,
+				FA73889B1BF5703B00758E68 /* noteEntriesTableViewController.swift */,
+				FA7CE5D51BF2C971008FD365 /* TitleEntryViewController.swift */,
+				FAD2061D1C3D25ED00A045E5 /* noteEntryViewController.swift */,
+				FAE9FDA21D2CB5AE00288221 /* PopoverViewController.swift */,
+				FAE72BC41BE043B20053F50E /* handleDatePickerTableViewController.swift */,
+				FAE9229C1BF34315001E37FD /* noteListTableViewCell.swift */,
+				FA3F5B481BF0857600A7804C /* TSNoteEntriesTableCell.swift */,
+			);
+			path = "View controllers";
+			sourceTree = "<group>";
+		};
+		CE7D118F240F899F006D4878 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Support Files";
+			sourceTree = "<group>";
+		};
+		CE7D1190240F8A1B006D4878 /* CoreCloud Files */ = {
+			isa = PBXGroup;
+			children = (
+				FA7636FA22B4751200D2B29D /* cloudDBRecordDefs.swift */,
+				FA502355229B4F7E008618A4 /* CoreCloudInterface.swift */,
+				FAB5F38C22A1B60100C41A0B /* iCloudFunctions.swift */,
+				FA24D80C218114B2005217B9 /* DataController.swift */,
+			);
+			path = "CoreCloud Files";
+			sourceTree = "<group>";
+		};
+		CEBD0CEE250AE55100F62135 /* TestData */ = {
+			isa = PBXGroup;
+			children = (
+				CEBD0CF2250B1B5700F62135 /* com.LCI.TSNotes.CloudKit.PushNotify 2020-05-08 10:59.23.509.xcappdata */,
+				CEBD0CF1250B19BA00F62135 /* com.LCI.TSNotes.CloudKit.PushNotify from iPad 2020-05-08 20:52.15.xcappdata */,
+				CEBD0CF0250AF1BF00F62135 /* com.LCI.TSNotes.New 2020-01-09 11:38.05.674.xcappdata */,
+			);
+			path = TestData;
 			sourceTree = "<group>";
 		};
 		FAA701271BDB171E0013EFF7 = {
 			isa = PBXGroup;
 			children = (
+				CEBD0CEE250AE55100F62135 /* TestData */,
+				CE7D118D240F890C006D4878 /* CoreData Model Definitions */,
 				CE7D118B240DF4B9006D4878 /* Note+CoreDataClass.swift */,
 				CE7D1189240DF4B5006D4878 /* Note+CoreDataProperties.swift */,
 				CE7D1187240DF4AF006D4878 /* NoteBase+CoreDataClass.swift */,
@@ -141,7 +197,7 @@
 				FAA701471BDB171E0013EFF7 /* TSNotesTests */,
 				FAA701311BDB171E0013EFF7 /* Products */,
 				C24B2BD62AB2F46A3054D7F2 /* Frameworks */,
-				4C5487723B7E76AA30B31532 /* Pods */,
+				9A17E0783809C154A8A44D34 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -159,22 +215,12 @@
 			children = (
 				FA1405741F23119800FDBE75 /* TSNotes.entitlements */,
 				FA96ABA421008A0F00CA5BF0 /* globalFunctions.swift */,
+				CE7D118E240F895F006D4878 /* View controllers */,
+				CE7D1190240F8A1B006D4878 /* CoreCloud Files */,
+				CE7D118F240F899F006D4878 /* Support Files */,
 				FAA701331BDB171E0013EFF7 /* AppDelegate.swift */,
-				FA7636FA22B4751200D2B29D /* cloudDBRecordDefs.swift */,
-				FA6D27FE1BEDA80100768930 /* NoteBaseTableController.swift */,
-				FA502355229B4F7E008618A4 /* CoreCloudInterface.swift */,
-				FAB5F38C22A1B60100C41A0B /* iCloudFunctions.swift */,
-				FA24D80C218114B2005217B9 /* DataController.swift */,
-				FAE9229C1BF34315001E37FD /* noteListTableViewCell.swift */,
-				FA7CE5D51BF2C971008FD365 /* TitleEntryViewController.swift */,
-				FA73889B1BF5703B00758E68 /* noteEntriesTableViewController.swift */,
-				FA3F5B481BF0857600A7804C /* TSNoteEntriesTableCell.swift */,
-				FAD2061D1C3D25ED00A045E5 /* noteEntryViewController.swift */,
-				FAE72BC41BE043B20053F50E /* handleDatePickerTableViewController.swift */,
-				FAE9FDA21D2CB5AE00288221 /* PopoverViewController.swift */,
 				FAA701371BDB171E0013EFF7 /* Main.storyboard */,
 				FA1AB7152102B5670042269C /* TSNotesDB2.xcmappingmodel */,
-				FAEB01EB2181929C002270B1 /* TSNotesDataModel.xcdatamodeld */,
 				FAA701351BDB171E0013EFF7 /* ViewController.swift */,
 				FAA7013A1BDB171E0013EFF7 /* Assets.xcassets */,
 				FAA7013C1BDB171E0013EFF7 /* LaunchScreen.storyboard */,
@@ -199,11 +245,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FAA7014D1BDB171E0013EFF7 /* Build configuration list for PBXNativeTarget "TSNotes" */;
 			buildPhases = (
-				AF683C4DEB3CC4B33627C06B /* [CP] Check Pods Manifest.lock */,
+				58AAE84BEB3BBBFDD13DFF2F /* [CP] Check Pods Manifest.lock */,
 				FAA7012C1BDB171E0013EFF7 /* Sources */,
 				FAA7012D1BDB171E0013EFF7 /* Frameworks */,
 				FAA7012E1BDB171E0013EFF7 /* Resources */,
-				FFAE9FA9DA1AAD49383A951D /* [CP] Embed Pods Frameworks */,
+				9FD663D1E1D0A433F4D6963C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -218,7 +264,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FAA701501BDB171E0013EFF7 /* Build configuration list for PBXNativeTarget "TSNotesTests" */;
 			buildPhases = (
-				41E8AFA275BFE9F332BBFB10 /* [CP] Check Pods Manifest.lock */,
+				E887CCD22F55E4A565D459A0 /* [CP] Check Pods Manifest.lock */,
 				FAA701401BDB171E0013EFF7 /* Sources */,
 				FAA701411BDB171E0013EFF7 /* Frameworks */,
 				FAA701421BDB171E0013EFF7 /* Resources */,
@@ -302,34 +348,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		41E8AFA275BFE9F332BBFB10 /* [CP] Check Pods Manifest.lock */ = {
+		58AAE84BEB3BBBFDD13DFF2F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TSNotesTests-checkManifestLockResult.txt",
+			outputFileListPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AF683C4DEB3CC4B33627C06B /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-TSNotes-checkManifestLockResult.txt",
 			);
@@ -338,7 +370,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FFAE9FA9DA1AAD49383A951D /* [CP] Embed Pods Frameworks */ = {
+		9FD663D1E1D0A433F4D6963C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -353,6 +385,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TSNotes/Pods-TSNotes-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E887CCD22F55E4A565D459A0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TSNotesTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -474,7 +528,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -529,7 +583,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -543,7 +597,7 @@
 		};
 		FAA7014E1BDB171E0013EFF7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 108BA2625F66D1735E18827D /* Pods-TSNotes.debug.xcconfig */;
+			baseConfigurationReference = 7EE05D58F1D2D55562A11E3B /* Pods-TSNotes.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -555,7 +609,7 @@
 				DEVELOPMENT_TEAM = 38WD2H4793;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = TSNotes/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -575,7 +629,7 @@
 		};
 		FAA7014F1BDB171E0013EFF7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D89A673051EF957858FE7452 /* Pods-TSNotes.release.xcconfig */;
+			baseConfigurationReference = 9C24A3986669920A3EA7425D /* Pods-TSNotes.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -587,7 +641,7 @@
 				DEVELOPMENT_TEAM = 38WD2H4793;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = TSNotes/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -607,7 +661,7 @@
 		};
 		FAA701511BDB171E0013EFF7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AEB6303D2B120CEC61B7FAD4 /* Pods-TSNotesTests.debug.xcconfig */;
+			baseConfigurationReference = 122BD235A70D8172B203BBF6 /* Pods-TSNotesTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = TSNotesTests/Info.plist;
@@ -625,7 +679,7 @@
 		};
 		FAA701521BDB171E0013EFF7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C407872E68EE4423CB3C6B75 /* Pods-TSNotesTests.release.xcconfig */;
+			baseConfigurationReference = 735AEDF8E337EEBFE7024495 /* Pods-TSNotesTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = TSNotesTests/Info.plist;
