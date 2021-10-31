@@ -50,12 +50,15 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
                 
         self.navigationItem.title = noteName
         
+        noteentry
+        
         if bNewNote {
             
             // new note entry
             noteTextView.becomeFirstResponder()
             noteModDateTime = Date()
 //            noteRecord.noteText = ""
+            noteTextView.scrollb
             
         } else {
             
