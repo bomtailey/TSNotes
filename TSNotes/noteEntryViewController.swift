@@ -23,6 +23,7 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
     
     // properties from noteEntriesTableViewController
     var bNewNote = true
+ //   var bDuplicateNote = false
     var noteName: String?
     var noteText:  String?
     var noteModDateTime: Date?
@@ -50,9 +51,9 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
                 
         self.navigationItem.title = noteName
         
-        noteentry
+      //  noteentry
         
-        if bNewNote {
+        if bNewNote !! bDuplicateNote {
             
             // new note entry
             noteTextView.becomeFirstResponder()
@@ -237,6 +238,7 @@ class noteEntryViewController: UIViewController, UITextViewDelegate, UITextField
         noteName = coder.decodeObject(forKey: "noteName")! as? String
         noteTextView.text = coder.decodeObject(forKey: "noteText")! as? String
         noteModDateTime = (coder.decodeObject(forKey: "noteModDateTime")! as? Date)!
+        bNewNote = (coder.decodeObject(forKey: "bNewNote")! as? Bool)!
         bNewNote = (coder.decodeObject(forKey: "bNewNote")! as? Bool)!
 
         
