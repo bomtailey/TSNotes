@@ -320,10 +320,11 @@ class noteEntriesTableViewController: UITableViewController, NSFetchedResultsCon
         //make the background color light blue
         header.contentView.backgroundColor = UIColor(colorLiteralRed: 0.84, green: 0.93, blue: 0.93, alpha: 1.0)
         //UIColor(colorWithRed:0.62, colorWithGreen:0.80, colorWithBlue:0.81, alpha:1.0)
-        header.textLabel?.font = UIFont(name: "Times New Roman", size: 15)
-        header.textLabel?.textAlignment = NSTextAlignment.center
 
-        header.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+//        header.textLabel?.font = UIFont(name: "Times New Roman", size: 15)
+
+//        header.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        header.textLabel?.font = UIFont.systemFontOfSize(UIFont.systemFontSize())
         
         
     }
